@@ -1,4 +1,5 @@
 $(function () {
+  console.log("creating grid");
   $("#grid").igGrid({
     autoGenerateColumns: false,
     width: "100%",
