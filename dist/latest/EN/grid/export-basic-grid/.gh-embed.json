@@ -2,15 +2,15 @@
     "embed": [
         {
             "label": "HTML",
-            "path": "fiddle/demo.html"
+            "path": "./fiddle/demo.html"
         },
         {
             "label": "JS",
-            "path": "fiddle/demo.js"
+            "path": "./fiddle/demo.js"
         },
         {
             "label": "CSS",
-            "path": "fiddle/demo.css"
+            "path": "./fiddle/demo.css"
         },
         {
             "type": "htmlpage",
