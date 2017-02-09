@@ -1,0 +1,7 @@
+
+        $(function () {
+            $("#grid").igGrid({                
+            });
+        });
+
+    

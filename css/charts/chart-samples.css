@@ -1,0 +1,28 @@
+﻿h4
+{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+        
+.chartContainer
+{
+    position: relative;
+    float: left;
+    margin-right: 3%;
+    margin-left: 3%;
+    width: 43%;
+}
+
+.chartContainer3
+{
+    margin-right: 1%;
+    margin-left: 1%;
+    width: 31%;
+}
+
+
+.chartContainer .ui-widget-content
+{
+    border: 0px;
+}

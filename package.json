@@ -1,0 +1,26 @@
+{
+  "name": "samples-test",
+  "version": "0.0.1",
+  "description": "",
+  "devDependencies": {
+    "cheerio": "^0.22.0",
+    "gulp": "^3.9.1",
+    "through2": "^2.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damyanpetev/samples-test.git"
+  },
+  "keywords": [
+    "Ignite",
+    "UI",
+    "samples",
+    "docs"
+  ],
+  "author": "IG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/damyanpetev/samples-test/issues"
+  },
+  "homepage": "https://github.com/damyanpetev/samples-test#readme"
+}

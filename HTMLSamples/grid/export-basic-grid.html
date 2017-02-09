@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>$$(Title_export-basic-grid)</title>
+
+        <style>
+        .right {
+            float: right;
+        }
+
+        #exportButton {
+            float: left;
+        }
+        </style>
+        <!--Required scripts-->
+        <script src="%%modernizr%%"></script>
+        <script src="%%jquery%%"></script>
+        <script src="%%jquery-ui%%"></script>
+
+        <!-- External files for exporting -->
+        <script src="../../../../js/FileSaver.js"></script>
+        <script src="../../../../js/Blob.js"></script>
+
+        <!-- Ignite UI Loader Script -->
+        <script src="%%ignite-ui%%/js/infragistics.loader.js"></script>
+
+        <script>
+            $.ig.loader({
+                scriptPath: "%%ignite-ui%%/js/",
+                cssPath: "%%ignite-ui%%/css/",
+                resources:'igGrid,' +
+                    'modules/infragistics.documents.core.js,' +
+                    'modules/infragistics.excel.js,' +
+                    'modules/infragistics.gridexcelexporter.js' 
+            });
+
+        $.ig.loader(function () {
+            $(function () {
+                    var data = [
+                        { 'ProductID': 1, 'Name': 'Omnis ut illum nisi.', 'ProductNumber': '2973311236' },
+                        { 'ProductID': 2, 'Name': 'Quis quibusdam qui.', 'ProductNumber': '5907101619' },
+                        { 'ProductID': 3, 'Name': 'Sint laudantium et.', 'ProductNumber': '3057803521' },
+                        { 'ProductID': 17, 'Name': 'Tempore eos.', 'ProductNumber': '3576608248' },
+                        { 'ProductID': 18, 'Name': 'Maiores aut ducimus.', 'ProductNumber': '7079645227' },
+                        { 'ProductID': 19, 'Name': 'Vel inventore.', 'ProductNumber': '191484500' },
+                        { 'ProductID': 20, 'Name': 'Ut molestiae.', 'ProductNumber': '2994899561' },
+                        { 'ProductID': 31, 'Name': 'Nihil magnam aut ut.', 'ProductNumber': '5652753011' },
+                        { 'ProductID': 32, 'Name': 'Repellendus dolorum.', 'ProductNumber': '8807902556' },
+                        { 'ProductID': 43, 'Name': 'Odit ut quo minus.', 'ProductNumber': '1083007847' }
+                    ];
+
+                    $("#grid").igGrid({
+                        autoGenerateColumns: false,
+                        width: "100%",
+                        height: "200px",
+                        columns: [
+                            { key: "ProductID", headerText: "$$(ProductID)", width: "100px", dataType: "number" },
+                            { key: "Name", headerText: "$$(Name)", width: "150px", dataType: "string" },
+                            { key: "ProductNumber", headerText: "$$(ProductNumber)", width: "200px", dataType: "number" }
+                        ],
+                        dataSource: data,
+                        primaryKey: "ProductID"
+                    });
+
+                    $("#exportButton").on("click", function () {
+                        $.ig.GridExcelExporter.exportGrid($("#grid"), {
+                            fileName: "igGrid"
+                        });
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <table id="grid"></table><br>
+    <input type="button" id="exportButton" value="$$(Export_Excel_Button)"></input>
+    </body>
+</html>

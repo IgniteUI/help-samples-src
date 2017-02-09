@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>$$(Title_bind-grid-with-ko)</title>
+	<style type="text/css">
+		body {
+			padding: 0px !important;
+			margin: 0px !important;
+		}
+	</style>
+
+	<!-- Ignite UI Required Combined CSS Files -->
+	<link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+	<link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+	<script src="%%modernizr%%"></script>
+	<script src="%%jquery%%"></script>
+	<script src="%%jquery-ui%%"></script>
+
+	<!-- Ignite UI Required Combined JavaScript Files -->
+	<script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+	<script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+	<script src="%%knockout%%" type="text/javascript"></script>
+	<script src="%%knockout.mapping%%" type="text/javascript"></script>
+	<script src="%%ignite-ui%%/js/extensions/infragistics.ui.tree.knockout-extensions.js"></script>
+	<script src="%%ignite-ui%%/js/extensions/infragistics.ui.editors.knockout-extensions.js"></script>
+
+	<script src="%%ignite-ui%%/js/extensions/infragistics.datasource.knockoutjs.js"></script>
+	<script src="%%ignite-ui%%/js/extensions/infragistics.ui.grid.knockout-extensions.js"></script>
+
+	<!-- Used to add markup and provide logging
+	functionality for the API Explorer and API Viewer UI -->
+	<script src="../../../../js/apiviewer.js"></script>
+
+	<script src="../../../../data-files/nw-customers-with-orders.js"></script>
+</head>
+<body>
+
+	<div id="error-message" style="color: #FF0000; font-weight: bold;"></div>
+
+	<table id="gridKO" data-bind="igGrid: {
+		dataSource: data,
+		primaryKey: 'ID',
+		width: '100%',
+		autoCommit: true,
+		features: [
+			{
+				name: 'Updating',
+				editMode: 'row',
+				columnSettings: [
+					{
+						columnKey: 'ID',
+						readOnly: true
+					}
+				],
+				generatePrimaryKeyValue: function ( evt, ui )
+				{
+					// setting a primary key for the new row
+					ui.value = 'PK' + ui.value;
+				},
+				rowDeleting: function (evt, ui) {
+					var rowID = ui.rowID;
+					var selectedRow = $('#gridKO').igGridSelection('selectedRow');
+					if (selectedRow == null || rowID != selectedRow.id) {
+						$('#error-message').html('$$(Grid_Knockoutjs_ErrDeleteRow)').stop(true, true).fadeIn(500).delay(3000).fadeOut(500);
+						return false;
+					}
+				}
+			},
+			{
+				name: 'Selection',
+				mode: 'row',
+				multipleSelection: false,
+				activation: false,
+				rowSelectionChanged: selectionChanged
+			}
+		],
+		autoGenerateColumns: false,
+		columns: [
+			{ headerText: '$$(Northwind_Customers_CustomerID)', key: 'ID', dataType: 'string', width: '25%'},
+			{ headerText: '$$(Northwind_Customers_ContactName)', key: 'ContactName', dataType: 'string', width: '25%' },
+			{ headerText: '$$(Northwind_Customers_City)', key: 'City', dataType: 'string', width: '25%' },
+			{ headerText: '$$(Northwind_Customers_Country)', key: 'Country', dataType: 'string', width: '25%' }
+		],
+		rendered: function (evt, ui) {
+			$('#gridKO').igGridSelection('selectRow', 0);
+		}
+	}"></table>
+
+	<div class="api-explorer">
+		<fieldset>
+			<legend>$$(Grid_Knockoutjs_EditSelectedRow)</legend>
+			<label><b>$$(Northwind_Customers_CustomerID):</b> </label>
+			<span id="idEditor" data-bind="text: (selectedItemID() > -1 && selectedItemID() < data().length && data().length>0) ? data()[selectedItemID()].ID : '', valueUpdate: 'input'"></span>
+			<br>
+			<label><b>$$(Northwind_Customers_ContactName):</b> </label>
+			<input id="nameEditor" type="text" data-bind="value: (selectedItemID() > -1 && selectedItemID() < data().length) ? data()[selectedItemID()].ContactName : '', valueUpdate: 'input'"></input>
+			<br>
+			<label><b>$$(Northwind_Customers_City):</b> </label>
+			<input id="cityEditor" type="text" data-bind="value: (selectedItemID() > -1 && selectedItemID() < data().length) ? data()[selectedItemID()].City : '', valueUpdate: 'input'"></input>
+			<br>
+			<label><b>$$(Northwind_Customers_Country):</b> </label>
+			<input id="countryEditor" type="text" data-bind="value: (selectedItemID() > -1 && selectedItemID() < data().length) ? data()[selectedItemID()].Country : '', valueUpdate: 'input'"></input>
+			<br>
+		</fieldset>
+	</div>
+
+	<script>
+		var itemsModel, db = nwCustomersWithOrders;
+
+		var Item = function (ID, ContactName, City, Country) {
+			var self = this;
+			this.ID = ko.observable(ID);
+			this.ContactName = ko.observable(ContactName);
+			this.City = ko.observable(City);
+			this.Country = ko.observable(Country);
+		}
+
+		function ItemsViewModel() {
+			var self = this;
+			self.data = ko.observableArray([]);
+			self.selectedItemID = ko.observable(0);
+
+			for (var i = 0; i < db.length; i++) {
+				self.data.push(new Item(db[i].ID, db[i].ContactName, db[i].City, db[i].Country));
+			}
+
+			self.selectionChanged = function (evt, ui) {
+				var rowdata = ui.row;
+				// find it in the array so we don't lose the observables
+				var selectedItemInArray = ko.utils.arrayFirst(self.data(), function (item) {
+					return item.ID() === rowdata.id;
+				});
+
+				if (selectedItemInArray != null) {
+					self.selectedItemID(parseInt(rowdata.index));
+				}
+				else {
+					self.selectedItemID(0);
+				}
+			};
+		}
+
+		$(function () {
+			// Used to show output in the API Viewer at runtime,
+			// defined in external script 'apiviewer.js'
+			var apiViewer = new $.ig.apiViewer();
+
+			itemsModel = new ItemsViewModel();
+			ko.applyBindings(itemsModel);
+		});
+	</script>
+
+</body>
+</html>
