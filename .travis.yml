@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- '4'
+script:
+# clone gh-pages
+- git clone -b gh-pages https://${GH_TOKEN}@github.com/damyanpetev/samples-test.git dist
+
+# wipe content except .git
+- rm -vrf dist/*(!.git)
+
+# build
+-gulp build-samples --version ${TRAVIS_BRANCH}
+
+# move to dist, set git credentials
+- cd dist
+
+# commit
+- git add .
+- if [ -n "$(git status --porcelain)" ]; then git commit -m "Release ${TRAVIS_BRANCH}"; fi
+- git push -fq origin gh-pages --tags
+
+# blocklist
+branches:
+  except:
+  - master
+  - gh-pages
