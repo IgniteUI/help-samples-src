@@ -96,7 +96,7 @@ module.exports = function(options) {
 			stream.push(cssFile);
 			embed.embed.splice(2, 0, {
 				"label": "CSS",
-				"path": "fiddle/demo.css"
+				"path": path.posix.join(options.version, relativePath, "fiddle/demo.css")
 			});
 		}
 
