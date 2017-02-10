@@ -23,10 +23,10 @@ module.exports = function(options) {
 		embed = {
 		   "embed": [{
 				"label": "HTML",
-				"path": "fiddle/demo.html"
+				"path": path.posix.join(options.version, relativePath, "fiddle/demo.html") 
 			}, {
 				"label": "JS",
-				"path": "fiddle/demo.js"
+				"path": path.posix.join(options.version, relativePath, "fiddle/demo.js") 
 			},{
 				"type": "htmlpage",
 				"label": "Result",
