@@ -26,3 +26,7 @@ branches:
   except:
   - master
   - gh-pages
+env:
+  global:
+    # GH_TOKEN=
+    secure: MZV3/69jPHznbagxasTlgBxvNSN1vdjEYTusuIvJhTR7DoembWPwkEv8fG6Lv2GqvYQn6aiEqKQdmMlu18RZFbkEN0PdFF+CBw2Eoy++YnM5hypSCbynZXYmKe+voETg2C9svG9/jOmVcjx2gCqkI3ddjuogu9L2V/J0U4DuqdgyhT2fyW/Frvstadbn2itaF/iLELo5xVXDkt5/MBfll9DO9bSe4GwAupXypYmvJdrDCD3aGGuxBzn0qPJAU7PQCCDJ1ghLnqa+TXEaVbIPA/HkChUyYR6Y1XpnFA1ADevoF4W0B/IIhSu0pd8Pf6qCWJYRDnqlUinoyDJ4gsk49KP0JPqcwdV0n68q/OvZon30PJzYqlUS/0DvFlpzHvimBpsbTA8yKpCcCNRCL9+1tkD6yj+W3xIurngxWPAMCbUT8lRisSg5AoejIv+aFRMA2Dg3rA+XQEi9FT0apveO2VQGW3UiDvkfodWklZexXFln2zjhVJi2vKjY9m9azvlFR/49LGkfcjpNOpZfIzpwOM9t1tjgLTqEhOuhp8sIGGfeXXcOvKrIfNttg0joJqmQdXtzV4luEk1456uM4koWNRntlTQqotNksloLb5X/Sr/hz3IhH7HDaWx1nOcFAfXy8KfJMyT7CZN+l1g+ADEBWXocHGwYeoiu6dO9I+19G7U=
