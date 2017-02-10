@@ -9,7 +9,7 @@ script:
 - rm -vrf dist/*(!.git)
 
 # build
--gulp build-samples --version ${TRAVIS_BRANCH}
+- gulp build-samples --version ${TRAVIS_BRANCH}
 
 # move to dist, set git credentials
 - cd dist
