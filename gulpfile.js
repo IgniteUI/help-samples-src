@@ -20,7 +20,7 @@ var dist = "./dist",
 	} else {
 		version = "latest";
 	}
-	config.version = version;
+	config.version = version.toString();
 	dist = dist + "/" + version;
 
 gulp.task("process-files", function () {
