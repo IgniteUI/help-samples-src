@@ -3,7 +3,7 @@ node_js:
 - '4'
 script:
 # clone gh-pages
-- git clone -b gh-pages https://${GH_TOKEN}@github.com/damyanpetev/samples-test.git dist
+- git clone -b gh-pages https://$GH_TOKEN@github.com/damyanpetev/samples-test.git dist
 
 # wipe content except .git
 - rm -vrf dist/*(!.git)
@@ -13,6 +13,8 @@ script:
 
 # move to dist, set git credentials
 - cd dist
+- git config user.email "igniteui@infragistics.com"
+- git config user.name "igniteui-deploy"
 
 # commit
 - git add .
