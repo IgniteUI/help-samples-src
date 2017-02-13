@@ -13,7 +13,7 @@ module.exports = function(options) {
 		var attr = this.name === "script" ? "src" : "href",
 			src = $(this).attr(attr);
 		if (src && src.indexOf("../../../../") !== -1) {
-			src = src.replace("../../../../", options.liveUrl + "/" + options.version + "/");
+			src = src.replace("../../../../", options.liveUrl + "/");
 		}
 		$(this).attr(attr, src);
 	};
