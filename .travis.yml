@@ -6,7 +6,7 @@ script:
 - git clone -b gh-pages https://$GH_TOKEN@github.com/damyanpetev/samples-test.git dist
 
 # wipe content except .git
-- rm -vrf dist/*(!.git)
+- rm -rf dist/*(!.git)
 
 # build
 - gulp build-samples --version ${TRAVIS_BRANCH}
@@ -21,11 +21,10 @@ script:
 - if [ -n "$(git status --porcelain)" ]; then git commit -m "Release ${TRAVIS_BRANCH}"; fi
 - git push -fq origin gh-pages --tags
 
-# blocklist
+# whitelist match only xx.x version branches
 branches:
-  except:
-  - master
-  - gh-pages
+  only:
+    - /^\d+\.\d$/
 env:
   global:
     # GH_TOKEN=

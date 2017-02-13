@@ -3,7 +3,10 @@ var path = require("path"),
 	through = require("through2"),
 	gutil = require("gulp-util"),
 	File = gutil.File;
-
+/**
+ * Extracts HTML, JS and optionally CSS into separate files in a fiddle folder
+ * and generates a embed json config file
+ */
 module.exports = function(options) {
 
 	var replaceSrc = function ($) {

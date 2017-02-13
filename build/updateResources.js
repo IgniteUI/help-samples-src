@@ -5,16 +5,19 @@ var path = require("path"),
 	File = gutil.File;
 
 /**
- * Replace resource strings (src, href). Add optional Ja locale file
+ * Replace resource strings (src, href) and igLoader sources. Adds Japanese locale script for JA files.
  */
 module.exports = function (options) {
 
+	/**
+	 * Replaces %%resource%% links based on configuration.
+	 */
 	var replaceSrc = function ($) {
 		var attr = this.name === "script" ? "src" : "href",
 			src = $(this).attr(attr);
-		for (var i in options.patterns) {
-			if (src.indexOf(options.patterns[i].match) > -1) {
-				src = src.replace(options.patterns[i].match, options.patterns[i].replace);
+		for (var key in options.patterns) {
+			if (src.indexOf(key) > -1) {
+				src = src.replace(key, options.patterns[key]);
 			}
 		}
 		$(this).attr(attr, src);
@@ -45,7 +48,7 @@ module.exports = function (options) {
 		}).each(function (i) {
 			var contents = $(this).html();
 			if (contents.indexOf("ig.loader")) {
-				contents = contents.replace(/%%ignite-ui%%/g, options.patterns[0].replace);
+				contents = contents.replace(/%%ignite-ui%%/g, options.patterns["%%ignite-ui%%"]);
 				$(this).html(contents);
 			}
 		});

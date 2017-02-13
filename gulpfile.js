@@ -16,7 +16,7 @@ var dist = "./dist",
 	config = require("./build/config.json");
 
 	if (version) {
-		config.patterns[0].replace = config.patterns[0].replace.replace("latest", "20" + version + "/latest");
+		config.patterns["%%ignite-ui%%"] = config.patterns["%%ignite-ui%%"].replace("latest", "20" + version + "/latest");
 	} else {
 		version = "latest";
 	}
