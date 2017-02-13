@@ -18,6 +18,32 @@ module.exports = function(options) {
 		$(this).attr(attr, src);
 	};
 
+	/** Extra simple unindent - supports mixed tabs and spaces, but only removes spaces equal to the tab size (def 4) */
+	var unindentTrim = function (code) {
+		var lines = code.split(/\r\n|\n/), indent, indentRegx,
+			tabSize = options.tabSize || 4,
+			spacesRegx = new RegExp("^( {" + tabSize + "," + tabSize + "}|\\t)+");
+		for (var i = 0; i < lines.length; i++) {
+			if (lines[i]){
+				if (!indentRegx && !spacesRegx.test(lines[i])) {
+					//no indent on first line, do nothing
+					break;
+				} else if (!indentRegx) {
+					// get tabs and spaces
+					indent = spacesRegx.exec(lines[i])[0];
+					// replace tabs with spaces
+					indent = indent.replace(/\t/g, new Array(tabSize + 1).join( " " ));
+					// get indent count
+					indent = indent.length / tabSize;
+					// and build RegExp (like spacesRegx, limited count tho)
+					indentRegx = new RegExp("^( {" + tabSize + "," + tabSize + "}|\\t){" + indent +"}");
+				}
+				lines[i] = lines[i].replace(indentRegx, "");
+			}
+		}
+		return lines.join("\r\n").trim();
+	};
+
 	var processStream = function(file, encoding, next){
 		var contents, stream, $,
 		basePath = path.dirname(file.path),
@@ -84,7 +110,7 @@ module.exports = function(options) {
 		jsFile = new File({
 			base: file.base,
 			path: path.join(basePath, "fiddle", "demo.js"),
-			contents: new Buffer(js)
+			contents: new Buffer(unindentTrim(js))
 		});
 
 		// css
@@ -95,7 +121,7 @@ module.exports = function(options) {
 			cssFile = new File({
 				base: file.base,
 				path: path.join(basePath, "fiddle", "demo.css"),
-				contents: new Buffer(css)
+				contents: new Buffer(unindentTrim(css))
 			});
 			stream.push(cssFile);
 			embed.embed.splice(2, 0, {
