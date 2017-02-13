@@ -5,8 +5,8 @@ script:
 # clone gh-pages
 - git clone -b master https://$GH_TOKEN@github.com/IgniteUI/help-samples.git dist
 
-# wipe content except .git
-- rm -rf dist/*(!.git)
+# wipe content in target folder
+- rm -rf dist/${TRAVIS_BRANCH}
 
 # build
 - gulp build-samples --version ${TRAVIS_BRANCH}
@@ -17,7 +17,7 @@ script:
 - git config user.name "igniteui-deploy"
 
 # commit
-- git add .
+- git add --all
 - if [ -n "$(git status --porcelain)" ]; then git commit -m "Samples for ${TRAVIS_BRANCH} ${TRAVIS_TAG}"; fi
 - git push -fq origin master --tags
 
