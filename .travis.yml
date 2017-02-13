@@ -3,7 +3,7 @@ node_js:
 - '4'
 script:
 # clone gh-pages
-- git clone -b gh-pages https://$GH_TOKEN@github.com/damyanpetev/samples-test.git dist
+- git clone -b master https://$GH_TOKEN@github.com/IgniteUI/help-samples.git dist
 
 # wipe content except .git
 - rm -rf dist/*(!.git)
@@ -18,8 +18,8 @@ script:
 
 # commit
 - git add .
-- if [ -n "$(git status --porcelain)" ]; then git commit -m "Release ${TRAVIS_BRANCH}"; fi
-- git push -fq origin gh-pages --tags
+- if [ -n "$(git status --porcelain)" ]; then git commit -m "Samples for ${TRAVIS_BRANCH} ${TRAVIS_TAG}"; fi
+- git push -fq origin master --tags
 
 # whitelist match only xx.x version branches
 branches:
@@ -28,4 +28,4 @@ branches:
 env:
   global:
     # GH_TOKEN=
-    secure: MZV3/69jPHznbagxasTlgBxvNSN1vdjEYTusuIvJhTR7DoembWPwkEv8fG6Lv2GqvYQn6aiEqKQdmMlu18RZFbkEN0PdFF+CBw2Eoy++YnM5hypSCbynZXYmKe+voETg2C9svG9/jOmVcjx2gCqkI3ddjuogu9L2V/J0U4DuqdgyhT2fyW/Frvstadbn2itaF/iLELo5xVXDkt5/MBfll9DO9bSe4GwAupXypYmvJdrDCD3aGGuxBzn0qPJAU7PQCCDJ1ghLnqa+TXEaVbIPA/HkChUyYR6Y1XpnFA1ADevoF4W0B/IIhSu0pd8Pf6qCWJYRDnqlUinoyDJ4gsk49KP0JPqcwdV0n68q/OvZon30PJzYqlUS/0DvFlpzHvimBpsbTA8yKpCcCNRCL9+1tkD6yj+W3xIurngxWPAMCbUT8lRisSg5AoejIv+aFRMA2Dg3rA+XQEi9FT0apveO2VQGW3UiDvkfodWklZexXFln2zjhVJi2vKjY9m9azvlFR/49LGkfcjpNOpZfIzpwOM9t1tjgLTqEhOuhp8sIGGfeXXcOvKrIfNttg0joJqmQdXtzV4luEk1456uM4koWNRntlTQqotNksloLb5X/Sr/hz3IhH7HDaWx1nOcFAfXy8KfJMyT7CZN+l1g+ADEBWXocHGwYeoiu6dO9I+19G7U=
+    secure: b4FdTzLJVRj3GMPLtrKmOxDRAcmvpxSER8gZ9NNd86FyCvOlEUnS/kDmEbYXkfTmmF3ZHCz5EcfSbAR50HH4MRavo2uzb+raLVFOJ35a5y+SjjWUH7XHQVNBBLXJjH4nvjumzOdLjlN57r8uUcGuTWORRYSSLvp8SRx26SNot6adU7ifixlybvHHLCyUEcfUH2bv6vpSKrv2X8bWFZIePIG5WJnY4ZhinEmiOP1h385utFU+6L9ZYbtkYQrAi4veR1uoimDEe/gzyVIVni6qqv+gU2vDwMu8iqw8JuBBsWWJy73KuHDOkWDw1+mXdJwwQcU/jvKLmUt10+MqSiqc47jLJJ4F8TbweiaSlFb3h40E48pah5Fl5tpl8eL2OZ3F8uXY/bAEAOFtOEAA6diUJEu0np4ozwiTYcWnm+8AsYZ2aNcZdY2xiuZK+qUeigbkkph648ZaBXLt2pUZKDmsERvwQbDH1eliPp2DG0QX0Q3KP/SdhMj+PONVuCDdbzSEscQC1V7NzD9JFYOLPJvBtwrzUqU5NTcgUVvfsLyrLPJ7Gtp311qFPArGyiBzNJyvYthK9CevWWYs/5KM/EElHEEwezxKa7lrRiczOP0b+CRZEpHcB2VE7zpk+kzu1PLdK05fb75VYVK2m7VR/bkv1DVjcDHQ/l3Y0vHSwseyvyY=

@@ -1,1 +1,1 @@
-# samples-test
+# Ignite UI Help samples

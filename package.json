@@ -1,5 +1,5 @@
 {
-  "name": "samples-test",
+  "name": "help-samples-src",
   "version": "0.0.1",
   "description": "",
   "devDependencies": {
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/damyanpetev/samples-test.git"
+    "url": "git+https://github.com/IgniteUI/help-samples-src.git"
   },
   "keywords": [
     "Ignite",
     "UI",
     "samples",
+    "help",
     "docs"
   ],
-  "author": "IG",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/damyanpetev/samples-test/issues"
+    "url": "https://github.com/IgniteUI/help-samples-src/issues"
   },
-  "homepage": "https://github.com/damyanpetev/samples-test#readme"
+  "homepage": "https://github.com/IgniteUI/help-samples-src#readme"
 }
