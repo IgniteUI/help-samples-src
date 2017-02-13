@@ -15,11 +15,21 @@ var dist = "./dist",
 	],
 	config = require("./build/config.json");
 
+	// Command line overrides:
 	if (version) {
 		config.patterns["%%ignite-ui%%"] = config.patterns["%%ignite-ui%%"].replace("latest", "20" + version + "/latest");
 	} else {
 		version = "latest";
 	}
+	if (util.env["ignite-ui"]) {
+		// Optional override for the Ignite UI source location, can be passed as --ignite-ui "http://<ignite-ui root>"
+		config.patterns["%%ignite-ui%%"] = util.env["ignite-ui"];
+	}
+	if (util.env["live-url"]) {
+		// Optional override for the live demo URL (without trailing slash). Warning: might be case-sensitive
+		config.liveUrl = util.env["live-url"].replace(/\/$/, "");
+	}
+
 	config.version = version.toString();
 	dist = dist + "/" + version;
 

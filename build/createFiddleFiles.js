@@ -13,7 +13,7 @@ module.exports = function(options) {
 		var attr = this.name === "script" ? "src" : "href",
 			src = $(this).attr(attr);
 		if (src && src.indexOf("../../../../") !== -1) {
-			src = src.replace("../../../../", options.gitUrl + "/" + options.version + "/");
+			src = src.replace("../../../../", options.liveUrl + "/" + options.version + "/");
 		}
 		$(this).attr(attr, src);
 	};
@@ -33,7 +33,7 @@ module.exports = function(options) {
 			},{
 				"type": "htmlpage",
 				"label": "Result",
-				"url": options.gitUrl + path.posix.join("/" + options.version, relativePath, "/index.html") 
+				"url": options.liveUrl + path.posix.join("/" + options.version, relativePath, "/index.html") 
 			}]
 		};
 		
