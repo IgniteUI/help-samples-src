@@ -56,10 +56,10 @@ module.exports = function (options) {
 		$("script").filter(function (i) {
 			return !$(this).attr("src");
 		}).each(function (i) {
-			var contents = $(this).html();
-			if (contents.indexOf("ig.loader")) {
+			var contents = $(this).text();
+			if (contents.indexOf("ig.loader") !== -1) {
 				contents = contents.replace(/%%ignite-ui%%/g, options.patterns["%%ignite-ui%%"]);
-				$(this).html(contents);
+				$(this).text(contents);
 			}
 		});
 
