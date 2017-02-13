@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_jsrender-integration)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script src="%%jsrender%%" type="text/javascript"></script>
+</head>
+<body>
+
+    <table id="grid12"></table>
+
+    <!--Sample JSON Data-->
+    <script src="../../../../data-files/nw-employees.js"></script>
+
+    <script>
+        $(function () {
+            var titles = ["Sales Representative", "Sales Manager", "Inside Sales Coordinator", "Vice President, Sales"];
+            var countries = ["UK", "USA"];
+
+            $.views.helpers(
+            {
+                toDate: function (val) {
+                    return new Date(val);
+                }
+            });
+
+            $.views.helpers(
+            {
+                toFullName: function (val) {
+                    var name = val.split(',').reverse().join(" ");
+                    return name;
+                }
+            });
+
+            $("#grid12").igGrid({
+                width: "100%",
+                height: "600px",
+                autoGenerateColumns: false,
+                autoCommit:true,
+                columns: [
+                        { headerText: "$$(Northwind_Employees_EmployeeID)", key: "ID", dataType: "number" },
+                        { headerText: "$$(Northwind_Employees_Name)", key: "Name", dataType: "string", template: "{{>#view.hlp('toFullName')(Name)}}" },
+                        {
+                            headerText: "$$(Northwind_Employees_Image)", key: "ImageUrl", dataType: "object",
+                            template: "<img width='100' height='90' src={{>ImageUrl}}></img>"
+                        },
+                        { headerText: "$$(Northwind_Employees_Title)", key: "Title", dataType: "string" },
+                        {
+                            headerText: "$$(Northwind_Employees_Languages)", key: "Languages", dataType: "object",
+                            template: "{{for Languages}}<div>{{:name}}</div>{{/for}}"
+                        },
+                        { headerText: "$$(Northwind_Employees_Phone)", key: "Phone", dataType: "string" },
+                        {
+                            headerText: "$$(Northwind_Employees_Country)", key: "Country", dataType: "string",
+                            template: "<img width='26' height='15' src='../../images/samples/nw/countries/{{>Country}}.gif'></img> <span style='display: table-cell;vertical-align: middle;'>{{>Country}}</span>"
+                        },
+                        {
+                            headerText: "$$(table_lbl_birthDate)", key: "BirthDate", dataType: "date",
+                            template: "<span style='color:{{if #view.hlp('toDate')(BirthDate) > #view.hlp('toDate')('1980-01-01T00:00:00.000')}}#4573D6{{else}}#F75F4F{{/if}};'>{{>BirthDate}}</span>"
+                        }
+                    ],
+                dataSource: northwindEmployees,
+                primaryKey: "ID",
+                templatingEngine: "jsrender",
+                features: [
+                    {
+                        name: 'Responsive',
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: 'ID',
+                                classes: 'ui-hidden-phone'
+                            },
+                            {
+                                columnKey: 'Phone',
+                                classes: 'ui-hidden-phone'
+                            },
+                            {
+                                columnKey: 'Name',
+                                classes: 'ui-hidden-phone'
+                            }
+                        ]
+                    }
+                ]
+            });
+        });
+
+    </script>
+</body>
+</html>
