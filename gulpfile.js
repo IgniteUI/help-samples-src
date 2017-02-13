@@ -35,6 +35,8 @@ var dist = "./dist",
 
 gulp.task("process-files", function () {
 	console.log("Building samples for: ", version);
+	console.log("Ignite UI source root: ", config.patterns["%%ignite-ui%%"]);
+	console.log("Live URL base: ", config.liveUrl);
 
 	return gulp.src(["HTMLSamples/**/*.html"])
 		.pipe(localize(config))
