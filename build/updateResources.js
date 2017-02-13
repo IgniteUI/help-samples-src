@@ -1,4 +1,5 @@
 var path = require("path"),
+	fs = require("fs"),
 	cheerio = require("cheerio"),
 	through = require("through2"),
 	gutil = require("gulp-util"),
@@ -10,14 +11,23 @@ var path = require("path"),
 module.exports = function (options) {
 
 	/**
-	 * Replaces %%resource%% links based on configuration.
+	 * Replaces %%resource%% links based on configuration. Swaps to Japanese data-file if available for localized files.
 	 */
-	var replaceSrc = function ($) {
+	var replaceSrc = function ($, lang) {
 		var attr = this.name === "script" ? "src" : "href",
-			src = $(this).attr(attr);
+			src = $(this).attr(attr),
+			dataFile;
+
 		for (var key in options.patterns) {
 			if (src.indexOf(key) > -1) {
 				src = src.replace(key, options.patterns[key]);
+			}
+		}
+		if (lang === "ja" && src.indexOf("../data-files") !== -1) {
+			// check if respective japanese files is available:
+			dataFile = src.split("../data-files/").pop();
+			if (fs.existsSync("./data-files-ja/" + dataFile)) {
+				src = src.replace("/data-files/", "/data-files-ja/");
 			}
 		}
 		$(this).attr(attr, src);
@@ -40,7 +50,7 @@ module.exports = function (options) {
 		$("script").filter(function (i) {
 			return $(this).attr("src");
 		}).each(function (i) {
-			replaceSrc.call(this, $);
+			replaceSrc.call(this, $, file.lang);
 		});
 		// loader in source
 		$("script").filter(function (i) {

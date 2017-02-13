@@ -5,7 +5,7 @@ var path = require("path"),
 	File = gutil.File;
 /**
  * Extracts HTML, JS and optionally CSS into separate files in a fiddle folder
- * and generates a embed json config file
+ * and generates an embed json config file
  */
 module.exports = function(options) {
 
@@ -17,6 +17,7 @@ module.exports = function(options) {
 		}
 		$(this).attr(attr, src);
 	};
+
 	var processStream = function(file, encoding, next){
 		var contents, stream, $,
 		basePath = path.dirname(file.path),
