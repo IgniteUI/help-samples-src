@@ -4,6 +4,7 @@
         "resultEN": "Result",
         "resultJA": "Result"
     },
+    "tabSize": 4,
     "templateScriptTypes": [
         "text/html",
         "text/template",
