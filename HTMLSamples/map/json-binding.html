@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_json-binding)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+    <style>
+        #tooltipTable
+        {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #tooltipTable td, #tooltipTable th
+        {
+            font-size: 9px;
+            border: 1px solid #28b51c;
+            padding: 3px 7px 2px 7px;
+        }
+        #tooltipTable th
+        {
+            font-weight: bold;
+            font-size: 11px;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #28b51c;
+            color: #ffffff;
+        }
+    </style>
+        <script id="tooltipTemplate" type="text/x-jquery-tmpl">
+        <table id="tooltipTable" >
+            <tr><th class="tooltipHeading" colspan="2">${item.Name}, ${item.Country}</th></tr>
+            <tr>
+                <td>$$(Latitude):</td>
+                <td>${item.Latitude}</td>
+            </tr>
+            <tr>
+                <td>$$(Longitude):</td>
+                <td>${item.Longitude}</td>
+            </tr>
+        </table>
+    </script>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <script>
+
+        $(function () {
+
+            var data = [
+                    { Name: "Warsaw", Country: "Poland", Latitude: 52.21, Longitude: 21 },
+                    { Name: "London", Country: "England", Latitude: 51.50, Longitude: 0.12 },
+                    { Name: "Berlin", Country: "Germany", Latitude: 52.50, Longitude: 13.33 },
+                    { Name: "Moscow", Country: "Russia", Latitude: 55.75, Longitude: 37.51 },
+                    { Name: "Sydney", Country: "Australia", Latitude: -33.83, Longitude: 151.2 },
+                    { Name: "Tokyo", Country: "Japan", Latitude: 35.6895, Longitude: 139.6917 },
+                    { Name: "Seoul", Country: "South Korea", Latitude: 37.5665, Longitude: 126.9780 },
+                    { Name: "Delhi", Country: "India", Latitude: 28.6353, Longitude: 77.2250 },
+                    { Name: "Mumbai", Country: "India", Latitude: 19.0177, Longitude: 72.8562 },
+                    { Name: "Manila", Country: "Philippines", Latitude: 14.6010, Longitude: 120.9762 },
+                    { Name: "Shanghai", Country: "China", Latitude: 31.2244, Longitude: 121.4759 },
+                    { Name: "Mexico City", Country: "Mexico", Latitude: 19.4270, Longitude: -99.1276 },
+                    { Name: "New York", Country: "United States", Latitude: 40.7561, Longitude: -73.9870 },
+                    { Name: "Sao Paulo", Country: "Brazil", Latitude: -23.5489, Longitude: -46.6388 },
+                    { Name: "Los Angeles", Country: "United States", Latitude: 34.0522, Longitude: -118.2434 },
+                    { Name: "Sofia", Country: "Bulgaria", Latitude: 42.697845, Longitude: 23.321925 }
+            ];
+
+            $("#map").igMap({
+                width: "700px",
+                height: "500px",
+                windowRect: { left: 0.225, top: 0.1, height: 0.6, width: 0.6 },
+                series: [{
+                    type: "geographicSymbol",
+                    name: "worldCities",
+                    dataSource: data, //JSON Array defined above     
+                    latitudeMemberPath: "Latitude",
+                    longitudeMemberPath: "Longitude",
+                    markerOutline: "#28b51c",
+                    markerBrush: "#28b51c",
+                    showTooltip: true,
+                    tooltipTemplate: "tooltipTemplate"
+                }]
+            });
+            $("#map").find(".ui-widget-content").append("<span class='copyright-notice'><a href='http://www.openstreetmap.org/copyright'>$$(OpenStreetMapCopyright)</a></span>");
+        });
+    </script>
+  
+</body>
+</html>

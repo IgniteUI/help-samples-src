@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_bind-to-remote-data)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+    
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+
+	<table>
+		<tr>
+			<td style="width: 330px;">
+				<!-- Target element for the igSparkline -->
+				<div id="sparkline"></div>
+			</td>
+		</tr>
+	</table>
+    
+    <!-- File supplying the northwindInvoices object for the igSparkline data source -->
+    <script src="../../../../data-files/nw-invoices.js"></script>
+
+    <script>
+
+        $(function () {
+
+            $("#sparkline").igSparkline({
+                dataSource: "http://igniteui.com/api/invoices?callback=?",
+                responseDataKey: "d.results",
+                height: "100px",
+                width: "100%",
+                valueMemberPath: 'ExtendedPrice'
+            });
+
+        });
+    </script>       
+
+</body>
+</html>

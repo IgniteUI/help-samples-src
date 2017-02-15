@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_tooltip-settings)</title>
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+    <!-- Used to style the API Viewer and Explorer UI -->
+    <link href="../../../../css/apiviewer.css" rel="stylesheet" type="text/css">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+
+
+    <script id="rangeToolTipTemplate" type="text/x-jquery-tmpl">
+        <div style="background-color: #3E3E3E; border: 1px solid black; font-size: 120%; font-weight: bold; padding: 5px 10px; border-radius: 0em 1em 0em 1em; color:${itemBrush}">
+            ${item.name}
+                <br />
+            $$(TaskStart): ${item.startValue}<br />
+            $$(TaskEnd): ${item.endValue}
+        </div>
+    </script>
+
+    <script id="valueToolTipTemplate" type="text/x-jquery-tmpl">
+        <div style="background-color: #3E3E3E; border: 1px solid black; font-size: 120%; font-weight: bold; padding: 5px 10px; border-radius: 0em 1em 0em 1em; color:${itemBrush}">
+            ${itemName}: ${item.value}
+        </div>
+    </script>
+
+    <script id="targetValueToolTipTemplate" type="text/x-jquery-tmpl">
+        <div style="background-color: #3E3E3E; border: 1px solid black; font-size: 120%; font-weight: bold; padding: 5px 10px; border-radius: 0em 1em 0em 1em; color:${itemBrush}">
+            $$(Tasks_Planned): ${item.value}
+        </div>
+    </script>
+</head>
+
+<body>
+    <div>
+        <h3 style="height: 100px">$$(Tasks_Title)</h3>
+        <div style="height: 200px">
+            <div style="width: 30%">
+                $$(Task_Dev)
+            </div>
+            <div style="width: 70%" id="bulletgraph_task1"></div>
+        </div>
+
+        <div style="height: 200px">
+            <div style="width: 30%">
+                $$(Task_QA)
+            </div>
+            <div style="width: 70%" id="bulletgraph_task2"></div>
+        </div>
+        <div style="float: left">$$(Tasks_Description)</div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $("#bulletgraph_task1").igBulletGraph({
+                height: "80px",
+                width: "100%",
+                showToolTip: true,
+                ranges: [
+                    {
+                        name: '$$(ToolTipSettings_Low)',
+                        startValue: 0,
+                        endValue: 40,
+                        brush: "#F66656"
+                    },
+                    {
+                        name: '$$(ToolTipSettings_Medium)',
+                        startValue: 40,
+                        endValue: 70,
+                        brush: "#FFDA30"
+                    },
+                    {
+                        name: '$$(ToolTipSettings_High)',
+                        startValue: 70,
+                        endValue: 100,
+                        brush: "#72CA70"
+                    }
+                ],
+                formatLabel: function (evt, ui) {
+                    ui.label = ui.value + "$$(Tasks_Hours)";
+                },
+                value: 60,
+                targetValue: 80,
+                targetValueBreadth: 6,
+                transitionDuration: 500
+            });
+
+            $("#bulletgraph_task2").igBulletGraph({
+                height: "80px",
+                width: "100%",
+                showToolTip: true,
+                rangeToolTipTemplate: 'rangeToolTipTemplate',
+                valueToolTipTemplate: 'valueToolTipTemplate',
+                targetValueToolTipTemplate: 'targetValueToolTipTemplate',
+                ranges: [
+                     {
+                         name: '$$(ToolTipSettings_Low)',
+                         startValue: 0,
+                         endValue: 20,
+                         brush: "#F66656"
+                     },
+                     {
+                         name: '$$(ToolTipSettings_Medium)',
+                         startValue: 20,
+                         endValue: 35,
+                         brush: "#FFDA30"
+                     },
+                     {
+                         name: '$$(ToolTipSettings_High)',
+                         startValue: 35,
+                         endValue: 50,
+                         brush: "#72CA70"
+                     }
+                ],
+                formatLabel: function (evt, ui) {
+                    ui.label = ui.value + "$$(Tasks_Hours)";
+                },
+                valueName: "$$(Tasks_Spent)",
+                maximumValue: 50,
+                value: 23,
+                targetValue: 40,
+                targetValueBreadth: 6,
+                transitionDuration: 500
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_column-template)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+    <style type="text/css">
+        .delete-button
+        {
+            width: 100%;
+            font-size: 1em;
+            border: solid 1px #777;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #444;
+        }
+        .delete-button:hover
+        {
+            background-color: #d0edfa;
+        }
+    </style>
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+</head>
+<body>
+    <table id="grid"></table>
+    <script src="../../../../data-files/adventureworks.min.js"></script>
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                autoGenerateColumns: false,
+                width: "100%",
+                height: "500px",
+                columns: [
+                    { headerText: "$$(AdventureWorks_Products_ProductID)", key: "ProductID", dataType: "number", width: "10%" },
+                    { headerText: "$$(AdventureWorks_Products_Name)", key: "Name", dataType: "string", width: "30%" },
+                    { headerText: "$$(AdventureWorks_Products_ProductNumber)", key: "ProductNumber", dataType: "string", width: "25%" },
+                    { headerText: "$$(AdventureWorks_Products_MakeFlag)", key: "MakeFlag", dataType: "bool", width: "15%" },
+                    { headerText: "", key: "Delete", dataType: "string", width: "20%", unbound: true, template: "<input type='button' onclick='deleteRow(${ProductID})' value='$$(button_lbl_delRow)' class='delete-button'/>" }
+                ],
+                primaryKey: "ProductID",
+                dataSource: adventureWorks
+            });
+        });
+
+        function deleteRow(rowId) {
+            var grid = $("#grid").data("igGrid");
+            grid.dataSource.deleteRow(rowId);
+            grid.commit();
+        }
+    </script>
+</body>
+</html>

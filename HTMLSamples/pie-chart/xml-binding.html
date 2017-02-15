@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_xml-binding)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+    
+    <style type="text/css">
+        #chart {
+            position: relative;
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+
+    <div id="chart"></div>
+
+    <script>
+
+        $(function () {
+                        
+            //Sample XML Data
+            var xmlDoc = '<Countries>' +
+                '<Country Name="$$(China)" Population="1333" />' +
+                '<Country Name="$$(India)" Population="1140" />' +
+                '<Country Name="$$(UnitedStates)" Population="304" />' +
+                '<Country Name="$$(Indonesia)" Population="228" />' +
+                '<Country Name="$$(Brazil)" Population="192" />' +
+            '</Countries>';
+
+            //Binding to XML requires a schema to define data fields
+            var xmlSchema = new $.ig.DataSchema("xml",
+                { 
+                    //searchField serves as the base node(s) for the XPaths
+                    searchField: "//Country", 
+                    fields: [
+                        { name: "Name", xpath: "./@Name" },
+                        { name: "Population", xpath: "./@Population", type: "number" },
+                    ]
+                }
+            );
+
+            //This creates an Infragistics datasource from the XML 
+            //and the Schema which can be consumed by the grid.
+            var ds = new $.ig.DataSource({
+                type: "xml",
+                dataSource: xmlDoc,
+                schema: xmlSchema 
+            });
+
+            $("#chart").igPieChart({
+                width: "435px",
+                height: "435px",
+                dataSource: ds, //$.ig.DataSource defined above
+                dataValue: "Population",
+                dataLabel: "Name",
+                labelsPosition: "bestFit"
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "button_Add": "追加",
+  "button_Remove": "削除",
+  "edit_product_name": "製品名の編集",
+  "Favourite_Actors": "お気に入り映画俳優",
+  "Selected_Actor": "選択した映画俳優",
+  "Title_angular": "AngularJS との連携",
+  "Title_bind-combo-with-ko": "KnockoutJS のバインド",
+  "Title_html-binding": "HTML のバインド",
+  "Title_xml-binding": "XML のバインド",
+  "values": "値"
+}

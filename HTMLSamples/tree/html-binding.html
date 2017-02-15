@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_html-binding)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+</head>
+<body>
+
+    <!-- The tree can easily consume this structure
+    of nested UL elements for its datasource. See the
+    small amount of instantiation script below. -->
+    <ul id="tree">
+        <li>$$(Data_NorthAmerica)
+            <ul>
+                <li>$$(Data_UnitedStates)</li>
+                <li>$$(Data_Canada)</li>
+                <li>$$(Data_Mexico)</li>
+            </ul>
+        </li>
+        <li>$$(Data_SouthAmerica)
+            <ul>
+                <li>$$(Data_Brazil)</li>
+                <li>$$(Data_Uruguay)</li>
+            </ul>
+        </li>
+        <li>$$(Data_Europe)
+            <ul>
+                <li>$$(Data_UnitedKingdom)</li>
+                <li>$$(Data_Germany)</li>
+                <li>$$(Data_Bulgaria)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <script>
+        $(function () {
+
+            //This tree binds to the data defined in the HTML above
+            $("#tree").igTree();
+
+        });
+    </script>
+
+</body>
+</html>

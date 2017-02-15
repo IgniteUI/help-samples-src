@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_bind-editors-with-ko)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script type="text/javascript" src="%%modernizr%%"></script>
+    <script type="text/javascript" src="%%jquery%%"></script>
+    <script type="text/javascript" src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script type="text/javascript" src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script type="text/javascript" src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script type="text/javascript" src="%%knockout%%"></script>
+    <script type="text/javascript" src="%%knockout.mapping%%"></script>
+    <script type="text/javascript" src="%%ignite-ui%%/js/extensions/infragistics.ui.editors.knockout-extensions.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        var viewModel = {
+            orderDate: ko.observable("10/24/2012"),
+            shipDate: ko.observable("11/12/2012"),
+            dueInDays: ko.observable(7),
+            customerName: ko.observable("Peter Sanders"),
+            contactPhone: ko.observable("318-555-6879"),
+            advancePayment: ko.observable(516.89),
+            discountPercent: ko.observable(8)
+        };
+
+        $(function () {
+            ko.applyBindings(viewModel);
+        });
+    </script>
+
+    <style type="text/css">
+        body { font-family: Arial; }
+        label { display: inline-block; }
+
+        .order-container {
+            position: relative;
+            width: 450px;
+            margin-left: -225px;
+            left: 50%;
+            font-size:1.2em;
+        }
+        .row {
+            margin-top: 5px;
+        }
+        .row-control {
+            height: 28px;
+            padding: 0;
+            vertical-align: top;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .heading-row
+        {
+            margin: 20px 0px 10px 0px;
+            font-size: large;
+        }
+        
+        .heading-label, .row-label, .row-control
+        {
+            width: 200px;
+            margin: 0px 5px 0px 5px;
+        }
+
+
+
+        @media all and (max-width: 520px) {
+            .ui-datepicker {
+                width: 250px;
+            }
+
+            .order-container {
+                width: 280px;
+                margin-left: -140px;
+            }
+
+            .ui-igedit {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+
+    <div class="order-container">
+        <div class="row heading-row">
+            <label class="heading-label">$$(KO_IG_Editors)</label>
+            <label class="heading-label">$$(KO_Plain_Editors)</label>
+        </div>
+        <div class="editor-row">
+            <div class="row">
+                <label class="row-label">$$(KO_Order_Date):</label>
+            </div>
+            <div class="row">
+                <!-- date editor -->
+                <div id="orderDateIG" class="row-control" data-bind="igDateEditor: { value: orderDate, textAlign: 'right' }"></div>
+                <input id="orderDate" type="text" class="row-control" data-bind="value: orderDate"></input>
+            </div>
+        </div>
+
+        <div class="editor-row">
+            <div class="row">
+                <label class="row-label">$$(KO_Ship_Date)</label>
+            </div>
+            <div class="row">
+                <!-- date picker -->
+                <div id="shipDateIG" class="gosho row-control" data-bind="igDatePicker: { value: shipDate, textAlign: 'right' }"></div>
+                <input id="shipDate" class="date-row-control row-control" data-bind="value: shipDate"></input>
+            </div>
+        </div>
+
+        <div class="editor-row">
+            <div class="row">
+                <label class="row-label">$$(KO_Due_in_Days):</label>
+            </div>
+            <div class="row">
+                <!-- numeric editor -->
+                <div id="dueInDaysIG" class="row-control" data-bind="igNumericEditor: { value: dueInDays, textAlign: 'right' }"></div>
+                <input id="dueInDays" type="number" class="row-control" data-bind="value: dueInDays"></input>
+            </div>
+        </div>
+
+        <div class="editor-row">
+            <div class="row">
+                <label class="row-label">$$(KO_Customer_Name):</label>
+            </div>
+            <div class="row">
+                <!-- text editor -->
+                <div id="customerNameIG" class="row-control" data-bind="igTextEditor: { value: customerName, textAlign: 'right' }"></div>
+                <input id="customerNAme" type="text" class="row-control" data-bind="value: customerName"></input>
+            </div>
+        </div>
+
+        <div class="editor-row">
+            <div class="row">
+                <label class="row-label">$$(KO_Contact_Phone): <br> $$(KO_Contact_Phone_Mask)</label>
+            </div>
+            <div class="row">
+                <!-- mask editor -->
+                <div id="contactPhoneIG" class="row-control" data-bind="igMaskEditor: {
+                        value: contactPhone,
+                        inputMask: '000-000-0000',
+                        textAlign: 'right'
+                    }"></div>
+                <input id="contactPhone" type="text" class="row-control" data-bind="value: contactPhone"></input>
+            </div>
+        </div>
+
+        <div class="editor-row">
+            <div class="row">
+                <label class="row-label">$$(KO_Advance_Payment):</label>
+            </div>
+            <div class="row">
+                <!-- currency editor -->
+                <div id="advancePaymentIG" class="row-control" data-bind="igCurrencyEditor: { value: advancePayment, textAlign: 'right' }"></div>
+                <input id="advancePayment" type="text" class="row-control" data-bind="value: advancePayment"></input>
+            </div>
+        </div>
+
+        <div class="editor-row">
+            <div class="row">
+                <label class="row-label">$$(KO_Discount_Percent):</label>
+            </div>
+            <div class="row">
+                <!-- percent editor -->
+                <div id="discountPercentIG" class="row-control" data-bind="igPercentEditor: {
+                        value: discountPercent,
+                        displayFactor : 1,
+                        textAlign: 'right'
+                    }"></div>
+                <input id="discountPercent" type="text" class="row-control" data-bind="value: discountPercent"></input>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

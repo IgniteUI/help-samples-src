@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_twitter-bootstrap)</title>
+    <style type="text/css">
+        body {
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+    </style>
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+    <link href="%%bootstrap-css%%" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+</head>
+<body>
+
+    <script src="../../../../data-files/nw-customers-with-orders.js"></script>
+    <table id="grid"></table>
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                columns: [
+                    { headerText: "$$(Northwind_Customers_CustomerID)", key: "ID", dataType: "string", width:"10%" },
+                    { headerText: "$$(Northwind_Customers_CompanyName)", key: "CompanyName", dataType: "string", width: "10%" },
+                    { headerText: "$$(Northwind_Customers_ContactName)", key: "ContactName", dataType: "string", width: "10%" },
+                    { headerText: "$$(Northwind_Customers_ContactTitle)", key: "ContactTitle", dataType: "string", width: "20%" },
+                    { headerText: "$$(Northwind_Customers_Address)", key: "Address", dataType: "string", width: "20%" },
+                    { headerText: "$$(Northwind_Customers_City)", key: "City", dataType: "string", width: "10%" },
+                    { headerText: "$$(Northwind_Customers_Country)", key: "Country", dataType: "string", width: "15%" }
+                ],
+                autoGenerateColumns: false,
+                dataSource: nwCustomersWithOrders,
+                width: "100%",
+                height: "400px",
+                autofitLastColumn: false,
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "ID",
+                                classes: "hidden-md-down hidden-sm-down"
+                            },
+                            {
+                                columnKey: "ContactName",
+                                classes: "hidden-sm-down"
+                            },
+                            {
+                                columnKey: "ContactTitle",
+                                classes: "hidden-md-down hidden-sm-down"
+                            },
+                            {
+                                columnKey: "Address",
+                                classes: "hidden-sm-down"
+                            },
+                            {
+                                columnKey: "City",
+                                classes: "hidden-sm-down"
+                            },
+                            {
+                                columnKey: "Country",
+                                classes: "hidden-md-down hidden-sm-down"
+                            }
+                        ]
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

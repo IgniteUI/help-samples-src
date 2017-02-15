@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_bind-tree-with-ko)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+</head>
+<body>
+    <script src="%%knockout%%" type="text/javascript"></script>
+    <script src="%%knockout.mapping%%" type="text/javascript"></script>
+    <script src="%%ignite-ui%%/js/extensions/infragistics.ui.tree.knockout-extensions.js"></script>
+    <script src="%%ignite-ui%%/js/extensions/infragistics.ui.editors.knockout-extensions.js"></script>
+
+    <script type="text/javascript">
+        var viewModel;
+
+        //  Define empty objects for Category and Product to be used when
+        //  nothing is to be rendered in the editor controls
+        ViewModel.prototype.categoryEmpty = {
+            CategoryName: "",
+            Description: "",
+            ProductCount: 0
+        };
+        ViewModel.prototype.productEmpty = {
+            ProductName: "",
+            QuantityPerUnit: 0.0,
+            UnitPrice: 0.0,
+            UnitsInStock: 0.0,
+            UnitsOnOrder: 0.0,
+            Discontinued: false
+        };
+
+        //  Creates a ViewModel object
+        function ViewModel(categories) {
+            var self = this;
+
+            this.data = categories;
+            this.Category = ko.observable(self.categoryEmpty);
+            this.Product = ko.observable(self.productEmpty);
+
+            this.SetSelected = function (item) {
+                if (item.ProductName != null) {
+                    self.Product(item);
+                }
+                else if (item.CategoryName != null) {
+                    self.Category(item);
+                    self.Product(self.productEmpty);
+                }
+            };
+        };
+
+        $(function () {
+            $(".message").ajaxError(function () {
+                $(this).css("color", "red");
+                $(this).text("$$(Getting_Data_Error)");
+            });
+            //  Get all the Categories and their related Products from the Northwind database
+               $.getJSON("http://igniteui.com/api/categories?callback=?", function (data) {
+                viewModel = new ViewModel(ko.mapping.fromJS(data.d.results));
+
+                viewModel.Category.subscribe(function (item) {
+                    setContainerVisible(item, "#categoryEditorsContainer");
+                });
+
+                viewModel.Product.subscribe(function (item) {
+                    setContainerVisible(item, "#productEditorsContainer");
+                });
+
+                ko.applyBindings(viewModel);
+                $(".message").hide();
+            }, 'json');
+        });
+
+        function setContainerVisible(item, containerSelector) {
+            if (item != null && item.hasOwnProperty("ID")) {
+                $(containerSelector).show();
+            }
+            else {
+                $(containerSelector).hide();
+            }
+        }
+
+        $(function () {
+            $(document).on("igtreeselectionchanged", "#tree", function (evt, ui) {
+            	if (ui.newNodes.length > 0) {
+            		var parentElement = $("#tree").igTree("parentNode", ui.newNodes[0].element);
+            		//  Set selected Category to be the category of the selected product
+            		if (parentElement) {
+            			var parentNode = $("#tree").igTree("nodeFromElement", parentElement);
+            			viewModel.SetSelected(parentNode.data);
+            			setTimeout(function () {
+            				if ($(window).width() < 600) {
+            					$("#productEditorsContainer").focus();
+            				}
+            			}, 0);
+            		} else {
+            			setTimeout(function () {
+            				if ($(window).width() < 600) {
+            					$("#categoryEditorsContainer").focus();
+            				}
+            			}, 0);
+            		}
+            		viewModel.SetSelected(ui.newNodes[0].data);
+            	}
+            });
+        });
+    </script>
+
+    <style>
+        .message
+        {
+            color: darkorange;
+            font-weight: bold;
+        }
+
+        .container
+        {
+            width: 40%;
+            position: relative;
+            float: left;
+            padding: 0px 10px 0px 10px;
+        }
+
+        #tree
+        {
+            border-right: 1px solid grey;
+        }
+
+        #categoryEditorsContainer, #productEditorsContainer
+        {
+            display: none;
+        }
+
+		@media screen and (max-width: 600px) {
+    		.container { 
+				width: 100%;
+				clear: both;
+				padding-top: 10px;
+    		}
+			#tree
+			{
+				border-right: none;
+				border-bottom: 1px solid grey;
+			}
+        }
+    </style>
+
+    <div><span class="message">$$(KO_Getting_Data)</span></div>
+    <div class="container">
+        <div id="tree" data-bind="igTree: {
+		    dataSource: data,
+		    width: '100%',
+            dataSourceType: 'json',
+            singleBranchExpand: true,
+		    bindings: {
+			    textKey: 'CategoryName',
+			    valueKey: 'ID',
+                childDataProperty: 'Products',
+                bindings: {
+                    textKey: 'ProductName',
+                    valueKey: 'ProductID'
+                }
+		    }
+	    }"></div>
+    </div>
+
+    <div class="container">
+        <div id="categoryEditorsContainer" tabindex="0">
+            <h4>$$(KO_Category)</h4>
+            <table>
+                <colgroup>
+                    <col span="1" style="min-width: 30%;">
+                    <col span="1" style="width: 68%;">
+                </colgroup>
+                <tr>
+                    <td>$$(KO_Name):</td>
+                    <td><div data-bind="igTextEditor: { 
+                            value: Category().CategoryName, 
+                            updateMode: 'immediate' 
+                        }"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>$$(KO_Description):</td>
+                    <td><div data-bind="igTextEditor: { value: Category().Description }"></div></td>
+                </tr>
+                <tr>
+                    <td>$$(KO_Product_Count):</td>
+                    <td><div data-bind="igNumericEditor: { value: Category().ProductCount }"></div></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="productEditorsContainer" tabindex="1">
+            <h4>$$(KO_Product)</h4>
+            <table>
+                <colgroup>
+                    <col span="1" style="min-width: 30%;">
+                    <col span="1" style="width: 68%;">
+                </colgroup>
+                <tr>
+                    <td>$$(KO_Name):</td>
+                    <td><div data-bind="igTextEditor: { value: Product().ProductName }"></div></td>
+                </tr>
+                <tr>
+                    <td>$$(KO_Quantity_per_Unit):</td>
+                    <td><div data-bind="igNumericEditor: { value: Product().QuantityPerUnit }"></div></td>
+                </tr>
+                <tr>
+                    <td>$$(KO_Unit_Price):</td>
+                    <td><div data-bind="igCurrencyEditor: { value: Product().UnitPrice }"></div></td>
+                </tr>
+                <tr>
+                    <td>$$(KO_Units_in_Stock):</td>
+                    <td><div data-bind="igNumericEditor: { value: Product().UnitsInStock }"></div></td>
+                </tr>
+                <tr>
+                    <td>$$(KO_Units_on_Order):</td>
+                    <td><div data-bind="igNumericEditor: { value: Product().UnitsOnOrder }"></div></td>
+                </tr>
+                <tr>
+                    <td>$$(KO_Discontinued)</td>
+                    <td><input type="checkbox" data-bind="checked: Product().Discontinued"></input></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

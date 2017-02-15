@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_responsive-vertical-rendering)</title>
+    <style type="text/css">
+        body {
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+    </style>
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+</head>
+<body>
+
+    <script src="../../../../data-files/nw-customers-with-orders.js"></script>
+
+    <fieldset id="sortingAPI">
+        <legend>$$(sel_col_sort_lbl)</legend>
+
+        <div id="gridColumns"></div>
+        <input type="button" id="igButtonSort" value="$$(button_lbl_sortColumn)" style="vertical-align: top; padding-top: 0px; height: 23px;"></input>
+
+    </fieldset>
+
+    <table id="grid7"></table>
+
+    <script>
+        $(function () {
+            var data = [
+                    { "columnKey": "CompanyName", "columnHeader": "$$(Northwind_Customers_CompanyName)" },
+                    { "columnKey": "ContactName", "columnHeader": "$$(Northwind_Customers_ContactName)" },
+                    { "columnKey": "ContactTitle", "columnHeader": "$$(Northwind_Customers_ContactTitle)" },
+                    { "columnKey": "Address", "columnHeader": "$$(Northwind_Customers_Address)" },
+                    { "columnKey": "City", "columnHeader": "$$(Northwind_Customers_City)" }
+            ];
+
+            $("#gridColumns").igCombo({
+                dataSource: data, //JSON Array defined above
+                valueKey: "columnKey",
+                textKey: "columnHeader",
+                width: "300px",
+                mode: "dropdown",
+                height: "25px",
+                selectedItems: [{index: 0}]
+            });
+
+            $( "#igButtonSort" ).igButton( {
+                labelText: $( "#igButtonSort" ).val(),
+                height: "25px"
+            } );
+
+            $("#igButtonSort").on({
+                click: function (e) {
+                    var columnKey = $( "#gridColumns" ).igCombo( "value" );
+                    if ( columnKey ) {
+                        $( '#grid7' ).igGridSorting( 'sortColumn', columnKey, 'ascending' );
+                    }
+                }
+            });
+
+            $("#grid7").igGrid({
+                columns: [
+                    { headerText: "$$(Northwind_Customers_CustomerID)", key: "ID", dataType: "string", hidden: true },
+                    { headerText: "$$(Northwind_Customers_CompanyName)", key: "CompanyName", dataType: "string" },
+                    { headerText: "$$(Northwind_Customers_ContactName)", key: "ContactName", dataType: "string" },
+                    { headerText: "$$(Northwind_Customers_ContactTitle)", key: "ContactTitle", dataType: "string" },
+                    { headerText: "$$(Northwind_Customers_Address)", key: "Address", dataType: "string" },
+                    { headerText: "$$(Northwind_Customers_City)", key: "City", dataType: "string" },
+                    { headerText: "$$(Northwind_Customers_Country)", key: "Country", dataType: "string", hidden: true }
+                ],
+                primaryKey: "ID",
+                autoGenerateColumns: false,
+                dataSource: nwCustomersWithOrders,
+                height: "600px",
+                width: "100%",
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: true,
+                        reactOnContainerWidthChanges: true,
+                        windowWidthToRenderVertically: null,
+                        propertiesColumnWidth: "40%",
+                        valuesColumnWidth: "60%",
+                        allowedColumnWidthPerType: {
+                            string: 300,
+                            number: 100,
+                            bool: 100,
+                            date: 100,
+                            object: 150
+                        }
+                    },
+                    {
+                        name: "Paging",
+                        type: "local",
+                        pageSize: 5
+                    },
+                    {
+                        name: "Sorting",
+                        type: "local"
+                    }
+                ]
+            });            
+        });
+    </script>
+
+</body>
+</html>

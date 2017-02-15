@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_numeric-xaxis-intervals)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <style type="text/css">
+        .chart {
+            position: relative;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .slider {
+            width: 150px;
+            margin: 6px 3px -1px 6px;
+            display: inline-block;
+        }
+
+        .optionsPane {
+            position: relative;
+            float:  initial;
+            width: 500px;
+            margin: 6px 3px 6px 6px;
+            display: inline-block;
+            padding-top: 18px;
+        }
+
+
+        .optionContainer {
+            float: left;
+            position: relative;
+            width: 315px;
+            margin: 2px;
+            padding: 2px;
+            display: inline-block;
+            border: 1px solid #e0e0e0;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+        .labels {
+        padding-right: 8px;
+        }
+
+        .labels2 {
+        padding-right: 8px;
+        }
+
+        .labels3 {
+            padding-right: 0px;
+        }
+
+    </style>
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+
+    <script type="text/javascript" src="../../../../data-files/us-fao-gross-production.js"></script>
+
+        <div class="chart" id="chartScatterLine"></div>
+
+        <div class="optionsPane">
+            <div class="optionsPane">
+                <div><b>$$(XAxisIntervalOptions)</b></div>
+                <div class="optionContainer">
+                    <label id="showXMajorAxisLinesLbl" class="labels">$$(ShowXAxisMajorInterval)</label>
+                    <input id="xAxisMajorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                    <div>
+                        <label id="XMajorIntervalThicknessLbl">$$(XMajorIntervalThickness)</label>
+                        <div id="XMajorIntervalThicknessSlider" class="slider"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="optionContainer">
+                        <label id="showXMinorAxisLinesLbl" class="labels">$$(ShowXAxisMinorInterval)</label>
+                        <input id="xAxisMinorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                        <div>
+                            <label id="XMinorIntervalThicknessLbl">$$(XMinorIntervalThickness)</label>
+                            <div id="XMinorIntervalThicknessSlider" class="slider"></div>
+                        </div>
+                        <div>
+                            <label id="XMinorIntervalValueLbl" class="labels2">$$(XMinorIntervalValue)</label>
+                            <div id="XMinorIntervalValueSlider" class="slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="optionsPane">
+                <div><b>$$(YAxisIntervalOptions)</b></div>
+                <div class="optionContainer">
+                    <label id="showYMajorAxisLinesLbl" class="labels">$$(ShowYAxisMajorInterval)</label>
+                    <input id="yAxisMajorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                    <div>
+                        <label id="YMajorIntervalThicknessLbl">$$(YMajorIntervalThickness)</label>
+                        <div id="YMajorIntervalThicknessSlider" class="slider"></div>
+                    </div>
+                </div>
+
+                <div class="optionContainer">
+                    <label id="showYMinorAxisLinesLbl" class="labels">$$(ShowYAxisMinorInterval)</label>
+                    <input id="yAxisMinorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                    <div>
+                        <label id="YMinorIntervalThicknessLbl">$$(YMinorIntervalThickness)</label>
+                        <div id="YMinorIntervalThicknessSlider" class="slider"></div>
+                    </div>
+                    <div>
+                        <label id="YMinorIntervalValueLbl" class="labels3">$$(YMinorIntervalValueNumeric)</label>
+                        <div id="YMinorIntervalValueSlider" class="slider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="UNdata-attribution">
+        $$(Chart_lbl_faoDataFrom):<br>
+        <a href="http://data.un.org/" target="_blank">UNdata</a>
+    </div>
+
+    <script type="text/javascript">
+
+        var transparentBrush = "rgba(0,0,0,0)";
+        var brush;
+
+        function createScatterChart(dataSource) {
+            $("#chartScatterLine").igDataChart({
+                width: "450px",
+                height: "400px",
+                dataSource: dataSource,
+                title: "$$(Chart_title_us_fao)",
+                subtitle: "$$(Chart_subtitle_us_fao)",
+                axes: [{
+                    name: "xAxis",
+                    type: "numericX",
+                    title: "$$(XAxis_title_us_fao)",
+
+                    majorStroke: "Green",
+                    minorStroke: 'Red',
+                    minorInterval: 2,
+                    interval: 10,
+                    majorStrokeThickness: 2,
+
+                }, {
+                    name: "yAxis",
+                    type: "numericY",
+                    title: "$$(YAxis_title_us_fao)",
+                    majorStroke: "Green",
+                    minorStroke: 'Red',
+                    minorInterval: 5000,
+                    interval: 10000,
+                    maximumValue: 200000,
+                    formatLabel: function (val) {
+                        var bVal = (val / 1000),
+                        rounded = Math.round(bVal * 100) / 100;
+                        return "$" + rounded;
+                    }
+                }],
+                series: [{
+                    name: "scatter",
+                    type: "scatterLine",
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    xMemberPath: "Year",
+                    yMemberPath: "Value",
+                    markerType: "circle",
+                }],
+                horizontalZoomable: true,
+                verticalZoomable: true,
+                windowResponse: "immediate"
+            })
+        };
+
+        $("#xAxisMajorLinesCkBx").click(function (e) {
+            brush = $("#xAxisMajorLinesCkBx").is(":checked") ? "Green" : transparentBrush;
+            $("#chartScatterLine").igDataChart("option", "axes", [{ name: "xAxis", majorStroke: brush }]);
+            $("#chartScatterLine").igDataChart("styleUpdated");
+        });
+
+        $("#xAxisMinorLinesCkBx").click("change", function () {
+            brush = ($(this).is(":checked")) ? "Red" : transparentBrush;
+            $("#chartScatterLine").igDataChart("option", "axes", [{ name: "xAxis", minorStroke: brush }]);
+            $("#chartScatterLine").igDataChart("styleUpdated");
+        });
+
+        $("#yAxisMajorLinesCkBx").click("change", function () {
+            brush = ($(this).is(":checked")) ? "Green" : transparentBrush;
+            $("#chartScatterLine").igDataChart("option", "axes", [{ name: "yAxis", majorStroke: brush }]);
+            $("#chartScatterLine").igDataChart("styleUpdated");
+        });
+
+        $("#yAxisMinorLinesCkBx").click("change", function () {
+            brush = ($(this).is(":checked")) ? "Red" : transparentBrush;
+            $("#chartScatterLine").igDataChart("option", "axes", [{ name: "yAxis", minorStroke: brush }]);
+            $("#chartScatterLine").igDataChart("styleUpdated");
+        });
+
+        $("#XMajorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 2,
+            slide: function (e, ui) {
+                $("#chartScatterLine").igDataChart("option", "axes", [{ name: "xAxis", majorStrokeThickness: ui.value }]);
+                $("#XMajorIntervalThicknessLbl").text("$$(XMajorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#XMinorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 1,
+            slide: function (e, ui) {
+                $("#chartScatterLine").igDataChart("option", "axes", [{ name: "xAxis", minorStrokeThickness: ui.value }]);
+                $("#XMinorIntervalThicknessLbl").text("$$(XMinorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#YMajorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 2,
+            slide: function (e, ui) {
+                $("#chartScatterLine").igDataChart("option", "axes", [{ name: "yAxis", majorStrokeThickness: ui.value }]);
+                $("#YMajorIntervalThicknessLbl").text("$$(YMajorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#YMinorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 1,
+            slide: function (e, ui) {
+                $("#chartScatterLine").igDataChart("option", "axes", [{ name: "yAxis", minorStrokeThickness: ui.value }]);
+                $("#YMinorIntervalThicknessLbl").text("$$(YMinorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#XMinorIntervalValueSlider").slider({
+            min: 1,
+            max: 10,
+            value: 2,
+            slide: function (e, ui) {
+                $("#chartScatterLine").igDataChart("option", "axes", [{ name: "xAxis", minorInterval: ui.value }]);
+                $("#XMinorIntervalValueLbl").text("$$(XMinorIntervalValueSldr)" + ui.value);
+            }
+        });
+        $("#YMinorIntervalValueSlider").slider({
+            min: 1,
+            max: 10,
+            value: 5,
+            slide: function (e, ui) {
+                $("#chartScatterLine").igDataChart("option", "axes", [{ name: "yAxis", minorInterval: (ui.value * 1000) }]);
+                $("#YMinorIntervalValueLbl").text("$$(YMinorIntervalValueSldr)" + (ui.value * 1000));
+            }
+        });
+         
+            var dataSource = agriculturalData;
+            createScatterChart(dataSource);
+
+    </script>
+</body>
+</html>

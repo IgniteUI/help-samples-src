@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>$$(Title_multi-row-layout)</title>
+
+	<!-- Ignite UI Required Combined CSS Files -->
+	<link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+	<link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+	<script src="%%modernizr%%"></script>
+	<script src="%%jquery%%"></script>
+	<script src="%%jquery-ui%%"></script>
+
+	<!-- Ignite UI Required Combined JavaScript Files -->
+	<script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+	<script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+	<!--Sample JSON Data-->
+	<script src="../../../../data-files/company-data.js"></script>
+</head>
+<body>
+	<table id="grid-mrl"></table>
+
+	<script>
+		$(function () {
+			$("#grid-mrl").igGrid({
+				dataSource: data,
+				autoCommit: true,
+				width: "100%",
+				autoGenerateColumns: false,
+				primaryKey: "company",
+				columns: [
+					{ headerText: "$$(company)", key: "company", dataType: "string", rowIndex: 0, columnIndex: 0, colSpan: 2 },
+					{ headerText: "$$(sales_lifetimeSales)", key: "sales_lifetimeSales", dataType: "number", rowIndex: 0, columnIndex: 2, colSpan: 2, rowSpan: 2 },
+					{ headerText: "$$(sales_marketPotential)", key: "sales_marketPotential", dataType: "number", rowIndex: 0, columnIndex: 4, rowSpan: 3, width: "10%" },
+					{ headerText: "$$(assets_cash)", key: "assets_cash", dataType: "number", rowIndex: 0, columnIndex: 5, width: "10%" },
+					{ headerText: "$$(assets_accRec)", key: "assets_accRec", dataType: "number", rowIndex: 0, columnIndex: 6, width: "20%" },
+					{ headerText: "$$(table_lbl_country)", key: "country", dataType: "string", rowIndex: 1, columnIndex: 0, width: "10%" },
+					{ headerText: "$$(table_lbl_city)", key: "city", dataType: "string", rowIndex: 1, columnIndex: 1, width: "10%" },
+					{ headerText: "$$(assets_books)", key: "assets_books", dataType: "number", rowIndex: 1, columnIndex: 5, colSpan: 2, rowSpan: 2 },
+					{ headerText: "$$(Northwind_Customers_Address)", key: "address", dataType: "string", rowIndex: 2, columnIndex: 0, colSpan: 2 },
+					{ headerText: "$$(sales_quarterlySales)", key: "sales_quarterlySales", dataType: "number", rowIndex: 2, columnIndex: 2, width: "10%" },
+					{ headerText: "$$(sales_yearlySales)", key: "sales_yearlySales", dataType: "number", rowIndex: 2, columnIndex: 3, width: "10%" }
+				],
+				autofitLastColumn: false,
+				features: [
+					{ name: "Paging", pageSize: 5 },
+					{
+						name: "Updating",
+						editMode: "dialog"
+					},
+					{
+						name: "Filtering",
+						mode: "advanced"
+					}, {
+						name: "Sorting"
+					}
+				]
+			});
+		});
+</script>
+</body>
+</html>

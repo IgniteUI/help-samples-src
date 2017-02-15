@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_angular)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+    <link href="%%bootstrap-css%%" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+    <script src="%%angular%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script src="%%ignite-ui%%/js/extensions/igniteui-angular.js"></script>
+    
+    <style>
+        .row {
+            margin-right: 0;
+            margin-left: 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var sampleApp = angular.module('sampleApp', ['igniteui-directives']);
+        sampleApp.controller('editorsController', function ($scope) {
+            $scope.editors = {
+                currency: 12.1,
+                date: new Date(),
+                editor: 'Infragistics',
+                mask: '134-134-134',
+                numeric: 123,
+                percent: 0.12,
+                text: 'Ignite UI'
+            };
+        });
+    </script>
+
+</head>
+<body>
+    <div ng-app="sampleApp" ng-controller="editorsController">
+        <table id="" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>$$(Control_Name)</th>
+                    <th>$$(HTML_Element)</th>
+                    <th>$$(IgniteUI_Controls)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>igCurrencyEditor</td>
+                    <td><input class="form-control" type="number" ng-model="editors.currency" step="any"></input></td>
+                    <td><ig-currency-editor class="form-control" ng-model="editors.currency"></ig-currency-editor></td>
+                </tr>
+                <tr>
+                    <td>igDateEditor</td>
+                    <td><input class="form-control" type="text" ng-model="editors.date"></input></td>
+                    <td><ig-date-editor class="form-control" ng-model="editors.date"></ig-date-editor></td>
+                </tr>
+                <tr>
+                    <td>igMaskEditor</td>
+                    <td><input class="form-control" type="text" ng-model="editors.mask"></input></td>
+                    <td><ig-mask-editor class="form-control" ng-model="editors.mask" input-mask="999-999-999"></ig-mask-editor></td>
+                </tr>
+                <tr>
+                    <td>igNumericEditor</td>
+                    <td><input class="form-control" type="number" ng-model="editors.currency" step="any"></input></td>
+                    <td><ig-numeric-editor class="form-control" ng-model="editors.currency" button-type="spin"></ig-numeric-editor></td>
+                </tr>
+                <tr>
+                    <td>igPercentEditor</td>
+                    <td><input type="number" class="form-control" ng-model="editors.percent" step="any"></input></td>
+                    <td><ig-percent-editor class="form-control" ng-model="editors.percent"></ig-percent-editor></td>
+                </tr>
+                <tr>
+                    <td>igTextEditor</td>
+                    <td><input class="form-control" type="text" id="editor11" ng-model="editors.text"></input></td>
+                    <td><ig-text-editor class="form-control" id="editor1" ng-model="editors.text"></ig-text-editor></td>
+                </tr>
+                <tr>
+                    <td>igDatePicker</td>
+                    <td><input class="form-control" type="text" id="datePicker11" ng-model="editors.date"></input></td>
+                    <td><ig-date-picker class="form-control" id="datePicker1" ng-model="editors.date"></ig-date-picker></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

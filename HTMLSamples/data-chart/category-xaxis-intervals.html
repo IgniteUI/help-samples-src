@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_category-xaxis-intervals)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <style type="text/css">
+        .chart {
+            position: relative;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .slider {
+            width: 150px;
+            margin: 6px 3px -1px 6px;
+            display: inline-block;
+        }
+
+        .optionsPane {
+            position: relative;
+            float: initial;
+            width: 500px;
+            margin: 6px 3px 6px 6px;
+            display: inline-block;
+            padding-top: 18px;
+        }
+
+
+        .optionContainer {
+            float: left;
+            position: relative;
+            width: 315px;
+            margin: 2px;
+            padding: 2px;
+            display: inline-block;
+            border: 1px solid #e0e0e0;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+        .labels {
+            padding-right: 8px;
+        }
+
+        .labels2 {
+            padding-right: 8px;
+        }
+
+        .labels3 {
+            padding-right: 0px;
+        }
+    </style>
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+
+    <script type="text/javascript" src="../../../../data-files/us-fao-gross-production.js"></script>
+
+    <div class="chart" id="chart"></div>
+
+    <div class="optionsPane">
+        <div class="optionsPane">
+            <div><b>$$(XAxisIntervalOptions)</b></div>
+            <div class="optionContainer">
+                <label id="showXMajorAxisLinesLbl" class="labels">$$(ShowXAxisMajorInterval)</label>
+                <input id="xAxisMajorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                <div>
+                    <label id="XMajorIntervalThicknessLbl">$$(XMajorIntervalThickness)</label>
+                    <div id="XMajorIntervalThicknessSlider" class="slider"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="optionContainer">
+                    <label id="showXMinorAxisLinesLbl" class="labels">$$(ShowXAxisMinorInterval)</label>
+                    <input id="xAxisMinorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                    <div>
+                        <label id="XMinorIntervalThicknessLbl">$$(XMinorIntervalThickness)</label>
+                        <div id="XMinorIntervalThicknessSlider" class="slider"></div>
+                    </div>
+                    <div>
+                        <label id="XMinorIntervalValueLbl" class="labels2">$$(XMinorIntervalValue)</label>
+                        <div id="XMinorIntervalValueSlider" class="slider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="optionsPane">
+            <div><b>$$(YAxisIntervalOptions)</b></div>
+            <div class="optionContainer">
+                <label id="showYMajorAxisLinesLbl" class="labels">$$(ShowYAxisMajorInterval)</label>
+                <input id="yAxisMajorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                <div>
+                    <label id="YMajorIntervalThicknessLbl">$$(YMajorIntervalThickness)</label>
+                    <div id="YMajorIntervalThicknessSlider" class="slider"></div>
+                </div>
+            </div>
+
+            <div class="optionContainer">
+                <label id="showYMinorAxisLinesLbl" class="labels">$$(ShowYAxisMinorInterval)</label>
+                <input id="yAxisMinorLinesCkBx" type="checkbox" class="chkBoxMargin" checked=""></input>
+                <div>
+                    <label id="YMinorIntervalThicknessLbl">$$(YMinorIntervalThickness)</label>
+                    <div id="YMinorIntervalThicknessSlider" class="slider"></div>
+                </div>
+                <div>
+                    <label id="YMinorIntervalValueLbl" class="labels3">$$(YMinorIntervalValue)</label>
+                    <div id="YMinorIntervalValueSlider" class="slider"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="USCensus-attribution">
+        $$(Chart_lbl_popDataFrom):<br>
+        <a href="http://www.census.gov/" target="_blank">U.S. Census Bureau</a>
+    </div>
+
+    <script type="text/javascript">
+
+        var transparentBrush = "rgba(0,0,0,0)";
+        var brush;
+
+        $(function () {
+
+            var data = [
+                { "CountryName": "China", "Pop1995": 1216, "Pop2005": 1297, "Pop2015": 1361, "Pop2025": 1394 },
+                { "CountryName": "India", "Pop1995": 920, "Pop2005": 1090, "Pop2015": 1251, "Pop2025": 1396 },
+                { "CountryName": "United States", "Pop1995": 266, "Pop2005": 295, "Pop2015": 322, "Pop2025": 351 },
+                { "CountryName": "Indonesia", "Pop1995": 197, "Pop2005": 229, "Pop2015": 256, "Pop2025": 277 },
+                { "CountryName": "Brazil", "Pop1995": 161, "Pop2005": 186, "Pop2015": 204, "Pop2025": 218 }
+            ];
+
+            $("#chart").igDataChart({
+                width: "450px",
+                height: "400px",
+                title: "$$(Chart_title_countries_pop)",
+                subtitle: "$$(Chart_subtitle_countries_1995_v_2005)",
+                dataSource: data,
+                axes: [
+                {
+                    name: "xAxis",
+                    type: "categoryX",
+                    title: "$$(CategoryAxis_title_countries_pop)",
+                    label: "CountryName",
+
+                    majorStroke: "Green",
+                    minorStroke: 'Red',
+                    minorInterval: 2,
+                    interval: 2,
+                    majorStrokeThickness: 2,
+                },
+                {
+                    name: "yAxis",
+                    type: "numericY",
+                    minimumValue: 0,
+                    title: "$$(NumericAxis_title_population)",
+
+                    majorStroke: "Green",
+                    minorStroke: 'Red',
+                    minorInterval: 100,
+                    interval: 200,
+                    majorStrokeThickness: 2,
+                }
+                ],
+                series: [
+                {
+                    name: "2005Population",
+                    type: "column",
+                    isTransitionInEnabled: true,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "Pop2005"
+                },
+                {
+                    name: "1995Population",
+                    type: "column",
+                    isTransitionInEnabled: true,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "Pop1995"
+                },
+                {
+                    name: "catItemHighlightLayer",
+                    title: "categoryItemHighlight",
+                    type: "categoryItemHighlightLayer",
+                    opacity: 0.5,
+                    thickness: 1,
+                    transitionDuration: 150
+                }],
+                horizontalZoomable: true,
+                verticalZoomable: true,
+                windowResponse: "immediate"
+            })
+        });
+
+        $("#xAxisMajorLinesCkBx").click(function (e) {
+            brush = $("#xAxisMajorLinesCkBx").is(":checked") ? "Green" : transparentBrush;
+            $("#chart").igDataChart("option", "axes", [{ name: "xAxis", majorStroke: brush }]);
+            $("#chart").igDataChart("styleUpdated");
+        });
+
+        $("#xAxisMinorLinesCkBx").click("change", function () {
+            brush = ($(this).is(":checked")) ? "Red" : transparentBrush;
+            $("#chart").igDataChart("option", "axes", [{ name: "xAxis", minorStroke: brush }]);
+            $("#chart").igDataChart("styleUpdated");
+        });
+
+        $("#yAxisMajorLinesCkBx").click("change", function () {
+            brush = ($(this).is(":checked")) ? "Green" : transparentBrush;
+            $("#chart").igDataChart("option", "axes", [{ name: "yAxis", majorStroke: brush }]);
+            $("#chart").igDataChart("styleUpdated");
+        });
+
+        $("#yAxisMinorLinesCkBx").click("change", function () {
+            brush = ($(this).is(":checked")) ? "Red" : transparentBrush;
+            $("#chart").igDataChart("option", "axes", [{ name: "yAxis", minorStroke: brush }]);
+            $("#chart").igDataChart("styleUpdated");
+        });
+
+        $("#XMajorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 2,
+            slide: function (e, ui) {
+                $("#chart").igDataChart("option", "axes", [{ name: "xAxis", majorStrokeThickness: ui.value }]);
+                $("#XMajorIntervalThicknessLbl").text("$$(XMajorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#XMinorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 1,
+            slide: function (e, ui) {
+                $("#chart").igDataChart("option", "axes", [{ name: "xAxis", minorStrokeThickness: ui.value }]);
+                $("#XMinorIntervalThicknessLbl").text("$$(XMinorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#YMajorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 2,
+            slide: function (e, ui) {
+                $("#chart").igDataChart("option", "axes", [{ name: "yAxis", majorStrokeThickness: ui.value }]);
+                $("#YMajorIntervalThicknessLbl").text("$$(YMajorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#YMinorIntervalThicknessSlider").slider({
+            min: 1,
+            max: 10,
+            value: 1,
+            slide: function (e, ui) {
+                $("#chart").igDataChart("option", "axes", [{ name: "yAxis", minorStrokeThickness: ui.value }]);
+                $("#YMinorIntervalThicknessLbl").text("$$(YMinorIntervalThicknessSldr)" + ui.value);
+            }
+        });
+
+        $("#XMinorIntervalValueSlider").slider({
+            min: 1,
+            max: 10,
+            value: 50,
+            slide: function (e, ui) {
+                $("#chart").igDataChart("option", "axes", [{ name: "xAxis", minorInterval: (ui.value * .1) }]);
+                var num = ui.value * 0.1;
+                $("#XMinorIntervalValueLbl").text("$$(XMinorIntervalValueSldr)" + num.toFixed(2));
+            }
+        });
+        $("#YMinorIntervalValueSlider").slider({
+            min: 1,
+            max: 20,
+            value: 10,
+            slide: function (e, ui) {
+                $("#chart").igDataChart("option", "axes", [{ name: "yAxis", minorInterval: (ui.value * 10) }]);
+                $("#YMinorIntervalValueLbl").text("$$(YMinorIntervalValueSldr)" + (ui.value * 10));
+            }
+        });
+
+    </script>
+</body>
+</html>

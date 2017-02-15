@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_custom-conditions-filtering)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+</head>
+<body>
+    <h3 id="gridCustomConditionsFilteringLabel">$$(GridCustomConditionsFiltering_label)</h3>
+     <!-- Target element for the Custom conditions Filtering igGrid -->
+    <table id="gridCustomConditions"></table>
+     <br>
+    
+     <!--Sample JSON Data-->
+   <script src="../../../../data-files/employee-data-allDatatypes.js"></script>
+
+    <script>
+        $(function () {
+            createCustomConditionsFilteringGrid();
+        });
+
+        function createCustomConditionsFilteringGrid() {
+            $("#gridCustomConditions").igGrid({
+                autoGenerateColumns: false,
+                columns: [ 
+                    { headerText: "$$(table_lbl_employeeID)", key: "EmployeeID", dataType: "string", hidden: true },
+                    { headerText: "$$(table_lbl_firstName)", key: "FirstName", dataType: "string" },
+                    { headerText: "$$(table_lbl_lastName)", key: "LastName", dataType: "string" },
+                    { headerText: "$$(table_lbl_register_date)", key: "RegistererDate", dataType: "date" },
+                    { headerText: "$$(table_lbl_country)", key: "Country", dataType: "string" },
+                    { headerText: "$$(table_lbl_age)", key: "Age", dataType: "number" },
+                    { headerText: "$$(table_lbl_isActive)", key: "IsActive", dataType: "bool" }
+                ],
+                dataSource: employees,
+                renderCheckboxes: true,
+                responseDataKey: "results",
+                features: [
+                    {
+                        name: "Filtering",
+                        mode: "simple",
+                        filterDialogContainment: "window",
+                        columnSettings: [
+                        {
+                            columnKey: "Country",
+                            customConditions: {
+                               USA: {
+                                    key: 'USA',
+                                    labelText: 'USA',
+                                    expressionText: "USA",
+                                    filterFunc: filterCountryUSA
+                               },
+                               Canada:{
+                                     key: 'Canada',
+                                     labelText: 'Canada',
+                                     expressionText: "Canada",
+                                     filterFunc: filterCountryCanada
+                               },
+                            }
+                        },
+                        {
+                            columnKey: "Age",
+                            customConditions: {
+                                Over21: {
+                                    labelText: '$$(Over21_Filter)',
+                                    expressionText: '$$(Over21_Filter)',
+                                    requireExpr: false,
+                                    filterFunc: filterAge
+                                }
+                            },
+                            defaultExpressions: [
+                                { cond: "Over21" }
+                            ]
+                        }
+                    ]
+                    },
+                    {
+                        name: "Paging",
+                        type: "local",
+                        pageSize: 10
+                    }
+                ]
+            });
+        }
+
+        function filterCountryUSA(value, expression, dataType, ignoreCase, preciseDateFormat) {
+            return value === "USA";
+        }
+        function filterCountryCanada(value, expression, dataType, ignoreCase, preciseDateFormat) {
+            return value === "Canada";
+        }
+        function filterAge(value, expression, dataType, ignoreCase, preciseDateFormat) {
+            return value > 21;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_chart-title)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+    <script type="text/javascript" src="../../../../data-files/world-energy-production.js">    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#columnChart").igDataChart({
+                width: "98%",
+                height: "400px",
+                dataSource: lastFiveYears,
+                title: "$$(Chart_title_energy_production)",
+                subtitle: "$$(Chart_subtitle_energy_production)",
+                horizontalZoomable: true,
+                verticalZoomable: true,
+                legend: { element: "columnLegend" },
+                axes: [{
+                    name: "xAxis",
+                    type: "categoryX",
+                    label: "Year",
+                    title: "$$(CategoryAxis_title_energy_production)"
+                }, {
+                    name: "yAxis",
+                    type: "numericY",
+                    title: "$$(NumericAxis_title_energy_production)",
+                }],
+                series: [{
+                    name: "series1",
+                    title: "Canada",
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "Canada",
+                    tooltipTemplate: "Canada",
+                    showTooltip: true
+
+                }, {
+                    name: "series2",
+                    title: "Saudi Arabia",
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "SaudiArabia",
+                    tooltipTemplate: "Saudi Arabia",
+                    showTooltip: true
+                }, {
+                    name: "series3",
+                    title: "Russia",
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "Russia",
+                    tooltipTemplate: "Russia",
+                    showTooltip: true
+                },
+                {
+                    name: "series4",
+                    title: "United States",
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "UnitedStates",
+                    tooltipTemplate: "United States",
+                    showTooltip: true
+                },
+                {
+                    name: "series5",
+                    title: "China",
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "China",
+                    tooltipTemplate: "China",
+                    showTooltip: true
+                }]
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        td { vertical-align: top; }
+        .chartElement {
+            padding-bottom: 20px;
+        }
+    </style>
+    
+    <table><tr><td id="columnChart" class="chartElement"></td><td id="columnLegend" style="float: left"></td></tr></table>
+     
+    <div class="EIA-attribution">
+    $$(Chart_lbl_energyDataFrom):<br>
+    <a href="http://www.eia.gov" target="_blank">U.S. Energy Information Administration (September 2012) </a>
+    </div>
+
+</body>
+</html>

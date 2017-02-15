@@ -1,0 +1,13 @@
+{
+  "LabelExtent": "ラベル範囲",
+  "LabelInterval": "ラベル期間",
+  "Options": "オプション",
+  "RadialGauge_CurrentNeedleValue": "現在の針値",
+  "RadialGauge_GetNeedleValueBtn": "針値の取得",
+  "RadialGauge_GetNeedleValueLabel": "現在の針値の取得",
+  "RadialGauge_SetNeedleValueBtn": "針値の設定",
+  "RadialGauge_SetNeedleValueLabel": "針値の入力/設定",
+  "Title_api-usage": "API の使用",
+  "Title_label-settings": "ラベル設定",
+  "TransitionDuration": "トランジション期間"
+}

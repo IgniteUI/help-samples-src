@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_label-settings)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+
+<body>
+    <style type="text/css">
+    	.sliderBounds {
+    	   width: 95px;
+    	   margin: 6px 3px 6px 6px;
+			display: inline-block;
+    	}
+    	.optionContainer {
+    	   width: 154px;
+    	   margin: 2px;
+			padding: 2px;
+			display: inline-block;
+			border: 1px solid #e0e0e0;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+    	}
+    </style>
+
+    <!-- Target element for the igRadialGauge -->
+    <div id="radialgauge"></div>
+
+    <div>
+        <fieldset id="gaugeOptions">
+            <legend>$$(Options)</legend>
+				<div class="optionContainer">
+               $$(LabelExtent)
+					<br>
+               <div id="labelExtentSlider" class="sliderBounds"></div>
+               <label id="labelExtentLabel">0.7</label>
+				</div>
+				<div class="optionContainer">
+               $$(LabelInterval)
+					<br>
+               <div id="labelIntervalSlider" class="sliderBounds"></div>
+               <label id="labelIntervalLabel">10</label>
+				</div>
+				<div class="optionContainer">
+               $$(TransitionDuration)
+					<br>
+               <div id="transitionDurationSlider" class="sliderBounds"></div>
+               <label id="transitionDurationLabel">2</label>
+				</div>
+        </fieldset>
+    </div>
+
+    <script>
+
+        $(function () {
+            $("#radialgauge").igRadialGauge({
+                height: "350px",
+                width: "100%",
+                transitionDuration: "1500",
+                value: "10"
+            });
+
+
+            // Label Extent
+            $("#labelExtentSlider").slider({
+                min: 0,
+                max: 1,
+                step: 0.01,
+                value: 0.7,
+                slide: function (event, ui) {
+                    $("#radialgauge").igRadialGauge("option", "labelExtent", ui.value);
+                    $("#labelExtentLabel").text(ui.value);
+                }
+            });
+
+            // Label Interval
+            $("#labelIntervalSlider").slider({
+                min: 0,
+                max: 100,
+                value: 10,
+                slide: function (event, ui) {
+                    $("#radialgauge").igRadialGauge("option", "labelInterval", ui.value);
+                    $("#labelIntervalLabel").text(ui.value);
+                }
+            });
+
+            // Transiton Duration Slider
+            $("#transitionDurationSlider").slider({
+                min: 0,
+                max: 5,
+                step: 0.01,
+                value: 2,
+                slide: function (event, ui) {
+                    $("#radialgauge").igRadialGauge("option", "transitionDuration", ui.value * 1000);
+                    $("#transitionDurationLabel").text(ui.value);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "date_modified": "変更日時",
+  "employeeID": "従業員 ID",
+  "first_name": "名前",
+  "flat_data_source": "フラット データ ソース",
+  "id": "ID",
+  "last_name": "名字",
+  "name": "名前",
+  "reports_to": "上司",
+  "size": "サイズ (KB)",
+  "Title_file-explorer": "ファイル エクスプローラー",
+  "Title_json-binding": "JSON のバインド",
+  "type": "タイプ"
+}

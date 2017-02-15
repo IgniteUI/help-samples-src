@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_api-usage)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <!-- Used to style the API Viewer and Explorer UI -->
+    <link href="../../../../css/apiviewer.css" rel="stylesheet" type="text/css">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+    <!-- Used to add markup and provide logging 
+        functionality for the API Explorer and API Viewer UI -->
+    <script src="../../../../js/apiviewer.js"></script>
+</head>
+<body>
+    <style type="text/css">
+       .apiButton {
+          text-align: center;
+          padding: 0px 0.5em 0px 0.5em;
+          margin: 0.1em !important;
+          display: inline-block;
+          cursor: pointer;
+          background: #f0f0f0;
+          border: 1px solid #a0a0a0;
+       }
+       .apiButton:hover {
+          background: #d0d0f0;
+          border: 1px solid #505090;
+       }
+		 .apiInput {
+          width: 3em;
+          margin: 0.1em;
+          border: 1px solid #a0a0a0;
+		 }
+    </style>
+
+    <!-- Target element for the igRadialGauge -->
+    <div id="radialGauge"></div>
+
+    <div class="api-explorer">  
+        <table style="width: 100%;">
+	        <tr>
+                <td><span>$$(RadialGauge_SetNeedleValueLabel): </span></td>
+                <td style="text-align: right;">
+                    <input type="text" id="needleValue" name="format" value="" class="apiInput"></input>
+                    <span class="apiButton ui-corner-all" id="changeNeedleValue">$$(RadialGauge_SetNeedleValueBtn)</span>
+                </td>
+            </tr>
+            <tr style="height:10px"></tr>
+            <tr>
+                <td><span>$$(RadialGauge_GetNeedleValueLabel): </span></td>
+                <td style="text-align: right;">
+                    <span class="apiButton ui-corner-all" id="getNeedleValue">$$(RadialGauge_GetNeedleValueBtn)</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="api-viewer"></div>
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            // Used to show output in the API Viewer at runtime, 
+            // defined in external script 'apiviewer.js'    
+            var apiViewer = new $.ig.apiViewer();
+
+            /*----------------- Method & Option Examples -------------------------*/
+            
+            // process events of buttons
+            $("#changeNeedleValue").on({
+                click: function (e) {
+                    var needleValue = parseFloat($("#needleValue").val());
+                    if (!needleValue || isNaN(needleValue)) {
+                        needleValue = 0;
+                    }
+                    needleValue = Math.min(Math.max(needleValue, 0), 100);
+                    $("#radialGauge").igRadialGauge("option", "value", needleValue);
+                    $("#needleValue").val(needleValue);
+                }
+            });
+                  
+            var prevValue = null;
+            $("#getNeedleValue").on({
+                click: function (e) {
+                    var needleValue = $("#radialGauge").igRadialGauge("option", "value");
+                    if (prevValue == null || prevValue != needleValue) {
+                        apiViewer.log("$$(RadialGauge_CurrentNeedleValue): " + needleValue);
+                        prevValue = needleValue;
+                    }
+                }
+            });
+                      
+            /*----------------- Instantiation -------------------------*/
+
+            $("#radialGauge").igRadialGauge({
+                height: "500px",
+                transitionDuration: "1500",
+                width: "100%"                
+            });
+
+            function isAndroid() {
+                return navigator.userAgent.match(/Android/i) ? true : false;
+            }
+
+            $("#radialGauge").igRadialGauge("option", "value", 0);
+            $("#needleValue").val(0);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>$$(Title_binding-real-time-data)</title>
+
+        <!-- Ignite UI Required Combined CSS Files -->
+        <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+        <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+        <script src="%%modernizr%%"></script>
+        <script src="%%jquery%%"></script>
+        <script src="%%jquery-ui%%"></script>
+
+        <!-- Ignite UI Required Combined JavaScript Files -->
+        <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+        <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+    
+        <script id="tooltipTemplate" type="text/x-jquery-tmpl">
+            <div id="tooltip" class="ui-widget-content ui-corner-all">
+                <span id="tooltipValue">$$(Chart_KO_Value): ${item.Value}</span>
+            </div>
+        </script>
+        
+        <script type="text/javascript">
+            var lblCount = 30, timer = 40, interval, isAdding = false;
+
+            $(function () {
+         
+                var currData = null,
+                    doGeneration = null,
+                    startTime = null,
+                    doUpdate = null,
+                    started = false,
+                    intervalId = 0,
+                    toggleFeed = null,
+                    curr = 10,
+                    i = 0,
+                    refreshCount = 0;
+
+                doGeneration = function() {
+                    var num = 5000, data = [];
+                    num = parseInt($("#volumeText").text());
+
+                    for (i = 0; i < num; i++) {
+                        if (Math.random() > .5) {
+                            curr += Math.random() * 2.0;
+                        } else {
+                            curr -= Math.random() * 2.0;
+                        }
+                        var val1 = Math.round(curr * 1000.0) / 1000.0;
+                        data[i] = { Label: i.toString(), Value: val1 };
+                    }
+                    currData = data;
+                };
+
+                doGeneration();
+                $("#chart").igDataChart({
+                    width: "90%",
+                    height: "500px",
+                    horizontalZoomable: true,
+                    verticalZoomable: true,
+                    windowResponse: "immediate",
+                    dataSource: currData,
+                    pixelScalingRatio: 1.0,
+                    axes: [{
+                            name: "xAxis",
+                            type: "categoryX",
+                            label: "Label",
+                            labelExtent: 30,
+                        }, {
+                            name: "yAxis",
+                            type: "numericY",
+                            labelExtent: 50,
+                        }],
+                    series: [{
+                        name: "series1",
+                        title: "Test Series",
+                        type: "line",
+                        xAxis: "xAxis",
+                        yAxis: "yAxis",
+                        valueMemberPath: "Value",
+                        showTooltip: true,
+                        isTransitionInEnabled: true,
+                        isHighlightingEnabled: true,
+                        tooltipTemplate: "tooltipTemplate",
+                    }],
+                  });
+            
+                $("#chart").bind("igdatachartrefreshcompleted", function () {
+                    refreshCount++;
+                });
+
+                $("#addDataPoints").click(function () {
+                    doGeneration();
+
+                    $("#chart").igDataChart({
+                        dataSource: currData
+                    });
+                });
+                toggleFeed = function(changeButton) {
+                    var updateTicks = 33;
+                    updateTicks = parseInt($("#intervalText").text());
+                    if (!started) {
+                        started = true;
+                        if (changeButton) {
+                            $("#startDataFeed").igButton({ labelText: '$$(StopDataFeed)' });
+                            $("#addDataPoints").attr("disabled", "disabled");
+                        }
+                        intervalId = window.setInterval(function() {
+                            doUpdate();
+                        }, updateTicks);
+                    } else {
+                        started = false;
+                        if (changeButton) {
+                            $("#startDataFeed").igButton({ labelText: '$$(StartDataFeed)' });
+                            $("#addDataPoints").removeAttr("disabled");
+                        }
+                        window.clearInterval(intervalId);
+                    }
+                };
+
+                $("#startDataFeed").click(function () {
+                    toggleFeed(true);
+                });
+
+                $("#addDataPoints").igButton({ labelText: $("#addDataPoints").val() });
+                $("#startDataFeed").igButton({ labelText: $("#startDataFeed").val() });
+
+                $("#volumeSlider").slider({
+                    slide: function (event, ui) {
+                        $("#volumeText").text(ui.value.toString());
+                    },
+                    min: 100,
+                    max: 50000,
+                    value: 5000,
+                    step: 100
+                });
+
+                $("#intervalSlider").slider({
+                    slide: function (event, ui) {
+                        $("#intervalText").text(ui.value.toString());
+                        toggleFeed(false);
+                        toggleFeed(false);
+                    },
+                    min: 10,
+                    max: 1000,
+                    value: 10,
+                    step: 10
+                });
+
+                doUpdate = function() {
+                    if (Math.random() > .5) {
+                        curr += Math.random() * 2.0;
+                    } else {
+                        curr -= Math.random() * 2.0;
+                    }
+                    var newData = { Label: i.toString(), Value: curr };
+                    i++;
+                    currData.push(newData);
+                    $("#chart").igDataChart("notifyInsertItem", currData, currData.length - 1, newData);
+                    var oldItem = currData.shift();
+                    $("#chart").igDataChart("notifyRemoveItem", currData, 0, oldItem);
+                };
+
+                window.setInterval(function () {
+                    var refreshesPerSecond = refreshCount / 2;
+                    refreshCount = 0;
+                    $("#refreshCount").text(refreshesPerSecond);
+                }, 2000);
+
+                
+            });
+        
+    </script>
+
+    <style type="text/css">
+        td { vertical-align: top; }
+        #chart
+        {
+            position: relative;
+            float: left;
+            margin-right: 10px;
+        }
+        
+        .selectionOptions
+        {
+            clear: left;
+            padding-top: 10px;
+        }
+        
+        .slider
+        {
+            width: 200px;
+            height: 10px;
+            margin: 10px;
+        }
+    </style>
+  
+    </head>
+    <body>
+        <div id="chart"></div>
+        
+        <div class="selectionOptions">
+            
+            <table>
+                <tr>
+                    <td>
+                        $$(Chart_lbl_datapoints): <span id="volumeText">5000</span>
+                    </td>
+                     <td style="width: 10px; min-width: 10px;"></td>
+                  <td>
+                      $$(Chart_lbl_refreshTime): <span id="intervalText">10</span>
+                    </td>
+                    <td>
+                         $$(RefreshesPerSecond): <span id="refreshCount">0</span>
+                    </td>
+                 </tr>
+               <tr>
+                    <td>
+                      <div id="volumeSlider" class="sliderBounds" style="margin: 10px 5px 5px 10px;"></div>
+                    </td> 
+                   <td style="width: 10px; min-width: 10px;"></td>
+                   <td>
+                        <div id="intervalSlider" class="sliderBounds" style="margin: 10px 5px 5px 10px;"></div>
+                    </td> 
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" id="addDataPoints" value="$$(AddDataPoints)"></input> 
+                    </td>
+                     <td style="width: 10px; min-width: 10px;"></td>
+                    <td>
+                        <input type="button" id="startDataFeed" value="$$(StartDataFeed)"></input>
+                    </td>
+                </tr>
+             
+            </table>
+      
+            
+        </div>
+    </body>
+</html>

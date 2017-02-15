@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_angular)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+    <script src="%%angular%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+    <script src="%%ignite-ui%%/js/extensions/igniteui-angular.js"></script>
+
+    <script type="text/javascript">
+        var sampleApp = angular.module('sampleApp', ['igniteui-directives']);
+        sampleApp.controller('dataChartController', function ($scope) {
+            $scope.dataChart = [
+		        { "CountryName": "$$(Chart_Composite_China_DS)", "Pop1995": 1216, "Pop2005": 1297, "Pop2015": 1361, "Pop2025": 1394 },
+		        { "CountryName": "$$(India)", "Pop1995": 920, "Pop2005": 1090, "Pop2015": 1251, "Pop2025": 1396 },
+		        { "CountryName": "$$(UnitedStates)", "Pop1995": 266, "Pop2005": 295, "Pop2015": 322, "Pop2025": 351 },
+		        { "CountryName": "$$(Indonesia)", "Pop1995": 197, "Pop2005": 229, "Pop2015": 256, "Pop2025": 277 },
+		        { "CountryName": "$$(Brazil)", "Pop1995": 161, "Pop2005": 186, "Pop2015": 204, "Pop2025": 218 }
+            ];
+        });
+    </script>
+</head>
+<body>
+    <div ng-app="sampleApp" ng-controller="dataChartController">
+        <ig-data-chart id="datachart1" data-source="dataChart">
+            <axes>
+                <axis name="NameAxis" type="categoryX" title="$$(CategoryAxis_title_countries_pop)" label="CountryName"></axis>
+
+                <axis name="PopulationAxis" type="numericY" minimumvalue="0" title="$$(NumericAxis_title_population)"></axis>
+            </axes>
+            <series>
+                <series name="2015Population" type="column" is-highlighting-enabled="true" is-transition-in-enabled="true" x-axis="NameAxis" y-axis="PopulationAxis" value-member-path="Pop2015">
+                </series>
+            </series>
+        </ig-data-chart>
+        <ig-zoombar id="zoombar1" target="#datachart1"></ig-zoombar>
+    </div>
+</body>
+</html>

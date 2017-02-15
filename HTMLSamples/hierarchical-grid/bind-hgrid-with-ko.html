@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_bind-hgrid-with-ko)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script src="%%knockout%%" type="text/javascript"></script>
+    <script src="%%knockout.mapping%%" type="text/javascript"></script>
+    <script src="%%ignite-ui%%/js/extensions/infragistics.ui.editors.knockout-extensions.js"></script>
+    <script src="%%ignite-ui%%/js/extensions/infragistics.datasource.knockoutjs.js"></script>
+    <script src="%%ignite-ui%%/js/extensions/infragistics.ui.grid.knockout-extensions.js"></script>
+
+</head>
+<body>
+    <style>
+        .config-tbl tr td:first-child {
+            text-align: right;
+            margin-right: 2px;
+            color: #444;
+            font-family: "Segoe UI",Arial,sans-serif;
+            font-size: 1em;
+        }
+        .config-tbl input {
+            border: solid 1px #ccc;
+            color: #444;
+            font-family: "Segoe UI",Arial,sans-serif;
+            font-size: 1.1em;
+        }
+    </style>
+    <table style="width: 100%">
+        <tr>
+            <td style="width:50%"> 
+                <fieldset>
+                    <legend>$$(HierarchicalGrid_Knockoutjs_FirstRootRow)</legend>
+                    
+                    <table class="config-tbl">
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Employees_EmployeeID):</b>
+                            </td>
+                            <td>
+                                <span id="idEditor" data-bind="text: Records()[0].EmployeeID, valueUpdate: 'input'"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Employees_FirstName):</b>
+                            </td>
+                            <td>
+                                <input id="fnameEditor" type="text" data-bind="value: Records()[0].FirstName, valueUpdate: 'input'"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Employees_LastName):</b>
+                            </td>
+                            <td>
+                                <input id="lnameEditor" type="text" data-bind="value: Records()[0].LastName, valueUpdate: 'input'"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Employees_City):</b>
+                            </td>
+                            <td>
+                                <input id="cityEditor" type="text" data-bind="value: Records()[0].City, valueUpdate: 'input'"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Employees_Country):</b>
+                            </td>
+                            <td>
+                                <input id="countryEditor" type="text" data-bind="value: Records()[0].Country, valueUpdate: 'input'"></input>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+            <td style="width:50%">
+                <fieldset>
+                    <legend>$$(HierarchicalGrid_Knockoutjs_FirstChildOfTheFirstRootRow)</legend>
+                    <table class="config-tbl">
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Orders_OrderID):</b>
+                            </td>
+                            <td>
+                                <span id="Span1" data-bind="text: Records()[0].Orders()[0].OrderID, valueUpdate: 'input'"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Orders_ShipName):</b>
+                            </td>
+                            <td>
+                                <input id="Text1" type="text" data-bind="value: Records()[0].Orders()[0].ShipName, valueUpdate: 'input'"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Orders_Freight):</b>
+                            </td>
+                            <td>
+                                <input id="Text2" type="text" data-bind="value: Records()[0].Orders()[0].Freight, valueUpdate: 'input'"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Employees_PostCode):</b>
+                            </td>
+                            <td>
+                                <input id="Text3" type="text" data-bind="value: Records()[0].Orders()[0].ShipPostalCode, valueUpdate: 'input'"></input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>$$(Northwind_Orders_OrderDate):</b>
+                            </td>
+                            <td>
+                                <input id="Date1" type="date" data-bind="igDatePicker: { value: Records()[0].Orders()[0].OrderDate, valueUpdate: 'input'}"></input>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+    </table>  
+
+    <script src="../../../../data-files/northwind.js"></script>
+
+    <script>
+        var customerOrdersModel, modifiedDataSource = {}, Records = [], db = northwind.results;
+
+        $(function () {
+
+            for (var i = 0; i < db.length; i++) {
+                var currentItem = {};
+                currentItem["EmployeeID"] = db[i].EmployeeID;
+                currentItem["FirstName"] = db[i].FirstName;
+                currentItem["LastName"] = db[i].LastName;
+                currentItem["City"] = db[i].City;
+                currentItem["Country"] = db[i].Country;
+                var orders = db[i].Orders.results.splice(0,10);
+                for (var j = 0; j < 10; j++) {
+                    orders[j].RecordsOrderDate = normalizeDate( orders[j].OrderDate );
+                }
+                currentItem["Orders"] = orders;
+                Records.push(currentItem);
+            }
+
+            modifiedDataSource["Records"] = Records;
+            customerOrdersModel = ko.mapping.fromJS( modifiedDataSource );
+            ko.applyBindings(customerOrdersModel);
+        });
+
+        function normalizeDate(date) {
+            // Note: dataSource in grid requires Date object for a column with dataType:"date".
+            if (!date)
+                return null;
+            if (date.getTime)
+                return date;
+            if (!date.substring)
+                return null;
+            if (date.indexOf("(") > 0)
+                return new Date(parseInt(date.substring(date.indexOf("(") + 1, date.lastIndexOf(")"))));
+            return Date.parse(date);
+        }
+    </script>
+
+    <table id="grid" data-bind="igHierarchicalGrid:
+               {
+                   dataSource: Records,
+                   autoCommit: true,
+                   width: '100%',
+                   initialDataBindDepth: -1,
+                   primaryKey: 'EmployeeID',
+                   dataSourceType: 'json',
+                   autoGenerateColumns: false,
+                   autoGenerateLayots: false,
+                   childrenDataProperty: 'Orders',
+                   columns: [
+                       { key: 'EmployeeID', headerText: '$$(Northwind_Employees_EmployeeID)', width: '5%', dataType: 'number' },
+                       { key: 'FirstName', headerText: '$$(Northwind_Employees_FirstName)', width: '25%', dataType: 'string' },
+                       { key: 'LastName', headerText: '$$(Northwind_Employees_LastName)', width: '25%', dataType: 'string' },
+                       { key: 'City', headerText: '$$(Northwind_Employees_City)', width: '20%', dataType: 'string' },
+                       { key: 'Country', headerText: '$$(Northwind_Employees_Country)', width: '20%', dataType: 'string' }
+                   ],
+                   columnLayouts: [
+                       {
+                           key: 'Orders',
+                           primaryKey: 'OrderID',
+                           foreignKey: 'EmployeeID',
+                           autoGenerateColumns: false,
+                           autoCommit: true,
+                           width: '100%',
+                           dataSourceType: 'json',
+                           features: [
+                               {
+                                   name: 'Updating',
+                                   editMode: 'cell',
+                                   enableDataDirtyException: false,
+                                   enableDeleteRow: false,
+                                   enableAddRow: false,
+                                   columnSettings: [
+                                       {
+                                           columnKey: 'OrderID',
+                                           readOnly: true
+                                       }
+                                   ]
+                               },
+                               {
+                                    name: 'Paging',
+                                    type: 'local',
+                                    pageSize: 5
+                               }
+                           ],
+                           columns: [
+                               { key: 'OrderID', headerText: '$$(Northwind_Orders_OrderID)', width: '5%', dataType: 'number' },
+                               { key: 'ShipName', headerText: '$$(Northwind_Orders_ShipName)', width: '20%', dataType: 'string' },
+                               { key: 'Freight', headerText: '$$(Northwind_Orders_Freight)', width: '20%', dataType: 'string' },
+                               { key: 'ShipPostalCode', headerText: '$$(Northwind_Employees_PostCode)', width: '20%', dataType: 'string' },
+                               { key: 'OrderDate', headerText: '$$(Northwind_Orders_OrderDate)', width: '30%', dataType: 'date' }
+                           ]
+                       }
+                   ],
+                   features: [
+                       {
+                           name: 'Updating',
+                           editMode: 'cell',
+                           enableDataDirtyException: false,
+                           inherit: true,
+                           columnSettings: [
+                               {
+                                   columnKey: 'EmployeeID',
+                                   readOnly: true
+                               }
+                           ]
+                       },
+                       {
+                           name: 'Selection',
+                           mode: 'row',
+                           multipleSelection: false,
+                           activation: true
+                       }
+                   ]
+               }">
+    </table>
+</body>
+</html>

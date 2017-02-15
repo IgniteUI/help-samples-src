@@ -1,0 +1,16 @@
+{
+  "btnEmphasizeCaption": "Emphasize",
+  "btnPrintCaption": "Print",
+  "btnStandardTextCaption": "Standard Text",
+  "cancelButton": "Cancel",
+  "dialogHeader": "Place code here",
+  "initialContent": "Use the Insert code snippet button {;} to paste your code.",
+  "insertCodeButton": "Insert Code Snippet",
+  "lang": "Language",
+  "manipulatingText": "Manipulating Text",
+  "okButton": "OK",
+  "text": "This is standard text.",
+  "Title_angular": "AngularJS",
+  "Title_api-and-events": "API and Events",
+  "Title_highlight-code": "Highlight code"
+}

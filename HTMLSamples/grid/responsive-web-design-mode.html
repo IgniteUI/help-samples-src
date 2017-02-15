@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_responsive-web-design-mode)</title>
+    <style type="text/css">
+        body {
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+    </style>
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+</head>
+<body>
+
+    <script src="../../../../data-files/nw-customers-with-orders.js"></script>
+    <table id="grid"></table>
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                columns: [
+                    { headerText: "$$(Northwind_Customers_CompanyName)", key: "CompanyName", dataType: "string", width: "20%" },
+                    { headerText: "$$(Northwind_Customers_ContactName)", key: "ContactName", dataType: "string", width: "15%" },
+                    { headerText: "$$(Northwind_Customers_ContactTitle)", key: "ContactTitle", dataType: "string", width: "20%" },
+                    { headerText: "$$(Northwind_Customers_Address)", key: "Address", dataType: "string", width: "20%" },
+                    { headerText: "$$(Northwind_Customers_City)", key: "City", dataType: "string", width: "10%" },
+                    { headerText: "$$(Northwind_Customers_Country)", key: "Country", dataType: "string", width: "15%" }
+                ],
+                autoGenerateColumns: false,
+                autofitLastColumn: false,
+                dataSource: nwCustomersWithOrders,
+                width: "100%",
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "ContactName",
+                                configuration: {
+                                    customPhone: {
+                                        hidden: true
+                                    },
+                                    customAlt: {
+                                        hidden: false
+                                    }
+                                }
+                            },
+                            {
+                                columnKey: "ContactTitle",
+                                configuration: {
+                                    customPhone: {
+                                        hidden: true
+                                    },
+                                    customAlt: {
+                                        hidden: false
+                                    }
+                                }
+                            },
+                            {
+                                columnKey: "Address",
+                                configuration: {
+                                    customPhone: {
+                                        template: "${Address}, ${City}, ${Country}"
+                                    },
+                                    customAlt: {
+                                        hidden: false
+                                    }
+                                }
+                            },
+                            {
+                                columnKey: "City",
+                                configuration: {
+                                    customPhone: {
+                                        hidden: true
+                                    },
+                                    customAlt: {
+                                        hidden: false
+                                    }
+                                }
+                            },
+                            {
+                                columnKey: "Country",
+                                configuration: {
+                                    customPhone: {
+                                        hidden: true
+                                    },
+                                    customAlt: {
+                                        hidden: false
+                                    }
+                                }
+                            }
+                        ],
+                        responsiveModes: {
+                            customPhone: {
+                                minWidth: 0,
+                                maxWidth: 600
+                            },
+                            // alternative mode
+                            customAlt: {
+                                minWidth: 601,
+                                maxWidth: Number.MAX_VALUE
+                            }
+                        }
+                    },
+                    {
+                        name: "Paging",
+                        pageSize: 5
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

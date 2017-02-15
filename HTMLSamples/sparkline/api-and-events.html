@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_api-and-events)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <!-- Used to style the API Viewer and Explorer UI -->
+    <link href="../../../../css/apiviewer.css" rel="stylesheet" type="text/css">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+    <!-- Used to add markup and provide logging 
+        functionality for the API Explorer and API Viewer UI -->
+    <script src="../../../../js/apiviewer.js"></script>
+</head>
+<body>
+    <!-- File supplying the northwindInvoices object for the igSparkline data source -->
+    <script src="../../../../data-files/nw-invoices.js"></script>
+
+	<table>
+		<tr>
+			<td style="width: 330px;">
+				<!-- Target element for the igSparkline -->
+				<div id="sparkline"></div>
+			</td>
+		</tr>
+	</table>
+
+    <!-- Begin: API UI -->
+    <div class="api-explorer">
+        <button id="btnAddData">$$(Add_Data)</button><span>$("#sparkline").igSparkline("addItem", item);</span><br>
+        <button id="btnRemoveData">$$(Remove_Data)</button><span>$("#sparkline").igSparkline("removeItem", 0);</span><br>
+    </div>
+
+    <div class="api-viewer"></div>
+    <!-- End: API UI -->
+
+    <script>
+
+        $(function () {
+
+            // Used to show output in the API Viewer at runtime, 
+            // defined in external script 'apiviewer.js'           
+            var apiViewer = new $.ig.apiViewer();
+
+
+            /*----------------- Method & Option Examples -------------------------*/
+
+            // $$(Add_Data) button click handler
+            $("#btnAddData").click(function (e) {
+
+                var rnd = Math.floor(Math.random() * 2501);
+                var item = { OrderDate: new Date(), ExtendedPrice: rnd };
+
+                $("#sparkline").igSparkline("addItem", item);
+
+                apiViewer.log("$$(Item_Added) [$$(Value): " + rnd + " ]");
+            });
+
+            // $$(Remove_Data) button click handler
+            $("#btnRemoveData").click(function (e) {
+
+                var removedData = $("#sparkline").igSparkline("getDataItem", 0);                
+
+                $("#sparkline").igSparkline("removeItem", 0);
+
+                if (removedData) {
+                    removedData = removedData.ExtendedPrice;
+                    apiViewer.log("$$(Item_Removed) [$$(Value): " + removedData + " ]");
+                }
+            });
+
+
+            /*----------------- Event Examples -------------------------*/
+
+            $("#sparkline").on("igsparklinedatabinding", function (e, ui) {
+                // ** REMOVE ** log event data here, show output at runtime using 
+                apiViewer.log("igsparklinedatabinding");
+            });
+
+            $("#sparkline").on("igsparklinedatabound", function (e, ui) {
+                // ** REMOVE ** log event data here, show output at runtime using 
+                apiViewer.log("igsparklinedatabound");
+            });
+
+
+            /*----------------- Instantiation -------------------------*/
+
+            $("#sparkline").igSparkline({
+                dataSource: northwindInvoices,
+                height: "100px",
+                width: "100%",
+                valueMemberPath: 'ExtendedPrice',
+                labelMemberPath: 'OrderDate'
+            });
+
+        });
+
+    </script>
+</body>
+</html>

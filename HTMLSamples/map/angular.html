@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_angular)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+    <script src="%%angular%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+    <script src="%%ignite-ui%%/js/extensions/igniteui-angular.js"></script>
+
+    <script type="text/javascript">
+        var sampleApp = angular.module('sampleApp', ['igniteui-directives']);
+    </script>
+
+</head>
+<body>
+    <div ng-app="sampleApp">
+        <ig-map zoomable="true" id="map">
+        </ig-map>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#map").find(".ui-widget-content").append("<span class='copyright-notice'><a href='http://www.openstreetmap.org/copyright'>$$(OpenStreetMapCopyright)</a></span>");
+        });
+    </script>
+</body>
+</html>

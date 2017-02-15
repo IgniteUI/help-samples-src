@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_tooltips)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <style type="text/css">
+        .tooltip-grid-notes { white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}
+    </style>
+</head>
+<body>    
+    <table id="grid"></table>
+    <script src="../../../../data-files/northwind.js"></script>
+    <script>
+        $(function () {
+            $( "#grid" ).igGrid( {
+                autoGenerateColumns: false,
+                autofitLastColumn: false,
+                width: "100%",
+                columns: [
+                    { headerText: "$$(Northwind_Employees_FirstName)", key: "FirstName", dataType: "string", width: "10%" },
+                    { headerText: "$$(Northwind_Employees_LastName)", key: "LastName", dataType: "string", width: "10%" },
+                    { headerText: "$$(Northwind_Employees_Title)", key: "Title", dataType: "string", width: "17%" },
+                    { headerText: "$$(Northwind_Employees_BirthDate)", key: "BirthDate", dataType: "date", width: "8%" },
+                    { headerText: "$$(Northwind_Employees_Notes)", key: "Notes", dataType: "string", width: "55%", template: "<p class='tooltip-grid-notes'> ${Notes} </p>" }
+                ],
+                dataSource: northwind,
+                responseDataKey: "results",
+                features: [
+                    {
+                        name: "Tooltips",
+                        columnSettings: [
+                           { columnKey: "FirstName", allowTooltips: false },
+                           { columnKey: "LastName", allowTooltips: false }
+                        ],
+                        style: Modernizr.touch ? "popover" : "tooltip",
+                        visibility: "always"
+                    },
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "LastName",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "Title",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "BirthDate",
+                                classes: "ui-hidden-phone"
+                            }
+                        ]
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_angular)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+    <script src="%%angular%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script src="%%ignite-ui%%/js/extensions/igniteui-angular.js"></script>
+    
+    <script type="text/javascript">
+        var sampleApp = angular.module('sampleApp', ['igniteui-directives']);
+    </script>
+
+</head>
+<body>
+    <div ng-app="sampleApp">
+        <ig-dialog id="dialog1" header-text="Foo" height="325px">
+            <content>
+                <p>
+                    <img style="width: 220px" src="../../images/samples/dialog-window/content.jpg">
+                </p>
+                <input style="margin: 5px"></input>
+            </content>
+        </ig-dialog>
+    </div>
+
+</body>
+</html>

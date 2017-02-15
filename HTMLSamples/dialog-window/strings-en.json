@@ -1,0 +1,23 @@
+{
+  "api": "API",
+  "changingStateProgrammatically": "Changing State Programmatically",
+  "close": "Close Dialog",
+  "closeButtonTitle": "Close Dialog Window",
+  "create": "Create Dialog",
+  "destroy": "Destroy Dialog",
+  "footerText": "This is my footer text.",
+  "headerText": "This is my header text.",
+  "maximize": "Maximize Dialog",
+  "maximizeButtonTitle": "Maximize Dialog Window",
+  "minimize": "Minimize Dialog",
+  "minimizeButtonTitle": "Minimize Dialog Window",
+  "open": "Open Dialog",
+  "pin": "Pin Dialog",
+  "pinButtonTitle": "Pin Dialog Window",
+  "positioning": "Positioning",
+  "restoreButtonTitle": "Restore Dialog Window",
+  "Title_angular": "AngularJS",
+  "Title_api-and-events": "API and Events",
+  "unpin": "Unpin Dialog",
+  "unpinButtonTitle": "Unpin Dialog Window"
+}

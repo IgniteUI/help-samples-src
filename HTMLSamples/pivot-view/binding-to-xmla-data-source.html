@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_binding-to-xmla-data-source)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+</head>
+<body>
+    <script>
+        $.support.cors = true;
+
+        $(function () {
+            $("#pivotView").igPivotView({
+                dataSourceOptions: {
+                    xmlaOptions: {
+                        serverUrl: 'http://sampledata.infragistics.com/olap/msmdpump.dll',
+                        catalog: 'Adventure Works DW Standard Edition',
+                        cube: 'Adventure Works'
+                    },
+                    rows: "[Ship Date].[Calendar]",
+                    columns: "[Delivery Date].[Calendar]",
+                    measures: "[Measures].[Product Gross Profit Margin Status],[Measures].[Product Gross Profit Margin Goal]",
+                }
+            });
+        });
+    </script>
+    <div id="pivotView"></div>
+</body>
+</html>

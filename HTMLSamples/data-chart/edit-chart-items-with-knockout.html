@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_edit-chart-items-with-knockout)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+</head>
+<body>
+    <style>
+        .main-container { position: relative; width: 100% }
+        .float { float: left; margin: 10px 10px 0 0; }
+        .clear { clear: both; }
+        .margin-b { margin-bottom: 20px; }
+        .btn-container { margin-top: 30px; position: relative; width: 600px; height: 50px; }
+        
+                .btn-container .btn-pause:hover { background-position: -96px -50px; }
+        #lineChart {
+            margin-right: 20px;
+            margin-top: 20px;
+        }
+        .combo-container { width: 210px; float: right; margin-right: 20px; }
+        .sample-chart-container {
+            margin-right: 240px;
+        }
+        .legend-container {  width: 300px; margin-top: 10px; }
+            .legend-container .title { font-weight: bold; font-size: 14px; margin-bottom: 10px; }
+            .legend-container .legend { float: left; width: 48px; height: 48px; margin: 2px 5px 5px 0; padding: 0;
+                background-image: url(../../images/samples/data-chart/music-controls-sprite.png); background-repeat: no-repeat; 
+                border: 1px solid #535353; zoom: 50%; }
+            .legend-container .add { background-position: -337px 0px; }
+            .legend-container .delete { background-position: -384px 0px; }
+            .legend-container .prev { background-position: -192px 0px; }
+            .legend-container .next { background-position: -240px 0px; }
+            .legend-container .play {  background-position: 0px 0px; }
+            .legend-container .btn-add-start { background-position: -337px 0px; }
+                .btn-container .btn-add-start:hover { background-position: -337px -50px; }
+            .legend-container .btn-rmv-start { background-position: -384px 0px; }
+                .btn-container .btn-rmv-start:hover { background-position: -384px -50px; }
+            .legend-container .btn-add-curr { background-position: -337px 0px; }
+                .btn-container .btn-add-curr:hover { background-position: -337px -50px; }
+            .legend-container .btn-rmv-curr { background-position: -384px 0px; }
+                .btn-container .btn-rmv-curr:hover { background-position: -384px -50px; }
+            .legend-container .btn-prev { background-position: -192px 0px; }
+                .btn-container .btn-prev:hover { background-position: -192px -50px; }  
+            .legend-container .btn-play { background-position: 0px 0px;  }
+                .btn-container .btn-play:hover { background-position: 0px -50px;  }
+            .legend-container .btn-next { background-position: -240px 0px; }
+                .btn-container .btn-next:hover { background-position: -240px -50px; }
+            .legend-container .btn-rmv-end { background-position: -384px 0px; }
+                .btn-container .btn-rmv-end:hover { background-position: -384px -50px; }
+            .legend-container .btn-add-end { background-position: -336px 0px; }
+                .btn-container .btn-add-end:hover { background-position: -336px -50px; }
+            .legend-container .btn-pause { background-position: -96px 0px; opacity: 0.5 }
+            .legend-container button { float: left; width: 48px; height: 48px; margin: 2px 5px 5px 0; padding: 0; border: none; cursor: pointer; padding: 0;
+                background-image: url(../../images/samples/data-chart/music-controls-sprite.png); background-repeat: no-repeat; 
+                border: 1px solid #535353; zoom: 50% }
+        .legend-container span { font-size: 12px; }
+        #barColumnChart { margin-top: 20px; }
+        #legendLineChart { border: none; background-color: transparent; font-weight: bold; }
+        #legendBarColumnChart { border: none; background-color: transparent; font-weight: bold; }
+        .sample-header {
+            margin-top: 10px;
+            height: 80px;
+            line-height: 75px;
+            text-align: center;
+            width: 100%;
+            background-color: #44acd6;
+        }
+        @media screen and (max-width: 600px) {
+            /* Polar chart container and legend under 600px */
+            .combo-container {
+                width: 100%;
+                float: none;
+            }
+            .sample-chart-container {
+                margin-right: 0;
+            }
+        }
+        @media screen and (max-width: 430px) {
+            #sample > section > * {
+                margin: 0;
+            }
+        }
+    </style>
+
+    <script src="%%knockout%%" type="text/javascript"></script>
+    <script src="%%knockout.mapping%%" type="text/javascript"></script>
+	<script type="text/javascript" src="%%ignite-ui%%/js/extensions/infragistics.ui.datachart.knockout-extensions.js"></script>
+	<script type="text/javascript" src="%%ignite-ui%%/js/extensions/infragistics.ui.combo.knockout-extensions.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var dynamicModel,
+                data,
+                interval,
+                globalItem = 3,
+                globalIndex = 3, // When item is deleted we need to record gloablly the index
+                autoIncrement = 1;
+            function generateData(count) {
+                var num = count, data = [], curr = 10, revenue, expenses;
+                for (var i = 0; i < num; i++) {
+                    revenue = Math.random() * 90.0;
+                    expenses = Math.random() * 70.0;
+                    data[i] = {
+                        label: (count === 1) ? autoIncrement.toString() : (i + 1).toString(),
+                        index: (count === 1) ? autoIncrement : (i + 1),
+                        revenue: revenue,
+                        expenses: expenses
+                    };
+                    autoIncrement++;
+                }
+                if (count === 1) {
+                    return data[0];
+                } else {
+                    return ko.observableArray(data);
+                }
+            }
+            function ViewModel(data) {
+                this.data = data;
+                this.minChartValue = 0;
+                this.maxChartValue = 100;
+                this.chartWidth = "100%";
+                this.chartHeight = 250;
+                this.chartThickness = 2;
+                this.transitionDuration = 1000;
+            }
+            data = generateData(10);
+            dynamicModel = new ViewModel(data);
+            ko.applyBindings(dynamicModel);
+
+            $(".btn-prev").click(function () {
+                try {
+                    var index = $("#combo1").igCombo("value");
+                    moveItem(-1, index);
+                }
+
+                catch (e) {
+                    return;
+                }
+            });
+
+            $(".btn-next").click(function () {
+                try {
+                    var index = $("#combo1").igCombo("value");
+                    moveItem(1, index);
+                }
+
+                catch (e) {
+                    return;
+                }
+            });
+            $(".btn-play").click(function () {
+                var index = $("#combo1").igCombo("value");
+                moveItem(1, index);
+                interval = setInterval(function () { moveItem(1, index) }, 1000);
+                hideButtons();
+            });
+            $(".btn-pause").click(function () {
+                clearInterval(interval);
+                showButtons();
+            });
+            $(".btn-add-start").click(function () {
+                data.unshift(generateData(1));
+            });
+            $(".btn-rmv-start").click(function () {
+                globalIndex = 0;
+                data.shift();
+            });
+            $(".btn-add-end").click(function () {
+                data.push(generateData(1));
+            });
+            $(".btn-rmv-end").click(function () {
+                globalIndex = data().length;
+                data.pop();
+            });
+            $(".btn-add-curr").click(function () {
+                var index = $("#combo1").igCombo("value");
+                data.splice(getCurrentItemState(index).index, 0, generateData(1));
+            });
+            $(".btn-rmv-curr").click(function () {
+                try {
+                    var index = $("#combo1").igCombo("value");
+
+                    if (index !== null) {
+                        globalIndex = getCurrentItemState(index).index;
+                        data.splice(globalIndex, 1);
+                    }
+                }
+
+                catch (e) {
+                    return;
+                }
+            });
+            function moveItem(step, currentIndex) {
+                var state = getCurrentItemState(currentIndex),
+                    itemToMove = state.item,
+                    index = state.index,
+                    insertIndex;
+                globalItem = currentIndex;
+                globalIndex = index;
+                data.splice(index, 1);
+                if (step > 0) {
+                    insertIndex = (index === data().length) ? 0 : index + step;
+                } else {
+                    insertIndex = (index === 0) ? data().length : index + step;
+                }
+                data.splice(insertIndex, 0, itemToMove);
+            }
+            function getCurrentItemState(currentIndex) {
+                var i = 0;
+                for (i; i < data().length; i++) {
+                    if (data()[i].index === currentIndex) {
+                        return {
+                            item: data()[i],
+                            index: i
+                        }
+                    }
+                }
+            }
+            $(".combo-container").on("igcombotextchanged", "#combo1", function (event, ui) {
+                globalItem = parseInt(ui.text, 10);
+            }).on("igcomboitemsrendered", "#combo1", function (event, ui) {
+            	if (ui.owner.selectedItems() === null || ui.owner.selectedItems().length === 0) {
+            		ui.owner.index(globalIndex);
+            		if (ui.owner.selectedItems() === null || ui.owner.selectedItems().length === 0) {
+                        ui.owner.index(globalIndex - 1);
+                    }
+                }
+            });
+
+            function hideButtons() {
+                $('.legend-container button:not(.btn-pause)').attr('disabled', 'disabled').animate({opacity: 0.5});
+                $('.legend-container .btn-pause').removeAttr('disabled').animate({ opacity: 1 });
+            }
+            function showButtons() {
+                $('.legend-container button:not(.btn-pause)').removeAttr('disabled').animate({ opacity: 1 });
+                $('.legend-container .btn-pause').attr('disabled', 'disabled').animate({ opacity: 0.5 });
+            }
+        });
+    </script>
+   <!-- <div class="sample-header">
+        <h1>$$(Chart_KO_Expense_Revenue_Title)</h1>
+    </div>-->
+    <div class="main-container">
+        <div class="combo-container">
+            <label for="combo1">$$(Chart_KO_Select_Current)</label>
+            <div class="clear"></div>
+            <div id="combo1" data-bind="igCombo: {
+                dataSource: data,
+                selectedItems: [{ index: 3 }],
+                valueKey: 'index',
+                textKey: 'label',
+                width: '150',
+                mode: 'dropdown',
+                enableClearButton: false
+            }"></div>
+            <div class="legend-container">
+                <div class="title">$$(Chart_KO_Legend)</div>
+                <button class="btn-add-end" title="$$(Chart_KO_Add_End)"></button>
+                <span>$$(Chart_KO_Add_Day)</span><div class="clear"></div>
+                <button class="btn-rmv-curr" title="$$(Chart_KO_Remove_End)"></button>
+                <span>$$(Chart_KO_Delete_Day)</span><div class="clear"></div>
+                <button class="btn-prev" title="$$(Chart_KO_Move_Current_Backward)"></button>
+                <span>$$(Chart_KO_Prev_Day)</span><div class="clear"></div>
+                <button class="btn-next" title="$$(Chart_KO_Move_Current_Forward)"></button>
+                <span>$$(Chart_KO_Next_Day)</span><div class="clear"></div>
+                <button class="btn-play" title="$$(Chart_KO_Move_Current_Each_Second)"></button>
+                <span>$$(Chart_KO_Play_Day)</span><div class="clear"></div>
+                <button class="btn-pause" title="$$(Chart_KO_Pause_Current)" disabled="disabled"></button>
+                <span>$$(Chart_KO_Pause_Current)</span><div class="clear"></div>
+            </div>
+        </div>
+        <div class="sample-chart-container">
+            <div id="lineChart" data-bind='igDataChart: {
+                dataSource: data,
+                width: chartWidth,
+                height: chartHeight,
+                title: "$$(ExpenseRevenuePerDay)",
+                legend: { element: "legendLineChart" },
+                axes: [{
+                    name: "xAxis",
+                    type: "categoryX",
+                    label: "label",
+                    interval: 1,
+                }, {
+                    name: "yAxis",
+                    type: "numericY",
+                    minimumValue: minChartValue,
+                    maximumValue: maxChartValue,
+
+                }],
+                series: [{
+                    name: "line1",
+                    type: "line",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    title: "$$(Chart_KO_Revenue) $$(Chart_KO_Daily)",
+                    thickness: chartThickness,
+                    markerType: "circle",
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "revenue",
+                    transitionDuration: transitionDuration
+                },
+                {
+                    name: "line2",
+                    type: "line",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    title: "$$(Chart_KO_Expenses) $$(Chart_KO_Daily)",
+                    thickness: chartThickness,
+                    markerType: "circle",
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "expenses",
+                    transitionDuration: transitionDuration,
+                    brush: "#d3404b",
+                    markerBrush: "#d3404b"
+                }]
+            }'></div>
+            <div id="legendLineChart"></div>
+            <div id="barColumnChart" data-bind='igDataChart: {
+                dataSource: data,
+                width: chartWidth,
+                height: chartHeight,
+                title: "$$(ExpenseRevenuePerDay)",
+                legend: { element: "legendBarColumnChart" },
+                axes: [{
+                    name: "xAxis",
+                    type: "categoryX",
+                    label: "label",
+                    interval: 1,
+                }, {
+                    name: "yAxis",
+                    type: "numericY",
+                    minimumValue: minChartValue,
+                    maximumValue: maxChartValue
+                }],
+                series: [{
+                    name: "column1",
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    title: "$$(Chart_KO_Revenue) $$(Chart_KO_Daily)",
+                    thickness: chartThickness,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "revenue",
+                    transitionDuration: transitionDuration
+                },
+                {
+                    name: "column2",
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    title: "$$(Chart_KO_Expenses) $$(Chart_KO_Daily)",
+                    thickness: chartThickness,
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    valueMemberPath: "expenses",
+                    transitionDuration: transitionDuration,
+                    brush: "#d3404b"
+                }]
+            }'></div>
+            <div id="legendBarColumnChart"></div>
+        </div>
+    </div>     
+</body>
+</html>

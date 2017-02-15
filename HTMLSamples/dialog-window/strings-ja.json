@@ -1,0 +1,23 @@
+{
+  "api": "API",
+  "changingStateProgrammatically": "状態をコードで変更",
+  "close": "ダイアログを閉じる",
+  "closeButtonTitle": "ダイアログ ウィンドウを閉じる",
+  "create": "ダイアログを作成",
+  "destroy": "ダイアログを破棄",
+  "footerText": "これはフッター テキストです。",
+  "headerText": "これはヘッダー テキストです。",
+  "maximize": "ダイアログを最大化",
+  "maximizeButtonTitle": "ダイアログ ウィンドウを最大化",
+  "minimize": "ダイアログを最小化",
+  "minimizeButtonTitle": "ダイアログ ウィンドウを最小化",
+  "open": "ダイアログを開く",
+  "pin": "ダイアログをピン固定",
+  "pinButtonTitle": "ダイアログ ウィンドウをピン固定",
+  "positioning": "配置",
+  "restoreButtonTitle": "ダイアログ ウィンドウの復元",
+  "Title_angular": "AngularJS との連携",
+  "Title_api-and-events": "API およびイベント",
+  "unpin": "ダイアログのピン固定を解除",
+  "unpinButtonTitle": "ダイアログ ウィンドウのピン固定を解除"
+}

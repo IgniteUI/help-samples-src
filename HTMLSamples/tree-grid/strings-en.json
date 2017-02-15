@@ -1,0 +1,14 @@
+{
+  "date_modified": "Date Modified",
+  "employeeID": "Employee ID",
+  "first_name": "First Name",
+  "flat_data_source": "Flat Data Source",
+  "id": "ID",
+  "last_name": "Last Name",
+  "name": "Name",
+  "reports_to": "Reports To",
+  "size": "Size in KB",
+  "Title_file-explorer": "File Explorer",
+  "Title_json-binding": "JSON Binding",
+  "type": "Type"
+}

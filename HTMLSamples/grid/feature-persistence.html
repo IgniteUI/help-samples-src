@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_feature-persistence)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+</head>
+<body>
+    <table id="grid"></table>
+    <br>
+    <input type="button" id="buttonDataBind" value="$$(button_lbl_databind)"></input>
+
+    <script src="../../../../data-files/northwind.js"></script>
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                primaryKey: "EmployeeID",
+                width: '100%',
+                defaultColumnWidth: "15%",
+                columns: [
+                   { headerText: "$$(table_lbl_employeeID)", key: "EmployeeID", dataType: "number" },
+                   { headerText: "$$(table_lbl_firstName)", key: "FirstName", dataType: "string" },
+                   { headerText: "$$(table_lbl_lastName)", key: "LastName", dataType: "string" },
+                   { headerText: "$$(table_lbl_birthDate)", key: "BirthDate", dataType: "date" },
+                   { headerText: "$$(table_lbl_city)", key: "City", dataType: "string" },
+                   { headerText: "$$(table_lbl_country)", key: "Country", dataType: "string" }
+                ],
+                autofitLastColumn: false,
+                autoGenerateColumns: false,
+                dataSource: northwind,
+                responseDataKey: "results",
+                features: [
+                    {
+                        name: "Sorting",
+                        type: "local",
+                        mode: "multi",
+                        persist: true
+                    },
+                    {
+                        name: "Filtering",
+                        type: "local",
+                        persist: true
+                    },
+                    {
+                        name: "GroupBy",
+                        type: "local",
+                        persist: true
+                    },
+                    {
+                        name: "Selection",
+                        mode: 'row',
+                        multipleSelection: true,
+                        persist: true
+                    },
+                    {
+                        name: "RowSelectors",
+                        enableCheckBoxes: true
+                    },
+                    {
+                        name: "Paging",
+                        type: "local",
+                        pageSize: 5
+                    }
+                ]
+            } );
+            $( "#buttonDataBind" ).igButton( {
+                labelText: $( "#buttonDataBind" ).val(),
+                click: function ( e )
+                {
+                    $( "#grid" ).igGrid( "dataBind" );
+                }
+            } );
+        });
+     </script>
+</body>
+</html>

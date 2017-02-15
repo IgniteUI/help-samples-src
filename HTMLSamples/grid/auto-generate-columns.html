@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_auto-generate-columns)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+</head>
+<body>
+    <table id="grid"></table>
+    <script src="../../../../data-files/northwindProducts.js"></script>
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                autoGenerateColumns: true,
+                defaultColumnWidth: "150px",
+                width: "100%",
+                dataSource: northwindProducts,
+                responseDataKey: "results",
+                features: [
+                    {
+                        name: "Paging",
+                        type: "local",
+                        pageSize: 5
+                    },
+                    {
+                        name: "Sorting",
+                        type: "local"
+                    },
+                    {
+                        name: "Filtering",
+                        type: "local"
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

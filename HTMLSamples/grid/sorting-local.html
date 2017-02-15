@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_sorting-local)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+</head>
+<body>
+    <table id="grid"></table>
+    <script src="../../../../data-files/northwind.js"></script>
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                autoGenerateColumns: false,
+                width: "100%",
+                columns: [
+                    { headerText: "$$(Northwind_Employees_EmployeeID)", key: "EmployeeID", dataType: "number", width: "15%" },
+                    { headerText: "$$(Northwind_Employees_FirstName)", key: "FirstName", dataType: "string", width: "20%" },
+                    { headerText: "$$(Northwind_Employees_LastName)", key: "LastName", dataType: "string", width: "20%" },
+                    { headerText: "$$(Northwind_Employees_BirthDate)", key: "BirthDate", dataType: "date", width: "15%" },
+                    { headerText: "$$(Northwind_Employees_City)", key: "City", dataType: "string", width: "15%" },
+                    { headerText: "$$(Northwind_Employees_PostalCode)", key: "PostalCode", dataType: "string", width: "15%" }
+                ],
+                dataSource: northwind,
+                responseDataKey: "results",
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "EmployeeID",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "PostalCode",
+                                classes: "ui-hidden-phone"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Sorting",
+                        type: "local"
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

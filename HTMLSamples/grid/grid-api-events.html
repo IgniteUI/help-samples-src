@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_grid-api-events)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <!-- Used to style the API Viewer and Explorer UI -->
+    <link href="../../../../css/apiviewer.css" rel="stylesheet" type="text/css">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <!-- Used to add markup and provide logging
+        functionality for the API Explorer and API Viewer UI -->
+    <script src="../../../../js/apiviewer.js"></script>
+
+    <style>
+        fieldset.explorer {
+            float: left;
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+
+    <!--Sample JSON Data-->
+    <script src="../../../../data-files/northwind.js"></script>
+
+    <!-- Target element for the igGrid -->
+    <div style="height:300px;">
+        <table id="grid"></table>
+    </div>
+    <div>
+        <fieldset id="gridOptions" class="explorer">
+            <legend>$$(legend_lbl_gridApiSettings)</legend>
+            <input type="button" id="buttonDataBind" value="$$(button_lbl_databind)"></input>
+        </fieldset>
+
+        <fieldset id="filteringOptions" class="explorer">
+            <legend>$$(legend_lbl_filterSettings)</legend>
+            <div id="filterColumn"></div>
+            <div id="conditionList"></div>
+            <div id="exprTextEditor"></div>
+            <div id="exprNumericEditor"></div>
+            <div id="exprDateEditor"></div>
+            <br>
+            <input type="button" id="buttonFilter" value="$$(button_lbl_filter)"></input>
+        </fieldset>
+
+        <div style="clear:both;"></div>
+
+        <fieldset id="pagingOptions" class="explorer">
+            <legend>$$(legend_lbl_pagingSettings)</legend>
+            <label for="pageIndexList">$$(lbl_selectPageIndex)</label>
+            <div id="pageIndexList"></div>
+            <label for="PageSizeSelect">$$(lbl_selectPageSize)</label>
+            <div id="pageSizeList"></div>
+        </fieldset>
+
+        <fieldset id="selectionOptions" class="explorer">
+            <legend>$$(legend_lbl_selectSettings)</legend>
+            <label for="RowSelect">$$(lbl_selectRowIndex_colon) </label>
+            <div id="rowNumberEditor"></div>
+            <br>
+            <input type="button" id="buttonSelectRow" value="$$(button_lbl_selectRow)"></input>
+            <input type="button" id="buttonSelectedRows" value="$$(button_lbl_getSelRows)"></input>
+        </fieldset>
+
+        <div style="clear:both;"></div>
+    </div>
+
+    <div class="api-viewer"></div>
+
+    <script type="text/javascript">
+        $(function () {
+
+            // Used to show output in the API Viewer at runtime,
+            // defined in external script 'apiviewer.js'
+            var apiViewer = new $.ig.apiViewer();
+
+            /*----------------- Method & Option Examples -------------------------*/
+
+            // process events of buttons and editors
+            $("#buttonDataBind").igButton({
+                labelText: $("#buttonDataBind").val(),
+                click: function (e) {
+                    $("#grid").igGrid("dataBind");
+                }
+            });
+
+            $("#buttonFilter").igButton({
+                labelText: $("#buttonFilter").val(),
+                click: function (event) {
+                    var expr = $("#exprTextEditor").igTextEditor("value") ||
+                        $("#exprNumericEditor").igNumericEditor("value") ||
+                        $("#exprDateEditor").data('igDateEditor').value(),
+                      condition = $("#conditionList").igCombo("selectedItems")[0].data["cond"],
+                    columnDataSource = $("#filterColumn").igCombo("option", "dataSource"),
+                    filterColumn = $("#filterColumn").igCombo("selectedItems")[0].data.column;
+                    if (expr !== null && expr !== undefined) {
+                        $("#grid").igGridFiltering("filter", ([{ fieldName: filterColumn, expr: expr, cond: condition }]));
+                    } else {
+                        $("#grid").igGridFiltering("filter", []);
+                    }
+                }
+            });
+
+            $("#filterColumn").igCombo({
+                width: "120px",
+                textKey: "text",
+                valueKey: "column",
+                dataSource: [
+                    { text: "$$(table_lbl_employeeID)", column: "EmployeeID", type: "number" },
+                    { text: "$$(table_lbl_firstName)", column: "FirstName", type: "string" },
+                    { text: "$$(table_lbl_lastName)", column: "LastName", type: "string" },
+                    { text: "$$(table_lbl_title)", column: "Title", type: "string" },
+                    { text: "$$(table_lbl_birthDate)", column: "BirthDate", type: "date" },
+                    { text: "$$(table_lbl_postCode)", column: "PostalCode", type: "number" },
+                    { text: "$$(table_lbl_country)", column: "Country", type: "string" }
+                ],
+                mode: "dropdown",
+                enableClearButton: false,
+                selectedItems: [{ index: 0 }],
+                selectionChanged: function (e, args) {
+                    var selText,
+                        nEditor = $("#exprNumericEditor"),
+                        dEditor = $("#exprDateEditor"),
+                        tEditor = $("#exprTextEditor");
+                    switch (args.items[0].data["type"]) {
+                        case "number":
+                            nEditor.igNumericEditor("show");
+                            tEditor.igTextEditor("hide");
+                            dEditor.igDateEditor("hide");
+
+                            $("#conditionList").igCombo("option", "dataSource", [
+                                { cond: "equals", text: $.ig.GridFiltering.locale.equalsLabel },
+                                { cond: "doesNotEqual", text: $.ig.GridFiltering.locale.doesNotEqualLabel },
+                                { cond: "lessThan", text: $.ig.GridFiltering.locale.lessThanLabel },
+                                { cond: "greaterThan", text: $.ig.GridFiltering.locale.greaterThanLabel }
+                            ]);
+                            break;
+                        case "date":
+                            nEditor.igNumericEditor("hide");
+                            tEditor.igTextEditor("hide");
+                            dEditor.igDateEditor("show");
+
+                            $("#conditionList").igCombo("option", "dataSource", [
+                                { cond: "on", text: $.ig.GridFiltering.locale.onLabel },
+                                { cond: "notOn", text: $.ig.GridFiltering.locale.notOnLabel },
+                                { cond: "before", text: $.ig.GridFiltering.locale.beforeLabel },
+                                { cond: "after", text: $.ig.GridFiltering.locale.afterLabel },
+                                { cond: "today", text: $.ig.GridFiltering.locale.todayLabel },
+                                { cond: "yesterday", text: $.ig.GridFiltering.locale.yesterdayLabel },
+                                { cond: "lastMonth", text: $.ig.GridFiltering.locale.lastMonthLabel },
+                                { cond: "nextMonth", text: $.ig.GridFiltering.locale.nextMonthLabel },
+                                { cond: "thisMonth", text: $.ig.GridFiltering.locale.thisMonthLabel },
+                                { cond: "lastYear", text: $.ig.GridFiltering.locale.lastYearLabel },
+                                { cond: "thisYear", text: $.ig.GridFiltering.locale.thisYearLabel },
+                                { cond: "nextYear", text: $.ig.GridFiltering.locale.nextYearLabel }
+                            ]);
+
+                            break;
+                        case "string":
+                            nEditor.igNumericEditor("hide");
+                            tEditor.igTextEditor("show");
+                            dEditor.igDateEditor("hide");
+
+                            $("#conditionList").igCombo("option", "dataSource", [
+                                { cond: "startsWith", text: $.ig.GridFiltering.locale.startsWithLabel },
+                                { cond: "endsWith", text: $.ig.GridFiltering.locale.endsWithLabel },
+                                { cond: "contains", text: $.ig.GridFiltering.locale.containsLabel },
+                                { cond: "doesNotContain", text: $.ig.GridFiltering.locale.doesNotContainLabel },
+                                { cond: "empty", text: $.ig.GridFiltering.locale.emptyNullText },
+                                { cond: "notEmpty", text: $.ig.GridFiltering.locale.notEmptyNullText }
+                            ]);
+                            break;
+                    }
+                    // reset the editors
+                    nEditor.igNumericEditor("value", null);
+                    tEditor.igTextEditor("value", null);
+                    dEditor.igDateEditor("value", null);
+
+                    // select default condition
+                    $("#conditionList").igCombo("index", 0);
+                    selText = $("#conditionList").igCombo("selectedItems")[0].data["text"];
+                    nEditor.igNumericEditor("option", "nullText", selText);
+                    tEditor.igTextEditor("option", "nullText", selText);
+                    dEditor.igDateEditor("option", "nullText", selText);
+                }
+            });
+
+            $("#conditionList").igCombo({
+                width: "140px",
+                textKey: "text",
+                valueKey: "cond",
+                dataSource: [
+                        { cond: "equals", text: $.ig.GridFiltering.locale.equalsLabel },
+                        { cond: "doesNotEqual", text: $.ig.GridFiltering.locale.doesNotEqualLabel },
+                        { cond: "lessThan", text: $.ig.GridFiltering.locale.lessThanLabel },
+                        { cond: "greaterThan", text: $.ig.GridFiltering.locale.greaterThanLabel }
+                ],
+                mode: "dropdown",
+                enableClearButton: false,
+                initialSelectedItems: [{ index: 0 }],
+                selectionChanged: function (e, args) {
+                    $("#exprTextEditor").igTextEditor("option", "nullText", args.items[0].text);
+                    $("#exprNumericEditor").igNumericEditor("option", "nullText", args.items[0].text);
+                    $("#exprDateEditor").igDateEditor("option", "nullText", args.items[0].text);
+                }
+            });
+
+            $("#exprTextEditor").igTextEditor().css("height", "21px").hide().children().first().css("height", "19px");
+
+            $("#exprNumericEditor").igNumericEditor({ nullText: $.ig.GridFiltering.locale.equalsLabel }).css("height", "21px").children().first().css("height", "19px");
+
+            $("#exprDateEditor").igDateEditor().css("height", "21px").hide().children().first().css("height", "19px");
+
+            $("#pageIndexList").igCombo({
+                width: "120px",
+                valueKey: "pIndex",
+                dataSource: [
+                    { pIndex: 1 },
+                    { pIndex: 2 }
+                ],
+                mode: "dropdown",
+                enableClearButton: false,
+                selectedItems: [{ index: 0 }],
+                selectionChanged: function (e, args) {
+                    $("#grid").igGridPaging("pageIndex", parseInt(args.items[0].data["pIndex"] - 1));
+                }
+            });
+
+            $("#pageSizeList").igCombo({
+                width: "120px",
+                valueKey: "size",
+                dataSource: [
+                    { size: 2 },
+                    { size: 5 },
+                    { size: 10 }
+                ],
+                mode: "dropdown",
+                enableClearButton: false,
+                initialSelectedItems: [{ index: 1 }],
+                selectionChanged: function (e, args) {
+                    var npc = 10 / args.items[0].data["size"], i, nds = [];
+                    $("#grid").igGridPaging("pageSize", parseInt(args.items[0].data["size"]));
+                    for (i = 0; i < npc; i++) {
+                        nds.push({ pIndex: i + 1 });
+                    }
+                    $("#pageIndexList").igCombo("option", "dataSource", nds);
+                    $("#pageIndexList").igCombo("option", "selectedItems", [{ index: 0 }]);
+                }
+            });
+
+            $("#rowNumberEditor").igNumericEditor({
+                value: 0,
+                minValue: 0,
+                width: 150,
+                height: 23,
+                validatorOptions: {
+                    required: true
+                }
+            });
+
+            $("#buttonSelectRow").igButton({
+                labelText: $("#buttonSelectRow").val(),
+                click: function (event) {
+                    $("#rowNumberEditor").igNumericEditor("validate");
+                    if ($("#rowNumberEditor").igNumericEditor("value") < $("#grid").igGrid("rows").length) {
+                        $("#grid").igGridSelection("selectRow", $("#rowNumberEditor").igNumericEditor("value"));
+                    }
+                }
+            });
+
+            $("#buttonSelectedRows").igButton({
+                labelText: $("#buttonSelectedRows").val(),
+                click: function (event) {
+                    var rows = $("#grid").igGridSelection("selectedRows");
+                    apiViewer.log("$$(grid_api_row_number) " + rows.length);
+                    $.each(rows, function (i, val) {
+
+                        apiViewer.log("$$(grid_api_row_index1) " + val.id + " $$(grid_api_row_index2)");
+                    });
+                }
+            });
+
+            /*----------------- Event Examples -------------------------*/
+
+            $("#grid").on("iggridselectionrowselectionchanging", function (evt, ui) {
+                var message = "iggridselectionrowselectionchanging";
+                apiViewer.log(message);
+            });
+
+            $("#grid").on("iggridselectionactiverowchanged", function (evt, ui) {
+                var message = "iggridselectionactiverowchanged";
+                apiViewer.log(message);
+            });
+
+            $("#grid").on("iggridfilteringdatafiltering", function (evt, ui) {
+                var message = "iggridfilteringdatafiltering";
+                apiViewer.log(message);
+            });
+
+            $("#grid").on("iggridrendering", function (evt, ui) {
+                var message = "iggridrendering";
+                apiViewer.log(message);
+            });
+
+            $("#grid").on("iggriddatabinding", function (evt, ui) {
+                var message = "iggriddatabinding";
+                apiViewer.log(message);
+            });
+
+            /*----------------- Instantiation -------------------------*/
+            $("#grid").igGrid({
+                autoGenerateColumns: false,
+                renderCheckboxes: true,
+                primaryKey: "EmployeeID",
+                columns: [{
+                    // note: if primaryKey is set and data in primary column contains numbers,
+                    // then the dataType: "number" is required, otherwise, dataSource may misbehave
+                    headerText: "$$(table_lbl_employeeID)", key: "EmployeeID", dataType: "number"
+                },
+                {
+                    headerText: "$$(table_lbl_firstName)", key: "FirstName", dataType: "string"
+                },
+                {
+                    headerText: "$$(table_lbl_lastName)", key: "LastName", dataType: "string"
+                },
+                {
+                    headerText: "$$(table_lbl_title)", key: "Title", dataType: "string"
+                },
+                {
+                    headerText: "$$(table_lbl_birthDate)", key: "BirthDate", dataType: "date"
+                },
+                {
+                    headerText: "$$(table_lbl_postCode)", key: "PostalCode", dataType: "string"
+                },
+                {
+                    headerText: "$$(table_lbl_country)", key: "Country", dataType: "string"
+                }
+                ],
+                dataSource: northwind,
+                dataSourceType: "json",
+                responseDataKey: "results",
+                height: "100%",
+                width: "100%",
+                tabIndex: 1,
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "EmployeeID",
+                                classes: "ui-hidden-tablet ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "PostalCode",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "BirthDate",
+                                classes: "ui-hidden-phone"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Selection",
+                        mode: "row",
+                        multipleSelection: true
+                    },
+                    {
+                        name: "Paging",
+                        pageSize: 5
+                    },
+                    {
+                        name: "Filtering"
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

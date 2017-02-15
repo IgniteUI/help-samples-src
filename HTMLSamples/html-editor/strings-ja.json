@@ -1,0 +1,16 @@
+{
+  "btnEmphasizeCaption": "スタイルを適用",
+  "btnPrintCaption": "印刷",
+  "btnStandardTextCaption": "標準の文字",
+  "cancelButton": "キャンセル",
+  "dialogHeader": "コードの挿入",
+  "initialContent": "コード スニペットの挿入ボタン {;} をクリックしてコードを貼り付けます。",
+  "insertCodeButton": "コード スニペットを挿入",
+  "lang": "言語",
+  "manipulatingText": "テキストの編集",
+  "okButton": "OK",
+  "text": "これは標準の文字です",
+  "Title_angular": "AngularJS との連携",
+  "Title_api-and-events": "API およびイベント",
+  "Title_highlight-code": "コードの強調表示"
+}

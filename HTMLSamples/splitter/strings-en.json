@@ -1,0 +1,14 @@
+{
+  "atThe": "at the",
+  "changeContent": "Change content with ",
+  "collapseFirstPanel": "Collapse First Panel",
+  "collapseSecondPanel": "Collapse Second Panel",
+  "enterNewPanelSize": "Enter new panel size",
+  "expandFirstPanel": "Expand First Panel",
+  "expandSecondPanel": "Expand Second Panel",
+  "firstPanel": "First Panel",
+  "hintSize": "e.g. 100px",
+  "secondPanel": "Second Panel",
+  "splitterApiSettings": "Splitter API settings",
+  "Title_api-events-splitter": "Splitter API and Events"
+}

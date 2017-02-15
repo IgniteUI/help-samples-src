@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_angular)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+    <script src="%%angular%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script src="%%ignite-ui%%/js/extensions/igniteui-angular.js"></script>
+
+    <script type="text/javascript">
+        var sampleApp = angular.module('sampleApp', ['igniteui-directives']);
+        sampleApp.controller('gridController', function ($scope) {
+            $scope.data = "<p>Ignite UI controls:</p><p><ul><li>igEditors</li><li>igHtmlEditor</li><li>igGrid</li><li>igDataChart</li><li>etc.</li></ul></p>";
+        });
+    </script>
+    <style type="text/css">
+        textarea {
+            width: 100%;
+            height: 400px;
+        }
+        .row {
+            margin-right:-15px;
+            margin-left:-15px
+        }
+        .col-left,.col-right {
+            position:relative;
+            min-height:1px;
+            padding-right:15px;
+            padding-left:15px;
+            float:left;
+        }
+        .box-sizing {
+            -webkit-box-sizing:border-box;
+            -moz-box-sizing:border-box;
+            box-sizing:border-box;
+        }
+        .col-left {
+            width:66.6%;
+        }
+        .col-right {
+            width:33.3%;
+        }
+    </style>
+</head>
+<body>
+    <div ng-app="sampleApp" ng-controller="gridController">
+        <div class="row">
+            <div class="col-left box-sizing">
+                <ig-html-editor id="htmlEditor" height="400px" width="100%" value="data"></ig-html-editor>
+            </div>
+            <div class="col-right box-sizing">
+                <textarea ng-model="data"></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_json-binding)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+     <!--Sample JSON Data-->
+    <script src="../../../../data-files/northwind.js"></script>
+</head>
+<body>
+
+    <table id="hierarchicalGrid"></table>
+
+    <script>
+
+        $(function () {
+            $("#hierarchicalGrid").igHierarchicalGrid({
+                width: "100%",
+                autoGenerateColumns: false,
+                dataSource: northwind,
+                responseDataKey: "results",
+                dataSourceType: "json",
+                caption: "$$(Orders_By_Employee)",
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "Title",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "Address",
+                                classes: "ui-hidden-phone"
+                            }
+                        ]
+                    },
+                    {
+                        name: "Sorting",
+                        inherit: true
+                    },
+                    {
+                        name: "Paging",
+                        pageSize: 5,
+                        type: "local",
+                        inherit: true
+                    }
+                ],
+                columns: [
+                   { key: "EmployeeID", headerText: "$$(Northwind_Employees_EmployeeID)", dataType: "number", width: "0%", hidden: true },
+                    { key: "FirstName", headerText: "$$(Northwind_Employees_FirstName)", dataType: "string", width: "20%" },
+                   { key: "LastName", headerText: "$$(Northwind_Employees_LastName)", dataType: "string", width: "20%" },
+                   { key: "Title", headerText: "$$(Northwind_Employees_Title)", dataType: "string", width: "20%" },
+                   { key: "Address", headerText: "$$(Northwind_Employees_Address)", dataType: "string", width: "25%" },
+                   { key: "City", headerText: "$$(Northwind_Employees_City)", dataType: "string", width: "15%" }
+                ],
+                autoGenerateLayouts: false,
+                columnLayouts: [
+                    {
+                        key: "Orders",
+                        responseDataKey: "results",
+                        width: "100%",
+                        autoGenerateColumns: false,
+                        primaryKey: "OrderID",
+                        columns: [
+                            { key: "OrderID", headerText: "$$(Northwind_Orders_OrderID)", dataType: "number", width: "20%" },
+                            { key: "CustomerID", headerText: "$$(Northwind_Orders_CustomerID)", dataType: "string", width: "0%", hidden: true },
+                            { key: "ShipName", headerText: "$$(Northwind_Orders_ShipName)", dataType: "string", width: "20%" },
+                            { key: "ShipAddress", headerText: "$$(Northwind_Orders_ShipAddress)", dataType: "string", width: "20%" },
+                            { key: "ShipCity", headerText: "$$(Northwind_Orders_ShipCity)", dataType: "string", width: "20%" },
+                            { key: "ShipCountry", headerText: "$$(Northwind_Orders_ShipCountry)", dataType: "string", width: "20%" }
+                        ],
+                        features: [
+                             {
+                                 name: "Responsive",
+                                 enableVerticalRendering: false,
+                                 columnSettings: [
+                                     {
+                                         columnKey: "ShipAddress",
+                                         classes: "ui-hidden-phone"
+                                     },
+                                     {
+                                         columnKey: "ShipCity",
+                                         classes: "ui-hidden-phone"
+                                     }
+                                 ]
+                             },
+                             {
+                                 name: "Summaries",
+                                 columnSettings: [
+                                      {
+                                          columnKey: "OrderID",
+                                          summaryOperands: [
+                                              {
+                                                  rowDisplayLabel: "$$(summary_Orders_Count_lbl)",
+                                                  type: "count",
+                                                  decimalDisplay: 3
+                                              }
+                                          ]
+
+                                      },
+                                     {
+                                         columnKey: "ShipName",
+                                         allowSummaries: false
+                                     },
+                                     {
+                                          columnKey: "ShipAddress",
+                                          allowSummaries: false
+                                     },
+                                     {
+                                         columnKey: "ShipCity",
+                                         summaryOperands: [
+                                             {
+                                                 rowDisplayLabel: "$$(custom_summary_Sao_Paulo_orders_lbl)",
+                                                 type: "custom1",
+                                                 summaryCalculator: $.proxy(countSaoPauloValues, this),
+                                                 order: 5,
+                                                 decimalDisplay: 1
+                                             },
+                                              {
+                                                  rowDisplayLabel: "$$(custom_summary_Bergamo_orders_lbl)",
+                                                  type: "custom2",
+                                                  summaryCalculator: $.proxy(countBergamoValues, this),
+                                                  order: 6,
+                                                  decimalDisplay: 1
+                                              }
+                                         ]
+                                     },
+                                      {
+                                          columnKey: "ShipCountry",
+                                          allowSummaries: false
+                                      },
+
+                                     
+                                 ]
+
+                             }
+                        ]
+                    }
+                ]
+            });
+          //expanding first parent row in the grid
+            var parentGrid = $("#hierarchicalGrid").igHierarchicalGrid("rootWidget"),
+            rowDomElement = parentGrid.rowAt(0);
+            $("#hierarchicalGrid").igHierarchicalGrid("expand", rowDomElement);
+
+            function countSaoPauloValues(data) {
+                var i, l = data.length, count = 0, elem;
+                for (i = 0; i < l; i++) {
+                    elem = data[i];
+                    if (elem === "Sao Paulo") {
+                        count++;
+                    }
+                }
+                return count;
+            }
+            function countBergamoValues(data) {
+                var i, l = data.length, count = 0, elem;
+                for (i = 0; i < l; i++) {
+                    elem = data[i];
+                    if (elem === "Bergamo") {
+                        count++;
+                    }
+                }
+                return count;
+            }
+
+        });
+    </script>
+
+</body>
+</html>

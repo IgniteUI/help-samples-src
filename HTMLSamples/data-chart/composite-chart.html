@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_composite-chart)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+    <script id="tooltipChina" type="text/x-jquery-tmpl">
+        <span id="tooltipValue" class="tooltip">$$(Chart_Composite_China_DS): ${item.China}</span>
+    </script>
+    <script id="tooltipUS" type="text/x-jquery-tmpl">
+        <span id="Span1" class="tooltip">$$(Chart_Composite_US_DS): ${item.UnitedStates}</span>
+    </script>
+    <script id="tooltipRussia" type="text/x-jquery-tmpl">
+        <span id="Span2" class="tooltip">$$(Chart_Composite_Russia_DS): ${item.Russia}</span>
+    </script>
+    <script id="tooltipTotal" type="text/x-jquery-tmpl">
+        <span id="Span3" class="tooltip">$$(Chart_Composite_Total_DS): ${item.Total}</span>
+    </script>
+
+    <script type="text/javascript" src="../../../../data-files/world-energy-production.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            for (i = 0; i < everyThreeYears.length; i++) {
+                everyThreeYears[i].Total = (everyThreeYears[i]["China"] + everyThreeYears[i]["UnitedStates"] + everyThreeYears[i]["Russia"]).toFixed(2);
+            }
+
+            $("#chart").igDataChart({
+                dataSource: everyThreeYears,
+                width: "450px",
+                height: "450px",
+                crosshairVisibility: Modernizr.touch ? "visible" : "collapsed",
+                title: "$$(Chart_title_energy_production)",
+                subtitle: "$$(Chart_subtitle_energy_production_three)",
+                horizontalZoomable: true,
+                verticalZoomable: true,
+                axes: [{
+                    type: "categoryX",
+                    name: "xAxis",
+                    label: "Year",
+                    strokeThickness: 5,
+                    title: "$$(CategoryAxis_title_energy_production)"
+                }, {
+                    type: "numericY",
+                    name: "prodPower",
+                    minimumValue: 0,
+                    maximumValue: 100,
+                    strokeThickness: 5,
+                    title: "$$(NumericAxis_title_energy_production)"
+                }, {
+                    type: "numericY",
+                    name: "totalPower",
+                    minimumValue: 50,
+                    maximumValue: 250,
+                    labelLocation: "outsideRight",
+                    title: "$$(NumericAxis_title_total_energy_production)",
+                }],
+                series: [{
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    name: "China",
+                    title: "$$(Chart_Composite_China_DS)",
+                    xAxis: "xAxis",
+                    yAxis: "prodPower",
+                    valueMemberPath: "China",
+                    showTooltip: true,
+                    tooltipTemplate: "tooltipChina",
+                    legend: { element: "legend" }
+                }, {
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    name: "UnitedStates",
+                    title: "$$(Chart_Composite_US_DS)",
+                    xAxis: "xAxis",
+                    yAxis: "prodPower",
+                    valueMemberPath: "UnitedStates",
+                    showTooltip: true,
+                    tooltipTemplate: "tooltipUS",
+                    legend: { element: "legend" }
+                }, {
+                    type: "column",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    name: "Russia",
+                    title: "$$(Chart_Composite_Russia_DS)",
+                    xAxis: "xAxis",
+                    yAxis: "prodPower",
+                    valueMemberPath: "Russia",
+                    showTooltip: true,
+                    tooltipTemplate: "tooltipRussia",
+                    legend: { element: "legend" }
+                }, {
+                    type: "line",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+                    name: "Total",
+                    title: "$$(Chart_Composite_Total_DS)",
+                    xAxis: "xAxis",
+                    yAxis: "totalPower",
+                    valueMemberPath: "Total",
+                    brush: "Orange",
+                    showTooltip: true,
+                    tooltipTemplate: "tooltipTotal",
+                    legend: { element: "legend2" }
+                }],
+                leftMargin: 5,
+                topMargin: 15
+            });
+        });
+    </script>
+
+    <style>
+        .tooltip { margin: 0px 5px 0px 5px; }
+        #legend, #legend2 { margin: 0px 5px 5px 5px; }
+        #legends, #chart { float: left; }
+        #chartTitle { width: 500px; text-align: center; }
+    </style>
+
+    <div class="chartComponent">
+        <div id="chart"></div>
+    </div>
+
+    <div id="legends">
+        <div id="legend"></div>
+        <div id="legend2"></div>
+    </div>
+
+    <div class="EIAdata-attribution">
+    $$(Chart_lbl_energyDataFrom):<br>
+    <a href="http://www.eia.gov/" target="_blank">U.S. Energy Information Administration (2012)</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_row-selectors)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">    
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+    
+</head>
+<body>
+     
+    <h3>$$(default_row_selectors)</h3>  
+    <!-- Target element for the Default RowSelectors igGrid -->
+    <table id="defaultRowSelectors">
+    </table>    
+    <br>
+    <h3>$$(row_selectors_with_checkboxes)</h3>
+    <!-- Target element for the Checkboxes RowSelectors igGrid -->
+    <table id="cbRowSelectors">
+    </table>
+    <br>
+    <h3>$$(row_numbering)</h3>
+    <!-- Target element for the RowNumbering igGrid -->
+    <table id="rowNumbering">
+    </table>
+
+    <!--Sample JSON Data-->
+    <script src="../../../../data-files/nw-employees.js"></script>
+
+    <script>
+
+        $(function () {
+            /*----------------- Instantiation -------------------------*/
+            createDefaultSelectorsGrid();
+            createCboxSelectorsGrid();
+            createRowNumberingGrid();
+        });
+
+
+
+        function createDefaultSelectorsGrid() {
+            $("#defaultRowSelectors").igGrid({
+                width: "100%",
+                autoGenerateColumns: false,
+                dataSource: northwindEmployees,
+                responseDataKey: "results",
+                dataSourceType: "json",
+                columns: [
+                    { headerText: "$$(Northwind_Employees_EmployeeID)", key: "ID", dataType: "number", width: "120px", hidden: true },
+                    { headerText: "$$(Northwind_Employees_Name)", key: "Name", dataType: "string" },
+                    { headerText: "$$(Northwind_Employees_Title)", key: "Title", dataType: "string"},
+                    { headerText: "$$(Northwind_Employees_Phone)", key: "Phone", dataType: "string" },
+                    { headerText: "$$(Northwind_Employees_Country)", key: "Country", dataType: "string" }
+                ],
+                features: [
+                    {
+                        name: 'Responsive',
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: 'Country',
+                                classes: 'ui-hidden-phone'
+                            }
+                        ]
+                    },
+                    {
+                        name: "RowSelectors",
+                        enableRowNumbering: false
+                    },
+                    {
+                        name: "Selection"
+                    }
+                ]
+            });
+        }
+
+        function createCboxSelectorsGrid() {
+            $("#cbRowSelectors").igGrid({
+                width: "100%",
+                autoGenerateColumns: false,
+                dataSource: northwindEmployees,
+                responseDataKey: "results",
+                dataSourceType: "json",
+                columns: [
+                    { headerText: "$$(Northwind_Employees_EmployeeID)", key: "ID", dataType: "number", width: "120px", hidden: true },
+                    { headerText: "$$(Northwind_Employees_Name)", key: "Name", dataType: "string"},
+                    { headerText: "$$(Northwind_Employees_Title)", key: "Title", dataType: "string" },
+                    { headerText: "$$(Northwind_Employees_Phone)", key: "Phone", dataType: "string" },
+                    { headerText: "$$(Northwind_Employees_Country)", key: "Country", dataType: "string" }
+
+                ],
+                features: [
+                    {
+                        name: 'Responsive',
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: 'Country',
+                                classes: 'ui-hidden-phone'
+                            }
+                        ]
+                    },
+                    {
+                        name: "RowSelectors",
+                        enableCheckBoxes: true,
+                        enableRowNumbering: false
+                    },
+                    {
+                        name: "Selection"
+                    }
+                ]
+            });
+        }
+
+        function createRowNumberingGrid() {
+            $("#rowNumbering").igGrid({
+                width: "100%",
+                autoGenerateColumns: false,
+                dataSource: northwindEmployees,
+                responseDataKey: "results",
+                dataSourceType: "json",
+                columns: [
+                    { headerText: "$$(Northwind_Employees_EmployeeID)", key: "ID", dataType: "number", width: "120px", hidden: true },
+                    { headerText: "$$(Northwind_Employees_Name)", key: "Name", dataType: "string" },
+                    { headerText: "$$(Northwind_Employees_Title)", key: "Title", dataType: "string" },
+                    { headerText: "$$(Northwind_Employees_Phone)", key: "Phone", dataType: "string" },
+                    { headerText: "$$(Northwind_Employees_Country)", key: "Country", dataType: "string" }
+
+                ],
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: 'Country',
+                                classes: 'ui-hidden-phone'
+                            }
+                        ]
+                    },
+                    {
+                        name: "RowSelectors",
+                        enableRowNumbering: true
+                    },
+                    {
+                        name: "Selection"
+                    }
+                ]
+            });
+        }
+    </script>
+</body>
+</html>

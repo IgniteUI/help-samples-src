@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>$$(Title_handling-complex-objects)</title>
+
+	<!-- Ignite UI Required Combined CSS Files -->
+	<link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+	<link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+	<script src="%%modernizr%%"></script>
+	<script src="%%jquery%%"></script>
+	<script src="%%jquery-ui%%"></script>
+
+	<!-- Ignite UI Required Combined JavaScript Files -->
+	<script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+	<script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+	<style>
+		#grid_container {
+			width: 100%;
+		}
+	</style>
+
+</head>
+<body>
+	<table id="grid"></table>
+<script>
+$(function () {
+	var northWindCategoriesJSON = [
+		{ "ID": 0, "Name": "$$(Food)" },
+		{ "ID": 1, "Name": "$$(Beverages)" },
+		{ "ID": 2, "Name": "$$(Electronics)" }
+	];
+	var northwindProductsJSON = [
+		{ "ID": 0, "Name": "$$(Bread)", "Description": "$$(whole_bread)", "ReleaseDate": "\/Date(694224000000)\/", "DiscontinuedDate": null, "Rating": 4, "Price": "2.5", "Category": { "ID": 0, "Name": "$$(Food)" } },
+		{ "ID": 1, "Name": "$$(Milk)", "Description": "$$(low_milk)", "ReleaseDate": "\/Date(812505600000)\/", "DiscontinuedDate": null, "Rating": 3, "Price": "3.5", "Category": { "ID": 1, "Name": "$$(Beverages)" } },
+		{ "ID": 2, "Name": "$$(vint_soda)", "Description": "$$(americana_variety)", "ReleaseDate": "\/Date(970358400000)\/", "DiscontinuedDate": null, "Rating": 3, "Price": "20.9", "Category": { "ID": 1, "Name": "$$(Beverages)" } },
+		{ "ID": 3, "Name": "$$(havina_cola)", "Description": "$$(original_cola)", "ReleaseDate": "\/Date(1128124800000)\/", "DiscontinuedDate": "\/Date(1159660800000)\/", "Rating": 3, "Price": "19.9", "Category": { "ID": 1, "Name": "$$(Beverages)" } },
+		{ "ID": 4, "Name": "$$(fruit_punch)", "Description": "$$(mango)", "ReleaseDate": "\/Date(1041724800000)\/", "DiscontinuedDate": null, "Rating": 3, "Price": "22.99", "Category": { "ID": 1, "Name": "$$(Beverages)" } },
+		{ "ID": 5, "Name": "$$(cran_juice)", "Description": "$$(plastic_bottles)", "ReleaseDate": "\/Date(1154649600000)\/", "DiscontinuedDate": null, "Rating": 3, "Price": "22.8", "Category": { "ID": 1, "Name": "$$(Beverages)" }, },
+		{ "ID": 6, "Name": "$$(pink_lemonade)", "Description": "$$(cans)", "ReleaseDate": "\/Date(1162684800000)\/", "DiscontinuedDate": null, "Rating": 3, "Price": "18.8", "Category": { "ID": 1, "Name": "$$(Beverages)" }, },
+		{ "ID": 7, "Name": "$$(dvd_player)", "Description": "$$(upconversion)", "ReleaseDate": "\/Date(1163548800000)\/", "DiscontinuedDate": null, "Rating": 3, "Price": "35.88", "Category": { "ID": 2, "Name": "$$(Electronics)" } },
+		{ "ID": 8, "Name": "$$(lcd_hdtv)", "Description": "$$(bluray)", "ReleaseDate": "\/Date(1210204800000)\/", "DiscontinuedDate": null, "Rating": 3, "Price": "1088.8", "Category": { "ID": 2, "Name": "$$(Electronics)" } }
+	];
+
+	$("#grid").igGrid({
+		dataSource: northwindProductsJSON, //JSON Array with a complex Category object defined above
+		primaryKey: "ID",
+		autoCommit:true,
+		width:"100%",
+		autoGenerateColumns: false,
+		columns: [
+			{ headerText: "", key: "ID", dataType: "number", hidden: true },
+			{ headerText: "$$(Name)", key: "Name", dataType: "string" },
+			{ headerText: "$$(Description)", key: "Description", dataType: "string" },
+			{ headerText: "$$(Category)", key: "Category", dataType: "object", mapper: function (record) {
+					return record.Category.Name;
+				}
+			}
+		],
+		features: [
+		{
+			name: "Filtering"
+		},
+		{
+			name: "Sorting"
+		},
+		{
+			name: "Updating",
+			editMode: "cell",
+			columnSettings: [
+				{
+					columnKey: "Category",
+					editorType: "combo",
+					editorOptions: {
+						dataSource: northWindCategoriesJSON,
+						textKey: "Name",
+						valueKey: "ID",
+						mode: "dropdown"
+					}
+				}
+			]
+		}
+		]
+	});
+});
+</script>
+
+</body>
+</html>

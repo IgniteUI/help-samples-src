@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_cell-merging)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">   
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+    
+</head>
+<body>
+        
+    <!-- Target element for the igGrid -->
+    <table id="grid">
+    </table>    
+
+    <!--Sample JSON Data-->
+    <script src="../../../../data-files/northwind.js"></script>
+
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                width: "100%",
+                autoGenerateColumns: false,
+                dataSource: northwind,
+                responseDataKey: "results",
+                dataSourceType: "json",
+                columns: [
+                   { key: "EmployeeID", headerText: "$$(Northwind_Employees_EmployeeID)", dataType: "number" },
+                   { key: "LastName", headerText: "$$(Northwind_Employees_FirstName)", dataType: "string" },
+                   { key: "FirstName", headerText: "$$(Northwind_Employees_LastName)", dataType: "string" },
+                   { key: "Title", headerText: "$$(Northwind_Employees_Title)", dataType: "string" },
+                   { key: "Address", headerText: "$$(Northwind_Employees_Address)", dataType: "string" },
+                   { key: "City", headerText: "$$(Northwind_Employees_City)", dataType: "string" },
+                   { key: "Region", headerText: "$$(Northwind_Employees_Region)", dataType: "string" },
+                   { key: "Country", headerText: "$$(Northwind_Employees_Country)", dataType: "string" },
+                   { key: "PostalCode", headerText: "$$(table_lbl_postCode)", dataType: "string" }
+                ],
+                features: [
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "EmployeeID",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "Address",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "LastName",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "Region",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "Country",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "PostalCode",
+                                classes: "ui-visible-phone"
+                            }
+                        ]
+                    },
+                    {
+                        name: "CellMerging",
+                        initialState: "merged"
+                    },
+                    {
+                        name: "Sorting",
+                        type: "local",
+                        applySortedColumnCss: false
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

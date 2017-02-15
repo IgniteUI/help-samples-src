@@ -3,7 +3,7 @@ node_js:
 - '4'
 script:
 # clone gh-pages
-- git clone -b master https://$GH_TOKEN@github.com/IgniteUI/help-samples.git dist
+- git clone -b master https://${GH_TOKEN}@github.com/IgniteUI/help-samples.git dist
 
 # wipe content in target folder
 - rm -rf dist/${TRAVIS_BRANCH}

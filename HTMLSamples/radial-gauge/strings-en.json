@@ -1,0 +1,13 @@
+{
+  "LabelExtent": "Label Extent",
+  "LabelInterval": "Label Interval",
+  "Options": "Options",
+  "RadialGauge_CurrentNeedleValue": "Current Needle Value",
+  "RadialGauge_GetNeedleValueBtn": "Get Needle Value",
+  "RadialGauge_GetNeedleValueLabel": "Get Current Needle Value",
+  "RadialGauge_SetNeedleValueBtn": "Set Needle Value",
+  "RadialGauge_SetNeedleValueLabel": "Enter/Select Needle value",
+  "Title_api-usage": "API Usage",
+  "Title_label-settings": "Label Settings",
+  "TransitionDuration": "Transition Duration"
+}

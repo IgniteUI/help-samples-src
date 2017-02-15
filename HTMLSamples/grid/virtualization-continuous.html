@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_virtualization-continuous)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+</head>
+<body>
+    <table id="grid"></table>
+    <script src="../../../../data-files/nw-invoices.js"></script>
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                autoGenerateColumns: false,
+                autofitLastColumn : false,
+                renderCheckboxes: true,
+                width: "100%",
+                height: "400px",
+                rowVirtualization : true,
+                virtualizationMode: "continuous",
+                columns: [
+                   { headerText: "$$(Northwind_Products_ProductName)", key: "ProductName", dataType: "string", width: "15%" },
+                   { headerText: "$$(Northwind_Invoices_ShipName)", key: "ShipName", dataType: "string", width: "20%" },
+                   { headerText: "$$(Northwind_Invoices_OrderDate)", key: "OrderDate", dataType: "date", width: "10%" },
+                   { headerText: "$$(Northwind_Orders_TotalPrice)", key: "ExtendedPrice", dataType: "number", format: "currency", width: "10%" },
+                   { headerText: "$$(Northwind_Orders_ShipAddress)", key: "ShipAddress", dataType: "string", width: "15%" },
+                   { headerText: "$$(Northwind_Invoices_ShipCity)", key: "ShipCity", dataType: "string", width: "10%" },
+                   { headerText: "$$(Northwind_Invoices_ShipCountry)", key: "ShipCountry", dataType: "string", width: "10%" },
+                   { headerText: "$$(Northwind_Customers_PostalCode)", key: "ShipPostalCode", dataType: "string", width: "10%" }
+                ],
+                dataSource: northwindInvoices,
+                features:
+                [
+                    {
+                        name: "Selection"
+                    },
+                    {
+                        name: "RowSelectors",
+                        enableRowNumbering: true
+                    },
+                    {
+                        name: "GroupBy"
+                    },
+                    {
+                        name: "Responsive",
+                        enableVerticalRendering: false,
+                        columnSettings: [
+                            {
+                                columnKey: "OrderID",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "OrderDate",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "ExtendedPrice",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "ShipAddress",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "ShipCity",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "ShipCountry",
+                                classes: "ui-hidden-phone"
+                            },
+                            {
+                                columnKey: "ShipPostalCode",
+                                classes: "ui-hidden-phone"
+                            }
+                        ]
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

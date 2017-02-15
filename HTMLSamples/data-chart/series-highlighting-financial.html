@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_series-highlighting-financial)</title>
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+
+</head>
+<body>
+    <script type="text/javascript" src="../../../../data-files/financial-indicators.js"></script>
+    <script type="text/javascript" src="../../../../data-files/financial-data.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+           $("#chart").igDataChart({
+                width: "100%",
+                height: "400px",
+                dataSource: data,
+                title: "$$(Chart_title_financial_indicators)",
+                horizontalZoomable: true,
+                verticalZoomable: true,
+                axes: [{
+                    type: "categoryX",
+                    label: "Date",
+                    name: "xAxis",
+                    title: "$$(CategoryAxis_title_date)"
+                }, {
+                    type: "numericY",
+                    name: "yAxis",
+                    title: "$$(NumericAxis_title_price)"
+                }],
+                series: [{
+                    type: "financial",
+                    displayType: "candlestick",
+                    closeMemberPath: "Close",
+                    highMemberPath: "High",
+                    lowMemberPath: "Low",
+                    openMemberPath: "Open",
+                    volumeMemberPath: "Volume",
+                    xAxis: "xAxis",
+                    yAxis: "yAxis",
+                    name: "indicatorSeries",
+                    title: "Financial Indicator Data",
+                    isHighlightingEnabled: true,
+                    isTransitionInEnabled: true,
+
+                }]
+            });
+        
+
+           $("#seriesType").change(function (e) {
+               var seriesType = $("#seriesType").val();
+               var thickness = 3;
+               if (seriesType == "candlestick" ||
+                      seriesType == "priceChannelOverlay" ||
+                      seriesType == "bollingerBandsOverlay") {
+                   thickness = 1;
+               }
+               if (seriesType == "ohlc") {
+                   thickness = 2;
+               }
+               
+                $("#chart").igDataChart("option", "series", [{name: "indicatorSeries",remove: true}]);
+               
+                if (seriesType == "ohlc" || seriesType == "candlestick") {
+                    $("#chart").igDataChart("option", "series", [{
+                        type: "financial",
+                        displayType: seriesType,
+                        isTransitionInEnabled: true,
+                        isHighlightingEnabled: true,
+                        closeMemberPath: "Close",
+                        highMemberPath: "High",
+                        lowMemberPath: "Low",
+                        openMemberPath: "Open",
+                        volumeMemberPath: "Volume",
+                        thickness: thickness,
+                        xAxis: "xAxis",
+                        yAxis: "yAxis",
+                        name: "indicatorSeries",
+                        title: "Financial Indicator Data"
+                    }]);
+                }
+                 else {
+                    $("#chart").igDataChart("option", "series", [{
+                        type: seriesType,
+                        isHighlightingEnabled: true,
+                        isTransitionInEnabled: true,
+                        closeMemberPath: "Close",
+                        highMemberPath: "High",
+                        lowMemberPath: "Low",
+                        openMemberPath: "Open",
+                        volumeMemberPath: "Volume",
+                        thickness: thickness,
+                        xAxis: "xAxis",
+                        yAxis: "yAxis",
+                        name: "indicatorSeries",
+                        title: "Financial Indicator Data"
+                    }]);
+                }
+            });
+        
+            // Transition Duration Slider
+           $("#transitionDurationSlider").slider({
+               min: 0,
+               max: 2000,
+               value: 1000,
+               step: 50,
+               slide: function (event, ui) {
+                   $("#chart").igDataChart("option", "highlightingTransitionDuration", ui.value);
+                   $("#transitionDurationLabel").text(ui.value);
+               }
+           });
+        
+        });
+    </script>
+
+    <style type="text/css">
+       
+        .selectionOptions
+        {
+            width: 450px;
+            margin-top: 10px;
+        }
+
+        .selectionOptions > label 
+        {
+            display: block;
+        }
+
+        .optionContainer {
+            min-width: 120px;
+            max-width: 250px;
+            margin: 2px;
+            padding: 2px;
+            display: inline-block;
+            border: 1px solid #e0e0e0;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+         td { vertical-align: top; }
+        .chartElement {
+            padding-bottom: 20px;
+        }
+
+        .sliderBounds {
+            width: 95px;
+            margin: 6px 3px 6px 6px;
+            display: inline-block;
+        }
+        
+        .selectBounds {
+            min-width: 120px;
+            max-width: 132px;
+        }
+
+    </style>
+  <div class="selectionOptions">
+        $$(Chart_lbl_seriesType):
+        <select id="seriesType" class="selectBounds">
+            <option value="candlestick" selected="selected">$$(Chart_sel_candleStick)</option>
+            <option value="ohlc">$$(Chart_sel_ohlc)</option>
+            <option value="absoluteVolumeOscillatorIndicator">$$(absoluteVolumeOscillatorIndicator)</option>
+            <option value="averageTrueRangeIndicator">$$(averageTrueRangeIndicator)</option>
+            <option value="accumulationDistributionIndicator">$$(accumulationDistributionIndicator)</option>
+            <option value="averageDirectionalIndexIndicator">$$(averageDirectionalIndexIndicator)</option>
+            <option value="bollingerBandsOverlay">$$(bollingerBandsOverlay)</option>
+            <option value="bollingerBandWidthIndicator">$$(bollingerBandWidthIndicator)</option>
+            <option value="chaikinOscillatorIndicator">$$(chaikinOscillatorIndicator)</option>
+            <option value="chaikinVolatilityIndicator">$$(chaikinVolatilityIndicator)</option>
+            <option value="commodityChannelIndexIndicator">$$(commodityChannelIndexIndicator)</option>
+            <option value="detrendedPriceOscillatorIndicator">$$(detrendedPriceOscillatorIndicator)</option>
+            <option value="easeOfMovementIndicator">$$(easeOfMovementIndicator)</option>
+            <option value="fastStochasticOscillatorIndicator">$$(fastStochasticOscillatorIndicator)</option>
+            <option value="forceIndexIndicator">$$(forceIndexIndicator)</option>
+            <option value="fullStochasticOscillatorIndicator">$$(fullStochasticOscillatorIndicator)</option>
+            <option value="marketFacilitationIndexIndicator">$$(marketFacilitationIndexIndicator)</option>
+            <option value="massIndexIndicator">$$(massIndexIndicator)</option>
+            <option value="medianPriceIndicator">$$(medianPriceIndicator)</option>
+            <option value="moneyFlowIndexIndicator">$$(moneyFlowIndexIndicator)</option>
+            <option value="movingAverageConvergenceDivergenceIndicator">$$(movingAverageConvergenceDivergenceIndicator)</option>
+            <option value="negativeVolumeIndexIndicator">$$(negativeVolumeIndexIndicator)</option>
+            <option value="onBalanceVolumeIndicator">$$(onBalanceVolumeIndicator)</option>
+            <option value="percentagePriceOscillatorIndicator">$$(percentagePriceOscillatorIndicator)</option>
+            <option value="percentageVolumeOscillatorIndicator">$$(percentageVolumeOscillatorIndicator)</option>
+            <option value="positiveVolumeIndexIndicator">$$(positiveVolumeIndexIndicator)</option>
+            <option value="priceChannelOverlay">$$(priceChannelOverlay)</option>
+            <option value="priceVolumeTrendIndicator">$$(priceVolumeTrendIndicator)</option>
+            <option value="rateOfChangeAndMomentumIndicator">$$(rateOfChangeAndMomentumIndicator)</option>
+            <option value="relativeStrengthIndexIndicator">$$(relativeStrengthIndexIndicator)</option>
+            <option value="slowStochasticOscillatorIndicator">$$(slowStochasticOscillatorIndicator)</option>
+            <option value="standardDeviationIndicator">$$(standardDeviationIndicator)</option>
+            <option value="stochRSIIndicator">$$(stochRSIIndicator)</option>
+            <option value="trixIndicator">$$(trixIndicator)</option>
+            <option value="typicalPriceIndicator">$$(typicalPriceIndicator)</option>
+            <option value="ultimateOscillatorIndicator">$$(ultimateOscillatorIndicator)</option>
+            <option value="weightedCloseIndicator">$$(weightedCloseIndicator)</option>
+            <option value="williamsPercentRIndicator">$$(williamsPercentRIndicator)</option>
+         </select>
+    </div>
+    <div id="chart" class="chartElement"></div>
+   <div style="float: left">
+        <fieldset id="chartOptions">
+            <legend>$$(Options)</legend>
+            <div class="optionContainer">
+                $$(TransitionDuration)
+                <br>
+                <div id="transitionDurationSlider" class="sliderBounds"></div>
+                <label id="transitionDurationLabel">1000</label>
+            </div>
+        </fieldset>    
+    </div>
+
+    <div class="selectionOptions" style="display: inline-block">
+        <label>$$(Chart_lbl_stockDataFrom):
+            <a href="http://www.quandl.com/" target="_blank">Quandl</a>
+        </label>
+    </div>
+
+</body>
+</html>

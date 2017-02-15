@@ -1,0 +1,12 @@
+{
+  "button_Add": "Add",
+  "button_Remove": "Remove",
+  "edit_product_name": "Edit Product Name",
+  "Favourite_Actors": "My Favourite Actors",
+  "Selected_Actor": "Selected Actor",
+  "Title_angular": "AngularJS",
+  "Title_bind-combo-with-ko": "KnockoutJS Binding",
+  "Title_html-binding": "HTML Binding",
+  "Title_xml-binding": "XML Binding",
+  "values": "Values"
+}

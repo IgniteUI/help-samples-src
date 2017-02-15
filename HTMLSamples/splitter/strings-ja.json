@@ -1,0 +1,14 @@
+{
+  "atThe": "位置:",
+  "changeContent": "コンテンツを設定:",
+  "collapseFirstPanel": "最初のパネルの縮小",
+  "collapseSecondPanel": "2 つ目のパネルの縮小",
+  "enterNewPanelSize": "パネル サイズを設定:",
+  "expandFirstPanel": "最初のパネルの展開",
+  "expandSecondPanel": "2 つ目のパネルの展開",
+  "firstPanel": "最初のパネル",
+  "hintSize": "100px など",
+  "secondPanel": "2 つ目のパネル",
+  "splitterApiSettings": "スプリッターの API 設定",
+  "Title_api-events-splitter": "スプリッター API およびイベント"
+}

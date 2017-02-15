@@ -1,0 +1,15 @@
+{
+  "Task_Dev": "Development Task",
+  "Task_QA": "Quality Assurance Task",
+  "TaskEnd": "Ends",
+  "Tasks_Description": "Even though these tasks are executed simultaneously at the course of three weeks, initially more time has been spent on development. This is demonstrated by the progress bars’ placement amongst the three different ranges (“Low, “Medium” and “High”), that represent the level of confidence for delivering the needed results.",
+  "Tasks_Hours": "h",
+  "Tasks_Planned": "Planned Time",
+  "Tasks_Spent": "Spent Time",
+  "Tasks_Title": "Task Implementation Progress",
+  "TaskStart": "Starts",
+  "Title_tooltip-settings": "ToolTip Settings",
+  "ToolTipSettings_High": "High",
+  "ToolTipSettings_Low": "Low",
+  "ToolTipSettings_Medium": "Medium"
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_angular)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+    <!--<link href="../../css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+    <script src="%%angular%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script src="%%ignite-ui%%/js/extensions/igniteui-angular.js"></script>
+
+    <script src="../../../../data-files/northwindProducts.js"></script>
+    <script type="text/javascript">
+        var sampleApp = angular.module('sampleApp', ['igniteui-directives']);
+        sampleApp.controller('comboController', function ($scope) {
+            $scope.data = northwindProducts.results;
+
+            $scope.combo = {
+                value1: 20,
+                value2: "Chang"
+            };
+        });
+    </script>
+    <style>
+        .row{
+            margin-right:0;
+            margin-left:0;
+        }
+
+        .col-sm-2 {
+            width: 16.666667%;
+        }
+
+        .col-sm-3 {
+            width: 20%;
+        }
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #55595c;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: .25rem;
+        }
+
+        div.row > div {
+            display: inline-flex;
+            padding: 0 2% 0 2%;
+        }
+
+        div.row:last-of-type {
+            padding-top: 1%;
+        }
+       
+        div.row:first-of-type > div {
+             display: inline-block;
+             float:left;
+        }
+
+        h2 {
+            padding-top: 4%;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div ng-app="sampleApp" ng-controller="comboController">
+        <div class="row">
+            <div class="col-sm-2">
+                <input id="product-id" class="form-control" type="text" ng-model="combo.value1"></input>
+                <div class="text-sm text-muted text-right">$$(values): 1 - 20</div>
+            </div>
+            <div class="col-sm-3">
+
+                <ig-combo id="combo1" data-source="data" value-key-type="number" value-key="ProductID" text-key-type="string" text-key="ProductName" ng-model="combo.value1">
+                </ig-combo>
+
+            </div>
+            <div class="col-sm-3">
+
+                <ig-combo id="combo2" data-source="data" value-key-type="number" value-key="ProductID" text-key-type="string" text-key="ProductName" ng-model="combo.value1">
+                </ig-combo>
+
+            </div>
+        </div>
+
+        <h2 class="h3">$$(edit_product_name)</h2>
+        <div class="row">
+
+            <div class="col-sm-3" ng-repeat="record in data">
+                <input class="form-control" ng-model="record.ProductName">
+            </input></div>
+
+        </div>
+    </div>
+</body>
+</html>

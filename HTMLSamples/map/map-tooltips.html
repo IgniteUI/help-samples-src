@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>$$(Title_map-tooltips)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.dv.js"></script>
+    
+    <style>
+        #customTable
+        {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #customTable td, #customTable th
+        {
+            font-size: 9px;
+            border: 1px solid #4377e1;
+            padding: 3px 7px 2px 7px;
+        }
+        #customTable th
+        {
+            font-weight: bold;
+            font-size: 11px;
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: #4377e1;
+            color: #ffffff;
+        }
+    </style>
+
+</head>
+<body>
+    <script src="../../../../data-files/world-cities.js"></script>
+
+    <script id="customTooltip" type="text/x-jquery-tmpl">
+        <table id="customTable" >
+            <tr><th colspan="2">${item.Name}, ${item.Country}</th></tr>
+            <tr>
+                <td>$$(Latitude):</td>
+                <td>${item.Latitude}</td>
+            </tr>
+            <tr>
+                <td>$$(Longitude):</td>
+                <td>${item.Longitude}</td>
+            </tr>
+        </table>
+    </script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#map").igMap({
+                width: "700px",
+                height: "500px",
+                windowRect: { left: 0.1, top: 0.1, height: 0.7, width: 0.7 },
+                backgroundContent: {
+                    type: "openStreet"
+                },
+                series: [{
+                    type: "geographicSymbol",
+                    name: "worldCities",
+                    dataSource: data,
+                    latitudeMemberPath: "Latitude",
+                    longitudeMemberPath: "Longitude",
+                    markerType: "automatic",
+                    markerCollisionAvoidance: "fade",
+                    markerOutline: "#1142a6",
+                    markerBrush: "#7197e5",
+                    showTooltip: true,
+                    tooltipTemplate: "customTooltip"
+                }]
+            });
+            $("#map").find(".ui-widget-content").append("<span class='copyright-notice'><a href='http://www.openstreetmap.org/copyright'>$$(OpenStreetMapCopyright)</a></span>");
+        });
+    </script>
+
+    <div>
+        <div id="map"></div>
+    </div>
+</body>
+</html>
