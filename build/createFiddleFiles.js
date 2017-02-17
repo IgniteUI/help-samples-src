@@ -68,17 +68,18 @@ module.exports = function(options) {
 		basePath = path.dirname(file.path),
 		relativePath = basePath.split("HTMLSamples").pop().replace(/\\/g, "/"),
 		htmlFile, jsFile, cssFile,
-		html = [], js = "", css = "", 
+		html = [], js = "", css = "",
+		resultStr = file.lang === "ja" ? options.strings.resultJA : options.strings.resultEN,
 		embed = {
 		   "embed": [{
-				"label": "HTML",
-				"path": path.posix.join(options.version, relativePath, "fiddle/demo.html") 
-			}, {
 				"label": "JS",
 				"path": path.posix.join(options.version, relativePath, "fiddle/demo.js") 
 			},{
+				"label": "HTML",
+				"path": path.posix.join(options.version, relativePath, "fiddle/demo.html") 
+			}, {
 				"type": "htmlpage",
-				"label": "Result",
+				"label": resultStr,
 				"url": options.liveUrl + path.posix.join("/" + options.version, relativePath, "/index.html") 
 			}]
 		};
