@@ -1,6 +1,6 @@
 {
   "Change_DatePickers_dataMode": "DatePicker の dataMode オプションを変更",
-  "constraints": "日付の制約、入力マスクの非表示",
+  "constraints": "Using different display format and Date constraints. Note the display format is used for the warning shown when entering value outside the min/max range.",
   "Control_Name": "コントロール名",
   "date_config": "日付と時間構成",
   "DatePickers_submited_values": "DatePicker の送信された値",
@@ -22,6 +22,7 @@
   "KO_Order_Date": "注文日",
   "KO_Plain_Editors": "プレーン INPUT 要素",
   "KO_Ship_Date": "出荷日付",
+  "set_after_max": "Set after maximum",
   "Start_Date": "開始日",
   "Submit": "送信",
   "time_config": "時間構成",
