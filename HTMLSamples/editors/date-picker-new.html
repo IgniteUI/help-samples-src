@@ -84,16 +84,16 @@
         <div id="igDatePickersContainer">
             <form id="form" name="FormSubmit" action="javascript:console.log('$$(Submit)');">
                 <div class="group-fields">
-                    <label for="datePicker1">$$(Start_Date)</label>
+                    <label for="datePicker1">dataMode: "date"</label>
                     <input id="datePicker1" type="date" name="startDayPicker"></input>
                 </div>
                 <div class="group-fields">
-                    <label for="datePicker2">$$(End_Date)</label>
+                    <label for="datePicker2">dataMode: "editModeText"</label>
                     <input id="datePicker2" type="date" name="endDatePicker"></input>
                 </div>
                 <div class="group-fields">
-                    <label for="dataModeCombo">$$(Change_DatePickers_dataMode)</label>
-                    <input id="dataModeCombo"></input>
+                    <label for="datePicker3">dataMode: "displayModeText"</label>
+                    <input id="datePicker3" type="date" name="endDatePicker"></input>
                 </div>
                 <input type="submit" id="submitBtn" value="$$(Submit)"></input>
             </form>
@@ -107,56 +107,39 @@
         </div>
     </div>
 
-    <script>
-        var data = [
-           { "ID": 1, "dataMode": "date" },
-           { "ID": 2, "dataMode": "editModeText" },
-           { "ID": 3, "dataMode": "displayModeText" }
-        ];
+<script type='text/javascript'>
 
-        $(function () {
-            $("#datePicker1").igDatePicker({
-                minValue: new Date(2015, 6, 1),
-                dateDisplayFormat: "yy/MM/dd dddd"
-            });
+	$(function () {
+	    $("#datePicker1").igDatePicker({
+	        value: new Date(2017, 11, 8),
+	        dataMode: "date",
+	        dateDisplayFormat: "yyyy/MM/dd dddd" 
+	    });
+	
+	    $("#datePicker2").igDatePicker({
+	        value: new Date(2017, 11, 8),
+	        dataMode: "editModeText",
+	        dateDisplayFormat: "yyyy/MM/dd dddd"
+	    });
+	
+	    $("#datePicker3").igDatePicker({
+	        value: new Date(2017, 11, 8),
+	        dataMode: "displayModeText",
+	        dateDisplayFormat: "yyyy/MM/dd dddd" 
+	    });
+	
+	    var headers = $('.group-fields label');
+	    $("#form").submit(function (event) {
+	        var submittedValues = $("#form").serializeArray();
+	        $(".p").remove();
+	        for (var i = 0 ; i < submittedValues.length; i++) {
+	            $("#results").append("<p class='p'><span class='header'>" + headers[i].textContent + ": " + "</span>  <strong>" + submittedValues[i].value + "</strong></p>");
+	        }
+	        return false;
+	    });
+	});
 
-            $("#datePicker2").igDatePicker({
-                maxValue: new Date(2018, 8, 8),
-                dateDisplayFormat: "yy/MM/dd dddd"
-            });
-
-            $("#dataModeCombo").igCombo({
-                dataSource: data,
-                valueKey: "ID",
-                textKey: "dataMode",
-                placeHolder: "change dataMode",
-                enableClearButton: false,
-                mode: "dropdown",
-                initialSelectedItems: [{ index: 0 }],
-                selectionChanged: function (evt, ui) {
-                	var selectedMode = ui.items[0].data.dataMode,
-                		value1, value2;
-					
-                	value1 = $("#datePicker1").igDatePicker("value");
-                    $("#datePicker1").igDatePicker("option", "dataMode", selectedMode);
-                    $("#datePicker1").igDatePicker("value", value1);
-                    value2 = $("#datePicker2").igDatePicker("value");
-                    $("#datePicker2").igDatePicker("option", "dataMode", selectedMode);
-                    $("#datePicker2").igDatePicker("value", value2);
-                }
-            });
-
-            var headers = $('.group-fields label');
-            $("#form").submit(function (event) {
-                var submittedValues = $("#form").serializeArray();
-                $(".p").remove();
-                for (var i = 0 ; i < submittedValues.length; i++) {
-                    $("#results").append("<p class='p'><span class='header'>" + headers[i].textContent + ": " + "</span>  <strong>" + submittedValues[i].value + "</strong></p>");
-                }
-                return false;
-            });
-        });
-    </script>
+</script>
 
 </body>
 </html>
