@@ -7,14 +7,9 @@
     <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
     <style>
         #container {
-            width: 60%;
             border: 1px solid #ccc;
             box-sizing: border-box;
             padding: 20px;
-        }
-
-        .p {
-            margin-top: 5px;
         }
 
         #igDatePickersContainer {
@@ -34,31 +29,10 @@
             float: right;
         }
 
-        #ValuesContainer.p {
-            font-size: 16px;
-        }
-
-        #container h4 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
         .clearfix:after {
             content: "";
             display: table;
             clear: both;
-        }
-
-        @media screen and (max-width:920px) {
-            #container {
-                width: 70%;
-            }
-        }
-
-        @media screen and (max-width:770px) {
-            #container {
-                width: 100%;
-            }
         }
 
         @media screen and (max-width:570px) {
@@ -101,8 +75,7 @@
 
         <div id="ValuesContainer">
             <h4>$$(DatePickers_submited_values):</h4>
-            <div class="divHeight">
-                <p class="pStyle" id="results">
+            <div id="results">
             </div>
         </div>
     </div>
@@ -130,10 +103,11 @@
 	
 	    var headers = $('.group-fields label');
 	    $("#form").submit(function (event) {
-	        var submittedValues = $("#form").serializeArray();
-	        $(".p").remove();
+	        var submittedValues = $(this).serializeArray(),
+                $results = $("#results");
+            $results.empty();
 	        for (var i = 0 ; i < submittedValues.length; i++) {
-	            $("#results").append("<p class='p'><span class='header'>" + headers[i].textContent + ": " + "</span>  <strong>" + submittedValues[i].value + "</strong></p>");
+	            $results.append("<p class='p'><span class='header'>" + headers[i].textContent + ": " + "</span>  <strong>" + submittedValues[i].value + "</strong></p>");
 	        }
 	        return false;
 	    });
