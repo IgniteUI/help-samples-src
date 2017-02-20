@@ -43,7 +43,8 @@ module.exports = function (options) {
 		$ = file.cheerio = file.cheerio || cheerio.load(contents, { decodeEntities: false });
 
 		if (file.lang == "ja") {
-			$("head").append("<script src=\"%%ignite-ui%%/js/i18n/infragistics-ja.js\"></script>")
+			$("head").append("<script src=\"%%ignite-ui%%/js/i18n/infragistics-ja.js\"></script>");
+			$("head").append("<script src=\"%%ignite-ui%%/js/modules/i18n/regional/infragistics.ui.regional-ja.js\"></script>");
 		}
 
 		// script tags

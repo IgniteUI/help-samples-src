@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_date-picker-new)</title>
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">
+    <style>
+        #container {
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        #igDatePickersContainer {
+            float: left;
+        }
+
+        .group-fields {
+            margin-bottom: 10px;
+        }
+
+        .group-fields label {
+            display: block;
+            line-height: 18px;
+        }
+
+        #ValuesContainer {
+            float: right;
+        }
+
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        @media screen and (max-width:570px) {
+            #igDatePickersContainer,#ValuesContainer {
+                float: none;
+            }
+            #ValuesContainer {
+                margin-top:20px;
+            }
+        }
+    </style>
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+</head>
+<body>
+    <div id="container" class="clearfix">
+        <div id="igDatePickersContainer">
+            <form id="form" name="FormSubmit" action="javascript:console.log('$$(Submit)');">
+                <div class="group-fields">
+                    <label for="datePicker1">$$(Date_Object)</label>
+                    <input id="datePicker1" type="date" name="datePicker_date"></input>
+                </div>
+                <div class="group-fields">
+                    <label for="datePicker2">$$(Edit_Mode_Text)</label>
+                    <input id="datePicker2" type="date" name="datePicker_editModeText"></input>
+                </div>
+                <div class="group-fields">
+                    <label for="datePicker3">$$(Display_Mode_Text)</label>
+                    <input id="datePicker3" type="date" name="displayModeText"></input>
+                </div>
+                <input type="submit" id="submitBtn" value="$$(Submit)"></input>
+            </form>
+        </div>
+
+        <div id="ValuesContainer">
+            <h4>$$(DatePickers_submited_values):</h4>
+            <div id="results">
+            </div>
+        </div>
+    </div>
+
+<script type='text/javascript'>
+
+	$(function () {
+	    $("#datePicker1").igDatePicker({
+	        value: new Date(2017, 11, 8),
+	        dataMode: "date",
+	        dateDisplayFormat: "yyyy/MM/dd dddd" 
+	    });
+	
+	    $("#datePicker2").igDatePicker({
+	        value: new Date(2017, 11, 8),
+	        dataMode: "editModeText",
+	        dateDisplayFormat: "yyyy/MM/dd dddd"
+	    });
+	
+	    $("#datePicker3").igDatePicker({
+	        value: new Date(2017, 11, 8),
+	        dataMode: "displayModeText",
+	        dateDisplayFormat: "yyyy/MM/dd dddd" 
+	    });
+	
+	    var headers = $('.group-fields label');
+	    $("#form").submit(function (event) {
+	        var submittedValues = $(this).serializeArray(),
+                $results = $("#results");
+            $results.empty();
+	        for (var i = 0 ; i < submittedValues.length; i++) {
+	            $results.append("<p class='p'><span class='header'>" + headers[i].textContent + ": " + "</span>  <strong>" + submittedValues[i].value + "</strong></p>");
+	        }
+	        return false;
+	    });
+	});
+
+</script>
+
+</body>
+</html>

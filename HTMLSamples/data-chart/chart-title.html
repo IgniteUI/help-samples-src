@@ -26,7 +26,11 @@
                 height: "400px",
                 dataSource: lastFiveYears,
                 title: "$$(Chart_title_energy_production)",
+                titleTextColor: "#2e9ca6",
+                titleTextStyle: "20pt Arial",
                 subtitle: "$$(Chart_subtitle_energy_production)",
+                subtitleTextColor: "#2e9ca6",
+                subtitleTextStyle: "14pt Arial",
                 horizontalZoomable: true,
                 verticalZoomable: true,
                 legend: { element: "columnLegend" },
@@ -105,9 +109,7 @@
 
     <style type="text/css">
         td { vertical-align: top; }
-        .chartElement {
-            padding-bottom: 20px;
-        }
+        .chartElement { padding-bottom: 20px; }
     </style>
     
     <table><tr><td id="columnChart" class="chartElement"></td><td id="columnLegend" style="float: left"></td></tr></table>
