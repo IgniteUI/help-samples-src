@@ -37,52 +37,42 @@
     </script>
 
     <style type="text/css">
-        body { font-family: Arial; }
-        label { display: inline-block; }
-
         .order-container {
-            position: relative;
             width: 450px;
-            margin-left: -225px;
-            left: 50%;
-            font-size:1.2em;
+            margin: 0 auto;
         }
         .row {
             margin-top: 5px;
         }
+        .heading-row
+        {
+            font-size: large;
+        }
+        
         .row-control {
-            height: 28px;
-            padding: 0;
             vertical-align: top;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
-        .heading-row
+        .row label
         {
-            margin: 20px 0px 10px 0px;
-            font-size: large;
+            display: inline-block;
+            font-family: Arial, Helvetica, sans-serif;
         }
-        
-        .heading-label, .row-label, .row-control
+        .row label, .row-control
         {
+            height: 28px;
             width: 200px;
             margin: 0px 5px 0px 5px;
         }
 
-
-
         @media all and (max-width: 520px) {
-            .ui-datepicker {
-                width: 250px;
-            }
-
             .order-container {
                 width: 280px;
-                margin-left: -140px;
             }
 
-            .ui-igedit {
+            .ui-igedit-container {
                 margin-bottom: 5px;
             }
         }
@@ -90,56 +80,56 @@
 
     <div class="order-container">
         <div class="row heading-row">
-            <label class="heading-label">$$(KO_IG_Editors)</label>
-            <label class="heading-label">$$(KO_Plain_Editors)</label>
+            <label>$$(KO_IG_Editors)</label>
+            <label>$$(KO_Plain_Editors)</label>
         </div>
-        <div class="editor-row">
+        <div>
             <div class="row">
-                <label class="row-label">$$(KO_Order_Date):</label>
+                <label>$$(KO_Order_Date):</label>
             </div>
             <div class="row">
                 <!-- date editor -->
                 <div id="orderDateIG" class="row-control" data-bind="igDateEditor: { value: orderDate, textAlign: 'right' }"></div>
-                <input id="orderDate" type="text" class="row-control" data-bind="value: orderDate"></input>
+                <input id="orderDate" class="row-control" data-bind="value: orderDate" type="text"></input>
             </div>
         </div>
 
-        <div class="editor-row">
+        <div>
             <div class="row">
-                <label class="row-label">$$(KO_Ship_Date)</label>
+                <label>$$(KO_Ship_Date)</label>
             </div>
             <div class="row">
                 <!-- date picker -->
-                <div id="shipDateIG" class="gosho row-control" data-bind="igDatePicker: { value: shipDate, textAlign: 'right' }"></div>
-                <input id="shipDate" class="date-row-control row-control" data-bind="value: shipDate"></input>
+                <div id="shipDateIG" class="row-control" data-bind="igDatePicker: { value: shipDate, textAlign: 'right' }"></div>
+                <input id="shipDate" class="row-control" data-bind="value: shipDate" type="text"></input>
             </div>
         </div>
 
-        <div class="editor-row">
+        <div>
             <div class="row">
-                <label class="row-label">$$(KO_Due_in_Days):</label>
+                <label>$$(KO_Due_in_Days):</label>
             </div>
             <div class="row">
                 <!-- numeric editor -->
                 <div id="dueInDaysIG" class="row-control" data-bind="igNumericEditor: { value: dueInDays, textAlign: 'right' }"></div>
-                <input id="dueInDays" type="number" class="row-control" data-bind="value: dueInDays"></input>
+                <input id="dueInDays" class="row-control" data-bind="value: dueInDays" type="number"></input>
             </div>
         </div>
 
-        <div class="editor-row">
+        <div>
             <div class="row">
-                <label class="row-label">$$(KO_Customer_Name):</label>
+                <label>$$(KO_Customer_Name):</label>
             </div>
             <div class="row">
                 <!-- text editor -->
                 <div id="customerNameIG" class="row-control" data-bind="igTextEditor: { value: customerName, textAlign: 'right' }"></div>
-                <input id="customerNAme" type="text" class="row-control" data-bind="value: customerName"></input>
+                <input id="customerNAme" class="row-control" data-bind="value: customerName" type="text"></input>
             </div>
         </div>
 
-        <div class="editor-row">
+        <div>
             <div class="row">
-                <label class="row-label">$$(KO_Contact_Phone): <br> $$(KO_Contact_Phone_Mask)</label>
+                <label>$$(KO_Contact_Phone): <br> $$(KO_Contact_Phone_Mask)</label>
             </div>
             <div class="row">
                 <!-- mask editor -->
@@ -152,20 +142,20 @@
             </div>
         </div>
 
-        <div class="editor-row">
+        <div>
             <div class="row">
-                <label class="row-label">$$(KO_Advance_Payment):</label>
+                <label>$$(KO_Advance_Payment):</label>
             </div>
             <div class="row">
                 <!-- currency editor -->
                 <div id="advancePaymentIG" class="row-control" data-bind="igCurrencyEditor: { value: advancePayment, textAlign: 'right' }"></div>
-                <input id="advancePayment" type="text" class="row-control" data-bind="value: advancePayment"></input>
+                <input id="advancePayment" class="row-control" data-bind="value: advancePayment" type="text"></input>
             </div>
         </div>
 
-        <div class="editor-row">
+        <div>
             <div class="row">
-                <label class="row-label">$$(KO_Discount_Percent):</label>
+                <label>$$(KO_Discount_Percent):</label>
             </div>
             <div class="row">
                 <!-- percent editor -->
