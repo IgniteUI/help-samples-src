@@ -22,13 +22,13 @@
 <body>
     <script type="text/javascript">
         var viewModel = {
-            orderDate: ko.observable("10/24/2012"),
-            shipDate: ko.observable("11/12/2012"),
+            orderDate: ko.observable(new Date(2017, 0, 21)),
+            shipDate: ko.observable(new Date(2017, 1, 15)),
             dueInDays: ko.observable(7),
             customerName: ko.observable("Peter Sanders"),
             contactPhone: ko.observable("318-555-6879"),
             advancePayment: ko.observable(516.89),
-            discountPercent: ko.observable(8)
+            discountPercent: ko.observable(0.08)
         };
 
         $(function () {
@@ -171,7 +171,7 @@
                 <!-- percent editor -->
                 <div id="discountPercentIG" class="row-control" data-bind="igPercentEditor: {
                         value: discountPercent,
-                        displayFactor : 1,
+                        displayFactor : 100,
                         textAlign: 'right'
                     }"></div>
                 <input id="discountPercent" type="text" class="row-control" data-bind="value: discountPercent"></input>
