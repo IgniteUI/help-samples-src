@@ -1,6 +1,6 @@
 {
   "Change_DatePickers_dataMode": "DatePicker の dataMode オプションを変更",
-  "constraints": "日付の制約、入力マスクの非表示",
+  "constraints": "別の表示形式および Date 制限を使用します。表示形式は最小/最大範囲以外の値の入力で表示される警告に使用されます。",
   "Control_Name": "コントロール名",
   "date_config": "日付と時間構成",
   "DatePickers_submited_values": "DatePicker の送信された値",
@@ -24,6 +24,7 @@
   "KO_Order_Date": "注文日",
   "KO_Plain_Editors": "プレーン INPUT 要素",
   "KO_Ship_Date": "出荷日付",
+  "set_after_max": "最大日付以降に設定",
   "Submit": "送信",
   "time_config": "時間構成",
   "Title_angular": "AngularJS との連携",
