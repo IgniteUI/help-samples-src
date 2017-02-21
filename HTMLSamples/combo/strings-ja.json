@@ -7,6 +7,7 @@
   "Title_angular": "AngularJS との連携",
   "Title_bind-combo-with-ko": "KnockoutJS のバインド",
   "Title_html-binding": "HTML のバインド",
+  "Title_json-binding": "JSON のバインド",
   "Title_xml-binding": "XML のバインド",
   "values": "値"
 }

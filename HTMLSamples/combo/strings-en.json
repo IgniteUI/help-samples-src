@@ -7,6 +7,7 @@
   "Title_angular": "AngularJS",
   "Title_bind-combo-with-ko": "KnockoutJS Binding",
   "Title_html-binding": "HTML Binding",
+  "Title_json-binding": "JSON Binding",
   "Title_xml-binding": "XML Binding",
   "values": "Values"
 }
