@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_append-rows-on-demand)</title>
+    <meta charset="utf-8" />
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet" />
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+
+    <script src="%%jsrender%%" type="text/javascript"></script>
+
+    <style type="text/css">
+        .tweet-user {
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            float: left;
+        }
+
+        .tweet-text {
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+        }
+
+        .tweet-screen-name {
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+            color: #999;
+            margin-left: 10px;
+            float: left;
+        }
+
+        .tweet {
+            float: none;
+            padding-left: 50px;
+        }
+
+            .tweet p {
+                margin: 5px;
+            }
+
+        .tweet-date {
+            float: right;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+            color: #999;
+        }
+    </style>
+
+</head>
+<body>
+    <h3>$$(AppendRowsOnDemand_Auto_Caption)</h3>
+    <table id="autoAppendRowsOnDemand"></table>
+    <br>
+
+    <h3>$$(AppendRowsOnDemand_Button_Caption)</h3>
+    <table id="buttonAppendRowsOnDemand"></table>
+    <br>
+<script>
+
+    $(function () {
+        //jsRender helper function which formats the string date
+        $.views.helpers({
+            formatDate: function (val) {
+                var date = new Date(val);
+                if (!isNaN(date) && ($.type(date) === "date")) {
+                    return $.ig.formatter(date, "date", "dateTime");
+                }
+                return val;
+            }
+        });
+
+        //Hide the button after all data is loaded.
+        $(document).delegate("#buttonAppendRowsOnDemand", "iggridrendered", function (evt, ui) {
+            $("#buttonAppendRowsOnDemand_loadMoreButton").click(function () {
+                var totalRecCount = $("#buttonAppendRowsOnDemand").data("igGrid").dataSource.totalRecordsCount();
+                var currentRecCount = $("#buttonAppendRowsOnDemand").data("igGrid").dataSource.totalLocalRecordsCount();
+                var chunkSize = $("#buttonAppendRowsOnDemand").igGridAppendRowsOnDemand("option", "chunkSize");
+                    if (totalRecCount <= currentRecCount + chunkSize) {
+                        $("#buttonAppendRowsOnDemand_loadMoreButton").hide();
+                    }
+            });
+        });
+
+        $('#autoAppendRowsOnDemand').igGrid({
+            dataSource: 'http://igniteui.com/api/tweets',
+            responseDataKey: 'Records',
+            autoGenerateColumns: false,
+            enableUTCDates: true,
+            columns: [
+                {
+                    unbound: true,
+                    key: 'Tweets',
+                    headerText: 'Infragistics Tweets',
+                    template: '<div style=\'float:left\'><img src=\'../../images/ig_twitter_logo.png\' ></img></div><div class=\'tweet\'><p style=\'height:20px\'><span class=\'tweet-user\'>{{>User.Name}}</span><span class=\'tweet-screen-name\'>@{{>ScreenName}}</span><span class=\'tweet-date\'>{{>#view.hlp(\'formatDate\')(CreatedAt)}}</span></p><p class=\'tweet-text\'>{{>Text}}</p></div>'
+                }
+            ],
+            features: [
+                {
+                    recordCountKey: 'TotalRecordsCount',
+                    chunkIndexUrlKey: 'page',
+                    chunkSizeUrlKey: 'pageSize',
+                    name: 'AppendRowsOnDemand',
+                    loadTrigger: 'auto',
+                    type: 'remote'
+                }
+            ],
+            width: '100%',
+            height: '300px',
+            templatingEngine: 'jsrender'
+        });
+
+        $('#buttonAppendRowsOnDemand').igGrid({
+            dataSource: 'http://igniteui.com/api/tweets',
+            responseDataKey: 'Records',
+            autoGenerateColumns: false,
+            enableUTCDates: true,
+            columns: [
+                {
+                    unbound: true,
+                    key: 'Tweets',
+                    headerText: 'Infragistics Tweets',
+                    template: '<div style=\'float:left\'><img src=\'../../images/ig_twitter_logo.png\' ></img></div><div class=\'tweet\'><p style=\'height:20px\'><span class=\'tweet-user\'>{{>User.Name}}</span><span class=\'tweet-screen-name\'>@{{>ScreenName}}</span><span class=\'tweet-date\'>{{>#view.hlp(\'formatDate\')(CreatedAt)}}</span></p><p class=\'tweet-text\'>{{>Text}}</p></div>'
+                }
+            ],
+            features: [
+                {
+                    recordCountKey: 'TotalRecordsCount',
+                    chunkIndexUrlKey: 'page',
+                    chunkSizeUrlKey: 'pageSize',
+                    name: 'AppendRowsOnDemand',
+                    loadTrigger: 'button',
+                    type: 'remote'
+                }
+            ],
+            width: '100%',
+            height: '300px',
+            templatingEngine: 'jsrender'
+        });
+    });
+</script>
+
+</body>
+</html>
