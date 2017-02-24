@@ -34,7 +34,7 @@ module.exports = function (options) {
 	};
 
 	var processStream = function (file, encoding, next) {
-		var contents, stream, $;
+		var contents, stream, $, jsStart;
 
 		contents = file.contents.toString(encoding);
 		stream = this;
@@ -43,7 +43,12 @@ module.exports = function (options) {
 		$ = file.cheerio = file.cheerio || cheerio.load(contents, { decodeEntities: false });
 
 		if (file.lang == "ja") {
-			$("head").append("<script src=\"%%ignite-ui%%/js/i18n/infragistics-ja.js\"></script>");
+			// find the first script file /js/infragistics.(core|loader)
+			jsStart = $("script[src*='%%ignite-ui%%/js/infragistics.']");
+			if (!jsStart.length) {
+				throw new Error("Couldn't find core or loader script.");
+			}
+			jsStart.eq(0).before("<script src=\"%%ignite-ui%%/js/i18n/infragistics-ja.js\"></script>");
 			$("head").append("<script src=\"%%ignite-ui%%/js/modules/i18n/regional/infragistics.ui.regional-ja.js\"></script>");
 		}
 
