@@ -9,7 +9,7 @@ script:
 - rm -rf dist/${TRAVIS_BRANCH}
 
 # build
-- gulp build-samples --version ${TRAVIS_BRANCH}
+- gulp build-samples --version ${TRAVIS_BRANCH} --ignite-ui ${IGNITE_ROOT}
 
 # move to dist, set git credentials
 - cd dist
