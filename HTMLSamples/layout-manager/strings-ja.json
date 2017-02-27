@@ -1,8 +1,10 @@
 {
+  "center_area": "中央テキスト",
   "center_area_caps": "中央領域",
   "footer_area": "フッター テキスト",
   "header_area": "ヘッダー テキスト",
   "left_area": "左領域",
   "right_area": "右領域",
-  "Title_angular": "AngularJS との連携"
+  "Title_angular": "AngularJS との連携",
+  "Title_border-layout": "境界線のレイアウト - JavaScript の初期化"
 }
