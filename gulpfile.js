@@ -10,6 +10,7 @@ var dist = "./dist",
 	copySrc = [
 		"./css/**/*",
 		"./js/**/*",
+		"./images/**/*",
 		"./data-files/**/*",
 		"./data-files-ja/**/*"
 	],
