@@ -58,13 +58,13 @@
                     });
 
                     $("#exportButton").on("click", function () {
-						$.ig.GridExcelExporter.exportGrid(
-							$('#grid'),
-							{ 	
-								fileName: 'igGrid',
-								worksheetName: 'Sheet1',
-							}
-						);
+                        $.ig.GridExcelExporter.exportGrid(
+                            $('#grid'),
+                            { 	
+                                fileName: 'igGrid',
+                                worksheetName: 'Sheet1',
+                            }
+                        );
                     });
                 });
             });
@@ -72,6 +72,6 @@
     </head>
     <body>
         <table id="grid"></table><br>
-		<input type="button" id="exportButton" value="$$(Export_Excel_Button)"></input>
+        <input type="button" id="exportButton" value="$$(Export_Excel_Button)"></input>
     </body>
 </html>

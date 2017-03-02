@@ -7,29 +7,28 @@
         .right {
             float: right;
         }
-
         #exportButton {
             float: left;
         }
-		.exporting-overlay {
-			position: absolute;
-			background-color: rgba(181, 181, 181, 0.9);
-			top: 0;
-			left: 0;
-			z-index: 100000;
-			text-align: center;
-			vertical-align: top;
-		}
-		.exporting-overlay:after {
-			content: "";
-			display: inline-block;
-			vertical-align: middle;
-			height: 100%;
-		}
-		.exporting-text {
-			font-size: 46px;
-			font-weight: bold;
-		}
+        .exporting-overlay {
+            position: absolute;
+            background-color: rgba(181, 181, 181, 0.9);
+            top: 0;
+            left: 0;
+            z-index: 100000;
+            text-align: center;
+            vertical-align: top;
+        }
+        .exporting-overlay:after {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+        .exporting-text {
+            font-size: 46px;
+            font-weight: bold;
+        }
     </style>
     <!--Required scripts-->
     <script src="%%modernizr%%"></script>
@@ -78,13 +77,13 @@
                 dataSource: data,
                 width: "100%",
                 features: [
-					{
-						name: "Filtering"
-					},
-					{
-						name: "Sorting",
-					}
-				]
+                    {
+                        name: "Filtering"
+                    },
+                    {
+                        name: "Sorting",
+                    }
+                ]
             });
 		
             $("#exportButton").on("click", function () {
@@ -101,26 +100,26 @@
                         hideOverlay(exportingOverlay);
                     },
                     cellExported: function (e, args) {
-					    if (args.xlRow.index() == 0) {
+                        if (args.xlRow.index() == 0) {
                             return;
                         }
                         if (args.columnKey == "Quantity" && args.cellValue > 15) {
                             args.xlRow.getCellFormat(args.columnIndex).font().bold(1);
-							args.xlRow.getCellFormat(args.columnIndex).fill($.ig.excel.CellFill.createLinearGradientFill(45, '#FF0000', '#00FFFF'));
+                            args.xlRow.getCellFormat(args.columnIndex).fill($.ig.excel.CellFill.createLinearGradientFill(45, '#FF0000', '#00FFFF'));
                         }
-						if (args.columnKey == 'VendorWebsite') {
+                        if (args.columnKey == 'VendorWebsite') {
                             var xlRow = args.xlRow;
                             xlRow.cells(args.columnIndex).applyFormula('=HYPERLINK("' + args.cellValue + '")');
                         }
                     },
-					exportEnding: function (e, args) {
+                    exportEnding: function (e, args) {
                         args.worksheet.columns().item(5).cellFormat().formatString("dd/MMM/YYYY");
                     },
                 });
             });
         });
 		
-		function showOverlay(grid, exportingOverlay) {
+        function showOverlay(grid, exportingOverlay) {
             var $gridContainer = $('#' + grid.attr('id') + '_container');
 
             exportingOverlay.css({
