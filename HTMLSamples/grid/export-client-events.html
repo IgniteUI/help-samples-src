@@ -67,12 +67,12 @@
             $("#grid").igGrid({
                 autoGenerateColumns: false,
                 columns: [
-                    { headerText: "Product Name", key: "Name", dataType: "string", width: "250px" },
-                    { headerText: "Product Number", key: "ProductNumber", dataType: "number", width: "200px" },
-                    { headerText: "In Stock", key: "InStock", dataType: "bool", width: "150px" },
-                    { headerText: "Quantity", key: "Quantity", dataType: "number", width: "150px" },
-                    { headerText: "Vendor website", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' },
-					{ headerText: "Delivery Date", key: "DeliveryDate", dataType: "date", width: "200px" },
+                    { headerText: "$$(json_productName)", key: "Name", dataType: "string", width: "250px" },
+                    { headerText: "$$(ProductNumber)", key: "ProductNumber", dataType: "number", width: "200px" },
+                    { headerText: "$$(InStock)", key: "InStock", dataType: "bool", width: "150px" },
+                    { headerText: "$$(Quantity)", key: "Quantity", dataType: "number", width: "150px" },
+                    { headerText: "$$(Vendorwebsite)", key: "VendorWebsite", width: "220px", template: '<a href="${VendorWebsite}">${VendorWebsite}</a>' },
+					{ headerText: "$$(DeliveryDate)", key: "DeliveryDate", dataType: "date", width: "200px" },
                 ],
                 dataSource: data,
                 width: "100%",
