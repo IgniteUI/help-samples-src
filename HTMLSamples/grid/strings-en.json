@@ -35,6 +35,7 @@
   "cran_juice": "Cranberry Juice",
   "date_format": "ddd, MMM-d-yy HH:mm",
   "default_row_selectors": "Default Row Selectors",
+  "DeliveryDate": "Delivery Date",
   "Description": "Description",
   "dvd_player": "DVD Player",
   "EditingAPIEvents_editMode": "Edit mode",
