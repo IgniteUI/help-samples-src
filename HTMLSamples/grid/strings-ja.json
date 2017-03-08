@@ -35,6 +35,7 @@
   "cran_juice": "クランベリー ジュース",
   "date_format": "yyyy年MM月dd日(ddd) HH時mm分",
   "default_row_selectors": "デフォルトの行セレクター",
+  "DeliveryDate": "出荷日付",
   "Description": "説明",
   "dvd_player": "DVD プレーヤー",
   "EditingAPIEvents_editMode": "編集モード",
