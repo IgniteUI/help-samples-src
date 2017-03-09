@@ -211,7 +211,7 @@
   "StartDataFeed": "データ フィードの開始",
   "stochRSIIndicator": "ストキャスティクス RSI",
   "StopDataFeed": "データ フィードの中止",
-  "Thickness": "ブラシの幅",
+  "Thickness": "太さ",
   "Title_angular": "AngularJS との連携",
   "Title_bind-data-chart-with-ko": "KnockoutJS を使用してデータ チャートをバインド",
   "Title_binding-high-volume-data": "大量のデータのバインド",
