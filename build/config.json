@@ -22,6 +22,7 @@
         "%%bootstrap-css%%": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css",
         "%%jsrender%%": "https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.83/jsrender.min.js",
         "%%knockout%%": "https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.3.0.js",
-        "%%knockout.mapping%%": "https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"
+        "%%knockout.mapping%%": "https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js",
+		"%%historyjs%%": "https://cdnjs.cloudflare.com/ajax/libs/history.js/1.8/bundled/html5/jquery.history.min.js"
     }
 }
