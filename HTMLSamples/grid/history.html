@@ -114,9 +114,6 @@
                         	type: "local",
                         	pageSize: 10,
                         	showPageSizeDropDown: false,
-                        	pageIndexChanging: function (e, args) {
-                        		addUndoState("page", null, false, args.currentPageIndex + 1, args.newPageIndex + 1);
-                        	},
                         	pageIndexChanged: function (e, args) {
                         		var pageIndex = args.pageIndex + 1,
                                     state = { key: "page", value: pageIndex };
@@ -200,10 +197,6 @@
     				var currState, undoState, state, prevState, stateOccurances;
     				// isBackForward = (window.History.storedStates.length - historyLength) === 1;
 
-    				if ($("#sample-title")[0] !== undefined && $("#sample-title")[0].textContent !== undefined && $("#sample-title")[0].textContent.toLowerCase().indexOf("history.js") == -1) {
-    					// This check is not related to history.js integaration. It's done to integrate the sample with the Samples Browser.
-    					return;
-    				}
     				// historyLength = window.History.storedStates.length;
     				if (manualStateChange === true) { // Fired only when called externally from browser buttons
     					currState = window.History.getState();
@@ -219,7 +212,6 @@
     					// Load/Unload previous state
     					if (undoState) {
     						switch (undoState.key) {
-    							case "page": loadPagingState(undoState.key, undoState.value); break;
     							case "sort": loadSortingState(undoState.key, undoState.value, undoState.undo); break;
     							case "filter": loadFilteringState(undoState.key, undoState.value, undoState.undo); break;
     							case "resize": loadResizingState(undoState.key, undoState.value); break;
