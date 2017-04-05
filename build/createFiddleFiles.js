@@ -67,11 +67,14 @@ module.exports = function(options) {
 		var contents, stream, $,
 		basePath = path.dirname(file.path),
 		relativePath = basePath.split("HTMLSamples").pop().replace(/\\/g, "/"),
+		originalPath = "HTMLSamples" + file.history[0].split("HTMLSamples").pop().replace(/\\/g, "/"),
 		htmlFile, jsFile, cssFile,
 		html = [], js = "", css = "",
 		resultStr = file.lang === "ja" ? options.strings.resultJA : options.strings.resultEN,
 		embed = {
-		   "embed": [{
+			//use original file path for source link
+			"srcUrlPattern" : path.posix.join("/${owner}/${repo}-src/blob/", options.version, originalPath),
+			"embed": [{
 				"label": "JS",
 				"path": path.posix.join(options.version, relativePath, "fiddle/demo.js") 
 			},{
