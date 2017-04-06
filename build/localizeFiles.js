@@ -32,6 +32,8 @@ module.exports = function(options) {
 			contentsJA = contentsJA.replace(token, jaStrings[key]);
 		}
 		
+		// save original path, because hystory stack won't be available for the newly created JA file:
+		file.originalPath = file.history[0];
 		// change out path, HTMLSamples must remain in path to keep relative correct for dest
 		file.path = path.join(basePath.replace("HTMLSamples", "HTMLSamples" + path.sep + "EN"), fileName, "index.html");
 		file.contents = new Buffer(contentsEN, encoding);
@@ -44,6 +46,7 @@ module.exports = function(options) {
 			contents: new Buffer(contentsJA)
 		});
 		jaFile.lang = "ja";
+		jaFile.originalPath = file.originalPath;
 
 		stream.push(file);
 		stream.push(jaFile);

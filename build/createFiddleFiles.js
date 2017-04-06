@@ -67,7 +67,7 @@ module.exports = function(options) {
 		var contents, stream, $,
 		basePath = path.dirname(file.path),
 		relativePath = basePath.split("HTMLSamples").pop().replace(/\\/g, "/"),
-		originalPath = "HTMLSamples" + file.history[0].split("HTMLSamples").pop().replace(/\\/g, "/"),
+		originalPath = "HTMLSamples" + file.originalPath.split("HTMLSamples").pop().replace(/\\/g, "/"),
 		htmlFile, jsFile, cssFile,
 		html = [], js = "", css = "",
 		resultStr = file.lang === "ja" ? options.strings.resultJA : options.strings.resultEN,
