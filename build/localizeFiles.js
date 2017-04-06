@@ -9,7 +9,7 @@ var path = require("path"),
 module.exports = function(options) {
 
 	var processStream = function(file, encoding, next){
-		var contentsEN, contentsJA, $, jaFile, token,
+		var contentsEN, contentsJA, jaFile, token,
 			basePath = path.dirname(file.path),
 			fileName = path.basename(file.path, path.extname(file.path)),
 			enStrings, jaStrings,

@@ -34,7 +34,7 @@ module.exports = function (options) {
 	};
 
 	var processStream = function (file, encoding, next) {
-		var contents, stream, $, jsStart;
+		var contents, stream, $, jsStart, $head;
 
 		contents = file.contents.toString(encoding);
 		stream = this;
@@ -42,6 +42,8 @@ module.exports = function (options) {
 		// https://github.com/cheeriojs/cheerio#loading
 		$ = file.cheerio = file.cheerio || cheerio.load(contents, { decodeEntities: false });
 
+		//set file language
+		$("html").attr("lang", file.lang);
 		if (file.lang == "ja") {
 			// find the first script file /js/infragistics.(core|loader)
 			jsStart = $("script[src*='%%ignite-ui%%/js/infragistics.']");
@@ -49,7 +51,13 @@ module.exports = function (options) {
 				throw new Error("Couldn't find core or loader script.");
 			}
 			jsStart.eq(0).before("<script src=\"%%ignite-ui%%/js/i18n/infragistics-ja.js\"></script>");
-			$("head").append("<script src=\"%%ignite-ui%%/js/modules/i18n/regional/infragistics.ui.regional-ja.js\"></script>");
+			$head = $("head");
+			$head.append("<script src=\"%%ignite-ui%%/js/modules/i18n/regional/infragistics.ui.regional-ja.js\"></script>");
+
+			// ensure charset meta:
+			if (!$head.find("meta[charset]").length) {
+				$("<meta>", { charset: "utf-8"}).prependTo($head).attr("charset", "utf-8");
+			}
 		}
 
 		// script tags
