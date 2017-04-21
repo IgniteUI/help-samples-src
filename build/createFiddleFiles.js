@@ -160,6 +160,9 @@ module.exports = function(options) {
 			});
 		}
 
+		// Settings (widget options, undefined won't get encoded)
+		embed.height = $("body").attr("data-height");
+
 		stream.push(htmlFile);
 		stream.push(jsFile);
 		stream.push(new File({
