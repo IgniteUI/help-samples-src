@@ -1,16 +1,15 @@
 {
   "name": "help-samples-src",
   "version": "0.0.1",
-  "description": "",
-  "devDependencies": {
-    "cheerio": "^0.22.0",
-    "gulp": "^3.9.1",
-    "gulp-util": "^3.0.8",
-    "through2": "^2.0.3"
-  },
+  "description": "help samples",
+  "license": "MIT",
+  "homepage": "https://github.com/IgniteUI/help-samples-src#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IgniteUI/help-samples-src.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IgniteUI/help-samples-src/issues"
   },
   "keywords": [
     "Ignite",
@@ -19,9 +18,13 @@
     "help",
     "docs"
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/IgniteUI/help-samples-src/issues"
+  "devDependencies": {
+    "cheerio": "^0.22.0",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.8",
+    "through2": "^2.0.3"
   },
-  "homepage": "https://github.com/IgniteUI/help-samples-src#readme"
+  "scripts": {
+    "build": "gulp build-samples"
+  }
 }
