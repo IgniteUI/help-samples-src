@@ -91,8 +91,8 @@
         });
 
         $('#autoAppendRowsOnDemand').igGrid({
-            dataSource: 'http://igniteui.com/api/tweets',
-            responseDataKey: 'Records',
+            dataSource: 'https://www.igniteui.com/api/tweets?callback=?',
+            responseDataKey: 'd.results.Records',
             autoGenerateColumns: false,
             enableUTCDates: true,
             columns: [
@@ -105,7 +105,7 @@
             ],
             features: [
                 {
-                    recordCountKey: 'TotalRecordsCount',
+                    recordCountKey: 'd.results.TotalRecordsCount',
                     chunkIndexUrlKey: 'page',
                     chunkSizeUrlKey: 'pageSize',
                     name: 'AppendRowsOnDemand',
@@ -119,8 +119,8 @@
         });
 
         $('#buttonAppendRowsOnDemand').igGrid({
-            dataSource: 'http://igniteui.com/api/tweets',
-            responseDataKey: 'Records',
+            dataSource: 'https://www.igniteui.com/api/tweets?callback=?',
+            responseDataKey: 'd.results.Records',
             autoGenerateColumns: false,
             enableUTCDates: true,
             columns: [
@@ -133,7 +133,7 @@
             ],
             features: [
                 {
-                    recordCountKey: 'TotalRecordsCount',
+                    recordCountKey: 'd.results.TotalRecordsCount',
                     chunkIndexUrlKey: 'page',
                     chunkSizeUrlKey: 'pageSize',
                     name: 'AppendRowsOnDemand',

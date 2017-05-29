@@ -67,11 +67,14 @@ module.exports = function(options) {
 		var contents, stream, $,
 		basePath = path.dirname(file.path),
 		relativePath = basePath.split("HTMLSamples").pop().replace(/\\/g, "/"),
+		originalPath = "HTMLSamples" + file.originalPath.split("HTMLSamples").pop().replace(/\\/g, "/"),
 		htmlFile, jsFile, cssFile,
 		html = [], js = "", css = "",
 		resultStr = file.lang === "ja" ? options.strings.resultJA : options.strings.resultEN,
 		embed = {
-		   "embed": [{
+			//use original file path for source link
+			"srcUrlPattern" : path.posix.join("/${owner}/${repo}-src/blob/", options.version, originalPath),
+			"embed": [{
 				"label": "JS",
 				"path": path.posix.join(options.version, relativePath, "fiddle/demo.js") 
 			},{
@@ -156,6 +159,9 @@ module.exports = function(options) {
 				"path": path.posix.join(options.version, relativePath, "fiddle/demo.css")
 			});
 		}
+
+		// Settings (widget options, undefined won't get encoded)
+		embed.height = $("body").attr("data-height");
 
 		stream.push(htmlFile);
 		stream.push(jsFile);

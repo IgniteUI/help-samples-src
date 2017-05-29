@@ -6,9 +6,12 @@ $.ig = $.ig || {};
 
 $.extend($.ig, {
     apiViewer: function () {
+        var lang = $("html").attr("lang"),
+            strings = this.locale[ lang ] || this.locale.en;
+
         $(".api-explorer,.api-viewer").addClass("api-ui").wrap("<div class='api-container' />");
-        $(".api-viewer").before("<div class='api-viewer-header api-ui'>$$(API_Viewer)</div>");
-        $(".api-explorer").before("<div class='api-viewer-header api-ui'>$$(API_Explorer)</div>");
+        $(".api-viewer").before("<div class='api-viewer-header api-ui'>" + strings.API_Viewer + "</div>");
+        $(".api-explorer").before("<div class='api-viewer-header api-ui'>" + strings.API_Explorer + "</div>");
         $(".api-explorer,.api-viewer").show();
     }
 });
@@ -23,7 +26,7 @@ $.ig.apiViewer.prototype = {
             this._prevCount = 1;
             $(_$select).prepend("<div id='firstRow' class='api-row'>" + content + "</div>");
             /* OK 7/1/2013 145828 - This causes an exception in the ui-min when it is in an IFrame (jsFiddle) */
-            try{
+            try {
                 $("#firstRow").show("blind", 200, function () {
                     $(this).animate({ backgroundColor: "#FFFFFF" }, 500, function () {
                         $(this).removeAttr("id");
@@ -43,5 +46,15 @@ $.ig.apiViewer.prototype = {
         }
 
         this._prevContent = content;
+    },
+    locale: {
+        en: {
+            "API_Viewer": "API Viewer",
+            "API_Explorer": "API Explorer"
+        },
+        ja: {
+            "API_Viewer": "API ビューアー",
+            "API_Explorer": "API エクスプローラー"
+        }
     }
 }
