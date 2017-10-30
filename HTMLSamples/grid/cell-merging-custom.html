@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$$(Title_cell-merging-custom)</title>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="%%ignite-ui%%/css/themes/infragistics/infragistics.theme.css" rel="stylesheet">
+    <link href="%%ignite-ui%%/css/structure/infragistics.css" rel="stylesheet">   
+
+    <script src="%%modernizr%%"></script>
+    <script src="%%jquery%%"></script>
+    <script src="%%jquery-ui%%"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
+    <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
+	<style>
+		td {
+			border-left: 1px solid #bcbcbc !important;
+		}
+	</style>
+    
+</head>
+<body>
+        
+    <!-- Target element for the igGrid -->
+    <table id="grid">
+    </table>    
+
+    <!--Sample JSON Data-->
+    <script src="../../../../data-files/projects-data.js"></script>
+
+    <script>
+        $(function () {
+            $("#grid").igGrid({
+                width: "800px",
+                dataSource: projects,
+                dataSourceType: "json",
+                primaryKey: "ActionID",
+                autoGenerateColumns: false,
+                columns: [
+                    { headerText: "$$(Projects_Data_ActionID)", key: "ActionID", dataType: "number", hidden: true},
+                    { headerText: "$$(Projects_Data_ProjectName)", key: "ProjectName", dataType: "object", width: "30%"},
+                    { headerText: "$$(Projects_Data_Type)", key: "Type", dataType: "string", width: "15%"},
+                    { headerText: "$$(Projects_Data_Priority)", key: "Priority", dataType: "string", width: "15%"},
+                    { headerText: "$$(Projects_Data_Status)", key: "Status", dataType: "string", width: "15%"},
+                    { headerText: "$$(Projects_Data_Action)", key: "ActionName", dataType: "string", width: "40%"},
+                    { headerText: "$$(Projects_Data_Created)", key: "Created", dataType: "date", width: "15%"},
+                ],
+				autoCommit: true,
+				enableHoverStyles : false,
+                features: [
+                    {
+                        name: "CellMerging",
+                        mergeOn: "always",
+						mergeType: "physical",
+						mergeStrategy: function (prevRec, curRec, columnKey) {
+							if ($.type(prevRec[ columnKey ]) === "string" &&
+								$.type(curRec[ columnKey ]) === "string" &&
+								 prevRec["ProjectName"] === curRec["ProjectName"]) {
+								return prevRec[ columnKey ].toLowerCase() === curRec[ columnKey ].toLowerCase();
+							} else if ( prevRec["ProjectName"] === curRec["ProjectName"]) {
+								return prevRec[ columnKey ] === curRec[ columnKey ];
+							}
+							
+							return false;
+						}
+                    },
+                    {
+                        name: "Updating",
+						editMode: "cell",
+						enableAddRow: false
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

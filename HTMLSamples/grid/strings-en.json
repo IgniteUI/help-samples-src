@@ -238,5 +238,13 @@
   "table_lbl_salary": "Salary",
   "table_lbl_team": "Team",
   "table_lbl_yellow": "Yellow C.",
-  "Title_history": "History.js Integration"
+  "Title_history": "History.js Integration",
+  "Title_cell-merging-custom": "Cell Merging Advanced Customization",
+  "Projects_Data_ActionID": "Action ID ",
+  "Projects_Data_ProjectName": "Project Name",
+  "Projects_Data_Type": "Type",
+  "Projects_Data_Priority": "Priority",
+  "Projects_Data_Status": "Status",
+  "Projects_Data_Action": "Action",
+  "Projects_Data_Created": "Created on"
 }
