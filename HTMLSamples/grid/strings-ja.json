@@ -239,12 +239,12 @@
   "table_lbl_team": "チーム",
   "table_lbl_yellow": "イエローカード",
   "Title_history": "History.js の結合",
-  "Title_cell-merging-custom": "Cell Merging Advanced Customization",
-  "Projects_Data_ActionID": "Action ID ",
-  "Projects_Data_ProjectName": "Project Name",
-  "Projects_Data_Type": "Type",
-  "Projects_Data_Priority": "Priority",
-  "Projects_Data_Status": "Status",
-  "Projects_Data_Action": "Action",
-  "Projects_Data_Created": "Created on"
+  "Title_cell-merging-custom": "セル結合の高度なカスタマイズ",
+  "Projects_Data_ActionID": "操作 ID ",
+  "Projects_Data_ProjectName": "プロジェクト名",
+  "Projects_Data_Type": "タイプ",
+  "Projects_Data_Priority": "優先",
+  "Projects_Data_Status": "状態",
+  "Projects_Data_Action": "操作",
+  "Projects_Data_Created": "作成日付"
 }
