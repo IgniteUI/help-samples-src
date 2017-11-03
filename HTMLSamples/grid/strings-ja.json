@@ -238,5 +238,13 @@
   "table_lbl_salary": "給与",
   "table_lbl_team": "チーム",
   "table_lbl_yellow": "イエローカード",
-  "Title_history": "History.js の結合"
+  "Title_history": "History.js の結合",
+  "Title_cell-merging-custom": "セル結合の高度なカスタマイズ",
+  "Projects_Data_ActionID": "操作 ID ",
+  "Projects_Data_ProjectName": "プロジェクト名",
+  "Projects_Data_Type": "タイプ",
+  "Projects_Data_Priority": "優先",
+  "Projects_Data_Status": "状態",
+  "Projects_Data_Action": "操作",
+  "Projects_Data_Created": "作成日付"
 }
