@@ -13,7 +13,7 @@
         "text/x-jsrender"
     ],
     "patterns": {
-        "%%ignite-ui%%": "https://secure-cdn-na.infragistics.com/igniteui/latest",
+        "%%ignite-ui%%": "https://cdn-na.infragistics.com/igniteui/latest",
         "%%igniteui-angularjs%%": "https://unpkg.com/igniteui-angularjs@1.2.1/igniteui-angularjs.min.js",
         "%%jquery%%": "https://code.jquery.com/jquery-1.9.1.min.js",
         "%%jquery-ui%%": "https://code.jquery.com/ui/1.10.3/jquery-ui.min.js",
