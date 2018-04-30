@@ -17,12 +17,12 @@
 </head>
 <body>
     <h3 id="gridAdvancedFilteringLabel">$$(GridAdvancedFiltering_label)</h3>
-     <!-- Target element for the Simple Filtering igGrid -->
+    <!-- Target element for the Simple Filtering igGrid -->
     <table id="gridAdvancedFiltering"></table>
-     <br>
-   
-     <!--Sample JSON Data-->
-   <script src="../../../../data-files/employee-data-allDatatypes.js"></script>
+    <br>
+
+    <!--Sample JSON Data-->
+    <script src="../../../../data-files/employee-data-allDatatypes.js"></script>
 
     <script>
         $(function () {
@@ -39,7 +39,8 @@
                     { headerText: "$$(table_lbl_register_date)", key: "RegistererDate", dataType: "date" },
                     { headerText: "$$(table_lbl_country)", key: "Country", dataType: "string" },
                     { headerText: "$$(table_lbl_age)", key: "Age", dataType: "number" },
-                    { headerText: "$$(table_lbl_isActive)", key: "IsActive", dataType: "bool" }
+                    { headerText: "$$(table_lbl_isActive)", key: "IsActive", dataType: "bool" },
+                    { headerText: "$$(table_lbl_register_time)", key: "RegistererTime", dataType: "time" }
                 ],
                 dataSource: employees,
                 renderCheckboxes: true,
