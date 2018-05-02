@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>$$(Title_summaries)</title>
 
@@ -15,6 +16,7 @@
     <script src="%%ignite-ui%%/js/infragistics.core.js"></script>
     <script src="%%ignite-ui%%/js/infragistics.lob.js"></script>
 </head>
+
 <body>
     <table id="grid"></table>
     <script src="../../../../data-files/adventureworks.min.js"></script>
@@ -28,7 +30,8 @@
                     { headerText: "$$(AdventureWorks_Products_Name)", key: "Name", dataType: "string", width: "40%" },
                     { headerText: "$$(AdventureWorks_Products_ProductNumber)", key: "ProductNumber", dataType: "string", width: "20%" },
                     { headerText: "$$(AdventureWorks_Products_ListPrice)", key: "ListPrice", dataType: "number", width: "20%" },
-                    { headerText: "$$(AdventureWorks_Products_StandardCost)", key: "StandardCost", dataType: "number", width: "20%" }
+                    { headerText: "$$(AdventureWorks_Products_StandardCost)", key: "StandardCost", dataType: "number", width: "20%" },
+                    { headerText: "$$(AdventureWorks_Products_Time)", key: "ModifiedDate", dataType: "time", width: "20%" },
                 ],
                 dataSource: adventureWorks,
                 features: [
@@ -40,4 +43,5 @@
         });
     </script>
 </body>
+
 </html>
