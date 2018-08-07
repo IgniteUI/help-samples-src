@@ -257,6 +257,7 @@
   "XMajorIntervalThickness": "XMajorIntervalThickness: 2",
   "XMajorIntervalThicknessSldr": "XMajorIntervalThickness: ",
   "XMinorIntervalThickness": "XMinorIntervalThickness: 1",
+  "XMinorIntervalThicknessSldr": "XMinorIntervalThickness: ",
   "XMinorIntervalValue": "XMinorIntervalValue: 2.5",
   "XMinorIntervalValueSldr": "XMinorIntervalValue: ",
   "YAxis_title_us_fao": "合計農業生産 (USD 10 億単位)",
