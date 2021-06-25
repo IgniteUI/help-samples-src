@@ -2,7 +2,7 @@
 
 ## Running the samples locally
 
-1. Install all dependencies:
+1. Install all dependencies: 
 
     ```
     npm install
