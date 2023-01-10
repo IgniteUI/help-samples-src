@@ -3,7 +3,7 @@ node_js:
 - '4'
 script:
 # clone gh-pages
-- git clone -b master https://${GH_TOKEN}@${TARGET_REPO} dist
+- git clone -b master https://igniteui-deploy:${GH_TOKEN}@${TARGET_REPO} dist
 
 # wipe content in target folder
 - rm -rf dist/${TRAVIS_BRANCH}
@@ -19,7 +19,7 @@ script:
 # commit
 - git add --all
 - if [ -n "$(git status --porcelain)" ]; then git commit -m "Samples for ${TRAVIS_BRANCH} ${TRAVIS_TAG}"; fi
-- git push -fq origin master --tags
+- git push -fq https://igniteui-deploy:${GH_TOKEN}@${TARGET_REPO} master
 
 # whitelist match only xx.x version branches
 branches:
