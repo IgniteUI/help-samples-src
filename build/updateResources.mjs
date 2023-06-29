@@ -1,14 +1,11 @@
-var path = require("path"),
-	fs = require("fs"),
-	cheerio = require("cheerio"),
-	through = require("through2"),
-	gutil = require("gulp-util"),
-	File = gutil.File;
+import cheerio from 'cheerio';
+import { existsSync } from "fs";
+import { obj } from "through2";
 
 /**
  * Replace resource strings (src, href) and igLoader sources. Adds Japanese locale script for JA files.
  */
-module.exports = function (options) {
+export default function (options) {
 
 	/**
 	 * Replaces %%resource%% links based on configuration. Swaps to Japanese data-file if available for localized files.
@@ -26,7 +23,7 @@ module.exports = function (options) {
 		if (lang === "ja" && src.indexOf("../data-files") !== -1) {
 			// check if respective japanese files is available:
 			dataFile = src.split("../data-files/").pop();
-			if (fs.existsSync("./data-files-ja/" + dataFile)) {
+			if (existsSync("./data-files-ja/" + dataFile)) {
 				src = src.replace("/data-files/", "/data-files-ja/");
 			}
 		}
@@ -85,11 +82,11 @@ module.exports = function (options) {
 		});
 
 
-		file.contents = new Buffer($.html(), encoding);
+		file.contents = Buffer.from($.html(), encoding);
 
 		stream.push(file);
 		next();
 	};
 
-	return through.obj(processStream);
+	return obj(processStream);
 };

@@ -1,0 +1,42 @@
+name: Build and deploy samples
+
+on:
+  push:
+    branches: [ "[0-9]+.[0-9]" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Checkout dist repo
+      uses: actions/checkout@v3
+      with:
+        repository: IgniteUI/help-samples
+        token: ${{ secrets.GH_PAT }}
+        path: dist
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: lts
+    
+    - name: Cleanup target version 
+      run: rm -rf dist/${{ github.ref_name }}
+
+    - name: Build
+      run: |
+        npm install
+        gulp build-samples --ignite-version ${{ github.ref_name }} --ignite-ui https://cdn-na.infragistics.com/igniteui/latest
+
+    - name: Commit and push to dist repo
+      run: |
+        cd dist
+        git config user.email "igniteui@infragistics.com"
+        git config user.name "igniteui-deploy"
+        git add --all
+        if [ -n "$(git status --porcelain)" ]; then git commit -m "Samples for ${{ github.ref_name }}"; fi
+        git push -fq

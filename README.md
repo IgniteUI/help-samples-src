@@ -12,7 +12,7 @@
 
 
     ```
-    npm run build -- --version 17.1 --ignite-ui http://localhost/ig_ui17.1
+    npm run build -- --ignite-version 17.1 --ignite-ui http://localhost/ig_ui17.1
     ```
 
 3. The built samples will be located under the ./dist folder.
