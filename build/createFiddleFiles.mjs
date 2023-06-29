@@ -1,12 +1,12 @@
-var path = require("path"),
-	cheerio = require("cheerio"),
-	through = require("through2"),
-	File = require('vinyl');
+import cheerio from 'cheerio';
+import { dirname, join, posix } from "path";
+import { obj } from "through2";
+import File from 'vinyl';
 /**
  * Extracts HTML, JS and optionally CSS into separate files in a fiddle folder
  * and generates an embed json config file
  */
-module.exports = function(options) {
+export default function(options) {
 
 	var replaceSrc = function ($) {
 		var attr = this.name === "script" ? "src" : "href",
@@ -64,7 +64,7 @@ module.exports = function(options) {
 
 	var processStream = function(file, encoding, next){
 		var contents, stream, $,
-		basePath = path.dirname(file.path),
+		basePath = dirname(file.path),
 		relativePath = basePath.split("HTMLSamples").pop().replace(/\\/g, "/"),
 		originalPath = "HTMLSamples" + file.originalPath.split("HTMLSamples").pop().replace(/\\/g, "/"),
 		htmlFile, jsFile, cssFile,
@@ -72,17 +72,17 @@ module.exports = function(options) {
 		resultStr = file.lang === "ja" ? options.strings.resultJA : options.strings.resultEN,
 		embed = {
 			//use original file path for source link
-			"srcUrlPattern" : path.posix.join("/${owner}/${repo}-src/blob/", options.version, originalPath),
+			"srcUrlPattern" : posix.join("/${owner}/${repo}-src/blob/", options.version, originalPath),
 			"embed": [{
 				"label": "JS",
-				"path": path.posix.join(options.version, relativePath, "fiddle/demo.js") 
+				"path": posix.join(options.version, relativePath, "fiddle/demo.js") 
 			},{
 				"label": "HTML",
-				"path": path.posix.join(options.version, relativePath, "fiddle/demo.html") 
+				"path": posix.join(options.version, relativePath, "fiddle/demo.html") 
 			}, {
 				"type": "htmlpage",
 				"label": resultStr,
-				"url": options.liveUrl + path.posix.join("/" + options.version, relativePath, "/index.html") 
+				"url": options.liveUrl + posix.join("/" + options.version, relativePath, "/index.html") 
 			}]
 		};
 		
@@ -118,7 +118,7 @@ module.exports = function(options) {
 
 		htmlFile = new File({
 			base: file.base,
-			path: path.join(basePath, "fiddle", "demo.html"),
+			path: join(basePath, "fiddle", "demo.html"),
 			contents: Buffer.from(html.join("\r\n"))
 		});
 
@@ -138,7 +138,7 @@ module.exports = function(options) {
 		}
 		jsFile = new File({
 			base: file.base,
-			path: path.join(basePath, "fiddle", "demo.js"),
+			path: join(basePath, "fiddle", "demo.js"),
 			contents: Buffer.from(js)
 		});
 
@@ -149,13 +149,13 @@ module.exports = function(options) {
 		if (css.length) {
 			cssFile = new File({
 				base: file.base,
-				path: path.join(basePath, "fiddle", "demo.css"),
+				path: join(basePath, "fiddle", "demo.css"),
 				contents: Buffer.from(unindentTrim(css))
 			});
 			stream.push(cssFile);
 			embed.embed.splice(2, 0, {
 				"label": "CSS",
-				"path": path.posix.join(options.version, relativePath, "fiddle/demo.css")
+				"path": posix.join(options.version, relativePath, "fiddle/demo.css")
 			});
 		}
 
@@ -166,7 +166,7 @@ module.exports = function(options) {
 		stream.push(jsFile);
 		stream.push(new File({
 			base: file.base,
-			path: path.join(basePath, ".gh-embed.json"),
+			path: join(basePath, ".gh-embed.json"),
 			contents: Buffer.from(JSON.stringify(embed, null, 4))
 		}));
 
@@ -174,5 +174,5 @@ module.exports = function(options) {
 		next();
 	};
 	
-	return through.obj(processStream);
+	return obj(processStream);
 };

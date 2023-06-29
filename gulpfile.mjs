@@ -1,20 +1,23 @@
-var gulp = require("gulp"),
-	localize = require("./build/localizeFiles.js"),
-	updateResources = require("./build/updateResources.js"),
-	createFiddleFiles = require("./build/createFiddleFiles.js");
+import gulp from "gulp";
+import minimist from "minimist";
+import { createRequire } from "module";
+import createFiddleFiles from "./build/createFiddleFiles.mjs";
+import localize from "./build/localizeFiles.mjs";
+import updateResources from "./build/updateResources.mjs";
 
-var argv = require('minimist')(process.argv.slice(2));
-var version = argv["ignite-version"]; //should be passed as --ignite-version ${BRANCH}
+const require = createRequire(import.meta.url);
+const argv = minimist(process.argv.slice(2));
+let version = argv["ignite-version"]; //should be passed as --ignite-version ${BRANCH}
 
-var dist = "./dist",
-	copySrc = [
-		"./css/**/*",
-		"./js/**/*",
-		"./images/**/*",
-		"./data-files/**/*",
-		"./data-files-ja/**/*"
-	],
-	config = require("./build/config.json");
+let dist = "./dist";
+const copySrc = [
+	"./css/**/*",
+	"./js/**/*",
+	"./images/**/*",
+	"./data-files/**/*",
+	"./data-files-ja/**/*"
+];
+const config = require("./build/config.json");
 
 	// Command line overrides:
 	if (argv["ignite-ui"]) {
