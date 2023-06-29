@@ -22,7 +22,7 @@
     "cheerio": "^0.22.0",
     "gulp": "^4.0.2",
     "minimist": "^1.2.8",
-    "through2": "^2.0.3",
+    "through2": "^4.0.2",
     "vinyl": "^3.0.0"
   },
   "scripts": {
