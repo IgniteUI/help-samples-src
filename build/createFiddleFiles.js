@@ -1,8 +1,7 @@
 var path = require("path"),
 	cheerio = require("cheerio"),
 	through = require("through2"),
-	gutil = require("gulp-util"),
-	File = gutil.File;
+	File = require('vinyl');
 /**
  * Extracts HTML, JS and optionally CSS into separate files in a fiddle folder
  * and generates an embed json config file
@@ -120,7 +119,7 @@ module.exports = function(options) {
 		htmlFile = new File({
 			base: file.base,
 			path: path.join(basePath, "fiddle", "demo.html"),
-			contents: new Buffer(html.join("\r\n"))
+			contents: Buffer.from(html.join("\r\n"))
 		});
 
 		// js
@@ -140,7 +139,7 @@ module.exports = function(options) {
 		jsFile = new File({
 			base: file.base,
 			path: path.join(basePath, "fiddle", "demo.js"),
-			contents: new Buffer(js)
+			contents: Buffer.from(js)
 		});
 
 		// css
@@ -151,7 +150,7 @@ module.exports = function(options) {
 			cssFile = new File({
 				base: file.base,
 				path: path.join(basePath, "fiddle", "demo.css"),
-				contents: new Buffer(unindentTrim(css))
+				contents: Buffer.from(unindentTrim(css))
 			});
 			stream.push(cssFile);
 			embed.embed.splice(2, 0, {
@@ -168,7 +167,7 @@ module.exports = function(options) {
 		stream.push(new File({
 			base: file.base,
 			path: path.join(basePath, ".gh-embed.json"),
-			contents: new Buffer(JSON.stringify(embed, null, 4))
+			contents: Buffer.from(JSON.stringify(embed, null, 4))
 		}));
 
 		stream.push(file);

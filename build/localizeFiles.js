@@ -1,7 +1,6 @@
 var path = require("path"),
 	through = require("through2"),
-	gutil = require("gulp-util"),
-	File = gutil.File;
+	File = require('vinyl');
 
 /**
  * Localize contents of file (resources, localization strings) and push both versions back to stream
@@ -36,14 +35,14 @@ module.exports = function(options) {
 		file.originalPath = file.history[0];
 		// change out path, HTMLSamples must remain in path to keep relative correct for dest
 		file.path = path.join(basePath.replace("HTMLSamples", "HTMLSamples" + path.sep + "EN"), fileName, "index.html");
-		file.contents = new Buffer(contentsEN, encoding);
+		file.contents = Buffer.from(contentsEN, encoding);
 		file.lang = "en";
 
 		// replace JA
 		jaFile = new File({
 			base: file.base,
 			path: path.join(basePath.replace("HTMLSamples", "HTMLSamples" + path.sep + "JA"), fileName, "index.html"),
-			contents: new Buffer(contentsJA)
+			contents: Buffer.from(contentsJA)
 		});
 		jaFile.lang = "ja";
 		jaFile.originalPath = file.originalPath;

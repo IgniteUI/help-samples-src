@@ -1,9 +1,6 @@
-var path = require("path"),
-	fs = require("fs"),
+var fs = require("fs"),
 	cheerio = require("cheerio"),
-	through = require("through2"),
-	gutil = require("gulp-util"),
-	File = gutil.File;
+	through = require("through2");
 
 /**
  * Replace resource strings (src, href) and igLoader sources. Adds Japanese locale script for JA files.
@@ -85,7 +82,7 @@ module.exports = function (options) {
 		});
 
 
-		file.contents = new Buffer($.html(), encoding);
+		file.contents = Buffer.from($.html(), encoding);
 
 		stream.push(file);
 		next();
