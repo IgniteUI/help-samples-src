@@ -22,7 +22,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: lts
+        node-version: lts/*
     
     - name: Cleanup target version 
       run: rm -rf dist/${{ github.ref_name }}
