@@ -4,7 +4,7 @@ var gulp = require("gulp"),
 	createFiddleFiles = require("./build/createFiddleFiles.js");
 
 var argv = require('minimist')(process.argv.slice(2));
-var version = argv.version; //should be passed as --version ${TRAVIS_BRANCH}
+var version = argv["ignite-version"]; //should be passed as --ignite-version ${BRANCH}
 
 var dist = "./dist",
 	copySrc = [
